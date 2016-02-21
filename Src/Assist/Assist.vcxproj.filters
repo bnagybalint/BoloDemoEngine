@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="Matrix3x3.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4x4.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MatrixNxN.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixNxN.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Array.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="MathCommon.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomXS.h">
+      <Filter>Random</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Random</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomMT.hpp">
+      <Filter>Random</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="SolutionBuildConfig.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Common.cpp" />
+    <ClCompile Include="Matrix3x3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix4x4.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="MathCommon.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomMT.cpp">
+      <Filter>Random</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomXS.cpp">
+      <Filter>Random</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Timing</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Math">
+      <UniqueIdentifier>{e2ee7716-18e0-48e0-a9f1-423ccd5d8f88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{984bd3a8-a74a-4721-83eb-02f05b04d392}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataStructures">
+      <UniqueIdentifier>{2c75242b-a35a-4d7e-a03f-b16cd33d2981}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Random">
+      <UniqueIdentifier>{504bcd74-2099-4bd3-8984-32192d93506a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Timing">
+      <UniqueIdentifier>{36ee3dbb-0006-46d3-a253-bf3eb6b4418c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

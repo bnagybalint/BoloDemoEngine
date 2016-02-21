@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Components">
+      <UniqueIdentifier>{f2d4e55c-adc7-479e-8d94-a1899b19013d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{b5639091-10c1-45da-a668-90cc3565253b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{7783bf95-9338-4256-8e4d-b919b19281af}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AudioAdsrEnvelope.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioBiquadFilter.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioOscillator.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioOutput.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioCommon.h" />
+    <ClInclude Include="AudioTrackReader.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioTrack.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioConverter.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AudioAdsrEnvelope.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioBiquadFilter.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioOscillator.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioOutput.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioTrackReader.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioTrack.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioConverter.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
