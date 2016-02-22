@@ -77,10 +77,12 @@ void RuntimeAssert(bool cond);
 #define DECLARE_SINGLETON_HEADER(ClassName) \
 	private: static ClassName* _msInstance; \
 	public:  static void createSingletonInstance(); \
+	public:  static void destroySingletonInstance(); \
 	public:  static ClassName* getInstance();
 
 #define DEFINE_SINGLETON_IMPL(ClassName) \
 	ClassName* ClassName::_msInstance = NULL; \
 	void ClassName::createSingletonInstance() { _msInstance = new ClassName(); } \
+	void ClassName::destroySingletonInstance() { delete _msInstance; _msInstance = NULL; } \
 	ClassName* ClassName::getInstance() { return _msInstance; }
 

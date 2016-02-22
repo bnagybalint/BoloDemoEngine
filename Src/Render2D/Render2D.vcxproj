@@ -15,45 +15,43 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Assist\Assist.vcxproj">
       <Project>{ffec2014-4b09-4b60-b14f-9ced1c295b59}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Audio\Audio.vcxproj">
-      <Project>{ec93d2b6-5cd7-4a65-91b0-57a4a3fcd52e}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Render2D\Render2D.vcxproj">
-      <Project>{229f4acc-11dd-4e2b-81c4-bbe6fa0032e8}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Render\Render.vcxproj">
-      <Project>{43f72261-d28d-4aa4-9ebf-7c4828699135}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\System\System.vcxproj">
-      <Project>{92a8d6bd-bc20-43ad-929d-ce560abb99ca}</Project>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Render2DCommon.h" />
+    <ClInclude Include="Render2DConverter.h" />
+    <ClInclude Include="Render2DManager.h" />
+    <ClInclude Include="Render2DRenderElement.h" />
+    <ClInclude Include="Render2DRenderTarget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Render2DConverter.cpp" />
+    <ClCompile Include="Render2DManager.cpp" />
+    <ClCompile Include="Render2DRenderElement.cpp" />
+    <ClCompile Include="Render2DRenderTarget.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C373DB16-9FE1-4912-8FA9-7A97F445B030}</ProjectGuid>
-    <RootNamespace>Test_AudioTest</RootNamespace>
+    <ProjectGuid>{229F4ACC-11DD-4E2B-81C4-BBE6FA0032E8}</ProjectGuid>
+    <RootNamespace>Render2D</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DemoRelease|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -73,25 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)\Lib\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Intermediate\$(Configuration)\$(ProjectName)\</IntDir>
-    <OutDir>$(SolutionDir)\Bin_Test\</OutDir>
-    <LinkIncremental>false</LinkIncremental>
-    <TargetName>$(ProjectName)_debug</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)\Lib\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Intermediate\$(Configuration)\$(ProjectName)\</IntDir>
-    <OutDir>$(SolutionDir)\Bin_Test\</OutDir>
-    <TargetName>$(ProjectName)_release</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DemoRelease|Win32'">
+    <OutDir>$(SolutionDir)\Lib\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Intermediate\$(Configuration)\$(ProjectName)\</IntDir>
-    <OutDir>$(SolutionDir)\Bin_Test\</OutDir>
-    <GenerateManifest>false</GenerateManifest>
-    <TargetName>$(ProjectName)_demo</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\Src\</AdditionalIncludeDirectories>
@@ -100,40 +93,42 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Assist.lib;Render.lib;Audio.lib;System.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
+    <Lib>
+      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
+      <AdditionalDependencies>d2d1.lib</AdditionalDependencies>
+    </Lib>
     <ProjectReference>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\Src\</AdditionalIncludeDirectories>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <PreprocessorDefinitions>BUILD_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Assist.lib;Render.lib;Render2D.lib;Audio.lib;System.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
+    <Lib>
+      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
+      <AdditionalDependencies>d2d1.lib</AdditionalDependencies>
+    </Lib>
     <ProjectReference>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DemoRelease|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>MinSpace</Optimization>
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
@@ -153,15 +148,13 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Assist.lib;Render.lib;Audio.lib;System.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <EntryPointSymbol>main</EntryPointSymbol>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <SubSystem>Windows</SubSystem>
     </Link>
+    <Lib>
+      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
+      <AdditionalDependencies>d2d1.lib</AdditionalDependencies>
+    </Lib>
     <ProjectReference>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

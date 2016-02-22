@@ -3,6 +3,7 @@
 #include "Assist/Common.h"
 #include "Assist/Color.h"
 #include "Assist/Timer.h"
+#include "Assist/Vector2.h"
 #include "Assist/MathCommon.h"
 
 #include "System/WindowManager.h"
@@ -15,6 +16,10 @@
 #include "Audio/AudioOutput.h"
 #include "Audio/AudioTrack.h"
 #include "Audio/AudioAdsrEnvelope.h"
+
+#include "Render2D/Render2DManager.h"	   
+#include "Render2D/Render2DRenderTarget.h"
+#include "Render2D/Render2DRenderElement.h"
 
 struct AudioEnv {
 	AudioOscillator*    osc;
@@ -31,7 +36,7 @@ namespace {
 
 AudioTrack* gTrack = NULL;
 
-void initScene()
+void initSceneAudio()
 {
 	// ----- INITIALIZE SCENE -----
 
@@ -101,33 +106,67 @@ void initScene()
 
 	gTrack = new AudioTrack();
 	gTrack->setAudioData(trackData, trackEnd);
+
+	AudioManager::getInstance()->prepareTrack(gTrack);
+	AudioManager::getInstance()->playTrack(gTrack);
+}
+
+class BdeAudioComponentRender : public Render2DRenderElement
+{
+public:
+	void render(Render2DRenderTarget* rt)
+	{
+		mPosition = Vector2(300.5, 300.5);
+		float w = 200.0f;
+		float h = 60.0f;
+		float lineWidth = 1.0f;
+		Vector2 v0 = mPosition - Vector2(w / 2.0f, h / 2.0f);
+		Vector2 v1 = mPosition + Vector2(w / 2.0f, h / 2.0f);
+		rt->setFillColor(Color(0.8, 0.8, 0.8, 1.0));
+		rt->drawRectangle(v0, v1, lineWidth);
+	}
+private:
+	Vector2 mPosition;
+};
+Render2DRenderTarget* renderTarget2D = NULL;
+Render2DRenderElement* renderElement = NULL;
+void initSceneD2D()
+{
+	renderTarget2D = new Render2DRenderTarget(WindowManager::getInstance()->getMainWindowHandle());
+
+	renderElement = new BdeAudioComponentRender();
+	renderTarget2D->addRenderElement(renderElement);
 }
 
 int main()
 {
 	// ----- INITIALIZE ENVIRONMENT -----
 
-	WindowManager::createSingletonInstance();
-	RenderManager::createSingletonInstance();
-	AudioManager ::createSingletonInstance();
+	WindowManager  ::createSingletonInstance();
+	RenderManager  ::createSingletonInstance();
+	AudioManager   ::createSingletonInstance();
+	Render2DManager::createSingletonInstance();
 
-	WindowManager* windowMgr = WindowManager::getInstance();
-	RenderManager* renderMgr = RenderManager::getInstance();
-	AudioManager*  audioMgr = AudioManager::getInstance();
+	WindowManager*   windowMgr   = WindowManager::getInstance();
+	RenderManager*   renderMgr   = RenderManager::getInstance();
+	AudioManager*    audioMgr    = AudioManager::getInstance();
+	Render2DManager* render2dMgr = Render2DManager::getInstance();
 
 	const int windowWidth = 800;
 	const int windowHeight = 600;
 	windowMgr->initWindow(windowWidth, windowHeight);
-	renderMgr->initDx(windowMgr->getMainWindowHandle(), windowWidth, windowHeight);
-	audioMgr->init(windowMgr->getMainWindowHandle());
+	//renderMgr->initDx(windowMgr->getMainWindowHandle(), windowWidth, windowHeight);
+	//audioMgr->init(windowMgr->getMainWindowHandle());
+
+	render2dMgr->init();
 
 	// ----- PLAYGROUND -----
 
 
-	initScene();
+// 	initSceneAudio();
+
+	initSceneD2D();
 	
-	audioMgr->prepareTrack(gTrack);
-	audioMgr->playTrack(gTrack);
 
 	// ----- ENTER MAIN LOOP -----
 #if BDE_GLOBAL_FRAME_LIMITER_FPS > 0
@@ -135,9 +174,9 @@ int main()
 #endif
 	while (true)
 	{
-#if BDE_GLOBAL_FRAME_LIMITER_FPS > 0
-		frameTimer.start();
-#endif
+// #if BDE_GLOBAL_FRAME_LIMITER_FPS > 0
+// 		frameTimer.start();
+// #endif
 
 #if BDE_GLOBAL_ENABLE_EDITOR_FUNCTIONALITY
 		// ----- PROCESS INPUT -----
@@ -148,17 +187,18 @@ int main()
 		// ----- FRAME START -----
 
 		// TODO scene
+		renderTarget2D->render();
 
 		// ----- FRAME END -----
 
-#if BDE_GLOBAL_FRAME_LIMITER_FPS > 0
-		frameTimer.stop();
-		float frameTimeMs = (float)frameTimer.getTimeMilliseconds();
-		int sleepTimeMs = int((1000.0f / BDE_GLOBAL_FRAME_LIMITER_FPS) - frameTimeMs);
-		if (sleepTimeMs >= 5)
-			// sleep no less than 5ms
-			Sleep(sleepTimeMs);
-#endif
+// #if BDE_GLOBAL_FRAME_LIMITER_FPS > 0
+// 		frameTimer.stop();
+// 		float frameTimeMs = (float)frameTimer.getTimeMilliseconds();
+// 		int sleepTimeMs = int((1000.0f / BDE_GLOBAL_FRAME_LIMITER_FPS) - frameTimeMs);
+// 		if (sleepTimeMs >= 5)
+// 			// sleep no less than 5ms
+// 			Sleep(sleepTimeMs);
+// #endif
 	}
 
 #if BDE_GLOBAL_ENABLE_NICE_DESTROY
@@ -173,6 +213,10 @@ int main()
 	audioMgr->shutdown();
 	renderMgr->shutdownDx();
 	windowMgr->shutdownWindow();
+
+	AudioManager::destroySingletonInstance();
+	RenderManager::destroySingletonInstance();
+	WindowManager::destroySingletonInstance();
 #endif
 
 	return 0;

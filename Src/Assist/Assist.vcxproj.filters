@@ -46,6 +46,9 @@
       <Filter>Timing</Filter>
     </ClInclude>
     <ClInclude Include="SolutionBuildConfig.h" />
+    <ClInclude Include="Vector2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />

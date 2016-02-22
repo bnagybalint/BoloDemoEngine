@@ -15,13 +15,21 @@
 Color::Color() :Vector4(), r(c[0]), g(c[1]), b(c[2]), a(c[3]) {
 }
 
-Color::Color(const Color& other) : Vector4(other), r(c[0]), g(c[1]), b(c[2]), a(c[3]) {
+Color::Color(const Color& other) : Vector4(other.r, other.g, other.b, other.a), r(c[0]), g(c[1]), b(c[2]), a(c[3]) {
 }
 
 Color::Color(Coordtype r, Coordtype g, Coordtype b, Coordtype a/* = Coordtype(1.0)*/) : Vector4(r, g, b, a), r(c[0]), g(c[1]), b(c[2]), a(c[3]) {
 }
 
 Color::~Color() {
+}
+
+Color Color::operator = (const Color& other) const {
+	r = other.r;
+	g = other.g;
+	b = other.b;
+	a = other.a;
+	return *this;
 }
 
 Color Color::operator + (const Color& other) const {

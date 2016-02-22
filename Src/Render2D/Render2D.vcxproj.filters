@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Render2DCommon.h" />
+    <ClInclude Include="Render2DRenderElement.h">
+      <Filter>RenderElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Render2DManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Render2DRenderTarget.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Render2DConverter.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Render2DRenderElement.cpp">
+      <Filter>RenderElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Render2DManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Render2DRenderTarget.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Render2DConverter.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="RenderElements">
+      <UniqueIdentifier>{f164867f-c90e-4498-b813-eba0c6d3111d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{2c616127-719b-4838-83cf-569bd4846aa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{5957e34f-bb9d-4d7e-baa1-51efaa1e6d41}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
