@@ -17,7 +17,7 @@
 #include "Audio/AudioTrack.h"
 #include "Audio/AudioAdsrEnvelope.h"
 
-#include "Render2D/Render2DManager.h"	   
+#include "Render2D/Render2DManager.h"
 #include "Render2D/Render2DRenderTarget.h"
 #include "Render2D/Render2DRenderElement.h"
 
@@ -122,7 +122,7 @@ public:
 		float lineWidth = 1.0f;
 		Vector2 v0 = mPosition - Vector2(w / 2.0f, h / 2.0f);
 		Vector2 v1 = mPosition + Vector2(w / 2.0f, h / 2.0f);
-		rt->setFillColor(Color(0.8, 0.8, 0.8, 1.0));
+		rt->setFillColor(Color(0.8f, 0.8f, 0.8f, 1.0f));
 		rt->drawRectangle(v0, v1, lineWidth);
 	}
 private:

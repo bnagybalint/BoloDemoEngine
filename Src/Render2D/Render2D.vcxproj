@@ -24,12 +24,14 @@
     <ClInclude Include="Render2DConverter.h" />
     <ClInclude Include="Render2DManager.h" />
     <ClInclude Include="Render2DRenderElement.h" />
+    <ClInclude Include="Render2DRenderLine.h" />
     <ClInclude Include="Render2DRenderTarget.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Render2DConverter.cpp" />
     <ClCompile Include="Render2DManager.cpp" />
     <ClCompile Include="Render2DRenderElement.cpp" />
+    <ClCompile Include="Render2DRenderLine.cpp" />
     <ClCompile Include="Render2DRenderTarget.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
