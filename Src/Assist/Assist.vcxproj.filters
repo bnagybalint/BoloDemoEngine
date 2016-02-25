@@ -49,6 +49,24 @@
     <ClInclude Include="Vector2.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="Property.h">
+      <Filter>Property</Filter>
+    </ClInclude>
+    <ClInclude Include="String.h">
+      <Filter>String</Filter>
+    </ClInclude>
+    <ClInclude Include="PropertyOwner.h">
+      <Filter>Property</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Property</Filter>
+    </ClInclude>
+    <ClInclude Include="Delegate.h">
+      <Filter>Property</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectArray.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
@@ -83,6 +101,15 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Timing</Filter>
     </ClCompile>
+    <ClCompile Include="Property.cpp">
+      <Filter>Property</Filter>
+    </ClCompile>
+    <ClCompile Include="String.cpp">
+      <Filter>String</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertyOwner.cpp">
+      <Filter>Property</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">
@@ -99,6 +126,12 @@
     </Filter>
     <Filter Include="Timing">
       <UniqueIdentifier>{36ee3dbb-0006-46d3-a253-bf3eb6b4418c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Property">
+      <UniqueIdentifier>{7668bf28-c8b2-413b-851f-1c02dabb160c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="String">
+      <UniqueIdentifier>{2e911859-a55d-40fd-aa5f-d03924b07af7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

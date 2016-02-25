@@ -1,34 +1,32 @@
 #pragma once
 
 #include "Assist/Common.h"
-#include "Assist/Memory.h"
 
-// Array class for primitive types (integral types, floats, pointers, raw structs).
-// WARNING: DO NOT use this class for complex types, possibly with managed resources.
-//          This class does not call contructors and destructors of objects stored inside.
-//          Get yourself a more sophisticated container ;)
+// ObjectArray class for complex types (classes with defined copy and default constructor).
+// NOTE: Using this class for primitive types generally has a performance impact when 
+//       compared to Array<T>. Use of Array<T> is recommended for memory-copyable types.
 template<class T>
-class Array
+class ObjectArray
 {
 public:
-	Array();
-	Array(const T* elems, int numElems);
-	~Array();
-	
+	ObjectArray();
+	ObjectArray(const T* elems, int numElems);
+	~ObjectArray();
+
 	void append(const T& elem);
 	void append(const T* elems, int numElems);
 
 	void clear();
 	void resize(int newSize);
 	void reserve(int newCapacity);
-	
+
 	const T* data() const { return mData; }
 	T* data() { return mData; }
 	int size() const { return mSize; }
-	
+
 	const T& operator[] (int idx) const;
 	T& operator[] (int idx);
-	
+
 #if BDE_GLOBAL_ENABLE_EDITOR_FUNCTIONALITY
 public:
 	// Extended functionality
@@ -54,7 +52,7 @@ private:
 };
 
 template <class T>
-Array<T>::Array()
+ObjectArray<T>::ObjectArray()
 	: mData(NULL)
 	, mSize(0)
 	, mCapacity(0)
@@ -62,42 +60,43 @@ Array<T>::Array()
 }
 
 template <class T>
-Array<T>::~Array()
+ObjectArray<T>::~ObjectArray()
 {
 	delete[] mData; mData = NULL;
 }
 
 template <class T>
-void Array<T>::append(const T& elem)
+void ObjectArray<T>::append(const T& elem)
 {
 	reserve(mSize + 1);
 	mData[mSize++] = elem;
 }
 
 template <class T>
-void Array<T>::append(const T* elems, int numElems)
+void ObjectArray<T>::append(const T* elems, int numElems)
 {
 	Assert(elems);
 	Assert(numElems > 0);
 
 	reserve(mSize + numElems);
-	Memory::Memcopy(mData + mSize, elems, numElems*sizeof(T));
-	mSize += numElems;
+	for (int i = 0; i < numElems; i++)
+		append(elems[i]);
 }
 
 template <class T>
-void Array<T>::clear()
+void ObjectArray<T>::clear()
 {
 	mSize = 0;
 }
 
 template <class T>
-void Array<T>::resize(int newSize)
+void ObjectArray<T>::resize(int newSize)
 {
 	T* newData = new T[newSize];
 	if (mData)
 	{
-		Memory::Memcopy(newData, mData, mSize*sizeof(T));
+		for (int i = 0; i < mSize; i++)
+			newData[i] = mData[i];
 		delete[] mData;
 	}
 	mData = newData;
@@ -105,7 +104,7 @@ void Array<T>::resize(int newSize)
 }
 
 template <class T>
-void Array<T>::reserve(int newCapacity)
+void ObjectArray<T>::reserve(int newCapacity)
 {
 	if (newCapacity > mCapacity)
 	{
@@ -118,14 +117,14 @@ void Array<T>::reserve(int newCapacity)
 }
 
 template <class T>
-const T& Array<T>::operator[] (int idx) const
+const T& ObjectArray<T>::operator[] (int idx) const
 {
 	Assert(idx < mSize); Assert(0 <= idx);
 	return mData[idx];
 }
 
 template <class T>
-T& Array<T>::operator[] (int idx)
+T& ObjectArray<T>::operator[] (int idx)
 {
 	Assert(idx < mSize); Assert(0 <= idx);
 	return mData[idx];
@@ -133,7 +132,7 @@ T& Array<T>::operator[] (int idx)
 
 #if BDE_GLOBAL_ENABLE_EDITOR_FUNCTIONALITY
 template <class T>
-int Array<T>::eFind(const T& elem) const
+int ObjectArray<T>::eFind(const T& elem) const
 {
 	for (int i = 0; i < mSize; i++)
 		if (mData[i] == elem)
@@ -141,14 +140,14 @@ int Array<T>::eFind(const T& elem) const
 	return -1;
 }
 template <class T>
-void Array<T>::eSwap(int i, int j)
+void ObjectArray<T>::eSwap(int i, int j)
 {
 	Assert(i < mSize); Assert(0 <= i);
 	Assert(j < mSize); Assert(0 <= j);
 	Memory::Swap(mData[i], mData[j]);
 }
 template <class T>
-bool Array<T>::eRemove(const T& elem)
+bool ObjectArray<T>::eRemove(const T& elem)
 {
 	int idx = eFind(elem);
 	if (idx < 0)
@@ -161,7 +160,7 @@ bool Array<T>::eRemove(const T& elem)
 	return true;
 }
 template <class T>
-bool Array<T>::eRemoveUnordered(const T& elem)
+bool ObjectArray<T>::eRemoveUnordered(const T& elem)
 {
 	int idx = eFind(elem);
 	if (idx < 0)
@@ -172,12 +171,12 @@ bool Array<T>::eRemoveUnordered(const T& elem)
 }
 template <class T>
 template <class Pred>
-void Array<T>::eQuickSort(const Pred& lessPred)
+void ObjectArray<T>::eQuickSort(const Pred& lessPred)
 {
 	eQuickSortHelper(0, mSize - 1, lessPred);
 }
 template <class T>
-void Array<T>::eQuickSort()
+void ObjectArray<T>::eQuickSort()
 {
 	struct DefaultLessPred {
 		bool operator() (const T& lhs, const T& rhs) const { return lhs < rhs; }
@@ -187,7 +186,7 @@ void Array<T>::eQuickSort()
 
 template <class T>
 template <class Pred>
-void Array<T>::eQuickSortHelper(int first, int last, const Pred& lessPred)
+void ObjectArray<T>::eQuickSortHelper(int first, int last, const Pred& lessPred)
 {
 	if (first < last)
 	{
@@ -198,7 +197,7 @@ void Array<T>::eQuickSortHelper(int first, int last, const Pred& lessPred)
 }
 template <class T>
 template <class Pred>
-int Array<T>::eQuickSortPivot(int first, int last, const Pred& lessPred)
+int ObjectArray<T>::eQuickSortPivot(int first, int last, const Pred& lessPred)
 {
 	int pivotIdx = first;
 	T   pivotElem = mData[pivotIdx];

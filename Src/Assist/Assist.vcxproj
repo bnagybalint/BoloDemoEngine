@@ -18,6 +18,11 @@
     <ClInclude Include="Array.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Common.h" />
+    <ClInclude Include="Delegate.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="ObjectArray.h" />
+    <ClInclude Include="Property.h" />
+    <ClInclude Include="PropertyOwner.h" />
     <ClInclude Include="SolutionBuildConfig.h" />
     <ClInclude Include="MathCommon.h" />
     <ClInclude Include="Math\MatrixNxN.hpp" />
@@ -29,6 +34,7 @@
     <ClInclude Include="Random.h" />
     <ClInclude Include="RandomMT.hpp" />
     <ClInclude Include="RandomXS.h" />
+    <ClInclude Include="String.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="Vector2.h" />
@@ -41,9 +47,12 @@
     <ClCompile Include="Matrix3x3.cpp" />
     <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="Memory.cpp" />
+    <ClCompile Include="Property.cpp" />
+    <ClCompile Include="PropertyOwner.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RandomMT.cpp" />
     <ClCompile Include="RandomXS.cpp" />
+    <ClCompile Include="String.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector3.cpp" />
