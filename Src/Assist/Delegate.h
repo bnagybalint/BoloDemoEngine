@@ -2,6 +2,39 @@
 
 #include "Assist/Common.h"
 
+// Delegate class
+//
+// Class to store a callback function. Delegates can hold any function, whose 
+// signature (return value and parameter list) matches that of the delegate.
+//
+// Syntax: Delegate<R(T1,T2)> can hold a function that takes arguments with 
+// type T1 and T2 and returns an a value of type R.
+//
+// The same delegates can hold a global function or a class member method 
+// with the same signature.
+//
+// Usage example:
+//
+//    void globalFunc() {...}
+//    float globalFunc2(int a) {...}
+//    class SomeClass { void memberFunc(int a) {...} };
+//
+//    // ...
+//
+//    // Definition:
+//    SomeClass* s;
+//    Delegate<void()>     d1 = Delegate<void()>( &globalFunc );
+//    Delegate<float(int)> d2 = Delegate<float(int)>( &globalFunc2 );
+//    Delegate<float(int)> d3 = Delegate<float(int)>( s, &SomeClass::memberFunc );
+// 
+//    // Invocation:
+//    d1();
+//    d2(42);
+//    float r3 = d3(1);
+// 
+// -------------------------------
+
+
 // Forward declare empty templates
 template<typename>          class AbstractCallback;
 template<typename>          class StaticCallback;
