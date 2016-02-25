@@ -30,7 +30,7 @@ float AudioOscillator::nextSample()
 	Assert(mCurrentPhase >= 0.0f);
 	Assert(mCurrentPhase <= 1.0f);
 
-	float output;
+	float output = 0.0f;
 	switch (AC_GET_PARAM(PARAM_WAVETYPE,int))
 	{
 	case WaveType::SINE_WAVE:

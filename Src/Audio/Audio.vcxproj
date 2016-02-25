@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="AudioAdsrEnvelope.h" />
     <ClInclude Include="AudioBiquadFilter.h" />
+    <ClInclude Include="AudioComponentInputAdapter.h" />
     <ClInclude Include="AudioConverter.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="AudioOscillator.h" />
@@ -150,6 +151,7 @@
   <ItemGroup>
     <ClCompile Include="AudioAdsrEnvelope.cpp" />
     <ClCompile Include="AudioBiquadFilter.cpp" />
+    <ClCompile Include="AudioComponentInputAdapter.cpp" />
     <ClCompile Include="AudioConverter.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="AudioOscillator.cpp" />
