@@ -6,5 +6,5 @@
 class AudioOutput : public AudioComponent
 {
 public:
-	float nextSample() override;
+	float nextSampleImpl() override;
 };

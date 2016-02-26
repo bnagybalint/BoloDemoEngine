@@ -8,11 +8,11 @@
 
 namespace
 {
-	const int PARAM_GATE          = 0;
-	const int PARAM_ATTACK_RATE   = 1;
-	const int PARAM_DECAY_RATE    = 2;
-	const int PARAM_SUSTAIN_LEVEL = 3;
-	const int PARAM_RELEASE_RATE  = 4;
+	const int PARAM_GATE          = AudioComponent::ComponentControl::PARAM1;
+	const int PARAM_ATTACK_RATE   = AudioComponent::ComponentControl::PARAM2;
+	const int PARAM_DECAY_RATE    = AudioComponent::ComponentControl::PARAM3;
+	const int PARAM_SUSTAIN_LEVEL = AudioComponent::ComponentControl::PARAM4;
+	const int PARAM_RELEASE_RATE  = AudioComponent::ComponentControl::PARAM5;
 }
 
 AudioAdsrEnvelope::AudioAdsrEnvelope()
@@ -22,7 +22,7 @@ AudioAdsrEnvelope::AudioAdsrEnvelope()
 }
 
 
-float AudioAdsrEnvelope::nextSample()
+float AudioAdsrEnvelope::nextSampleImpl()
 {
 	Assert(mInputs.size() == 1);
 

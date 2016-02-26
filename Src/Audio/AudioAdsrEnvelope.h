@@ -25,7 +25,7 @@ public:
 public:
 	AudioAdsrEnvelope();
 
-	float nextSample() override;
+	float nextSampleImpl() override;
 
 private:
 	AdsrState mState;

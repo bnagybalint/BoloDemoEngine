@@ -34,7 +34,7 @@ public:
 public:
 	AudioOscillator();
 
-	float nextSample() override;
+	float nextSampleImpl() override;
 
 private:
 	// Current phase in cycle percent.

@@ -4,11 +4,11 @@
 
 namespace
 {
-	const int PARAM_A0 = 0;
-	const int PARAM_A1 = 1;
-	const int PARAM_A2 = 2;
-	const int PARAM_B1 = 3;
-	const int PARAM_B2 = 4;
+	const int PARAM_A0 = AudioComponent::ComponentControl::PARAM1;
+	const int PARAM_A1 = AudioComponent::ComponentControl::PARAM2;
+	const int PARAM_A2 = AudioComponent::ComponentControl::PARAM3;
+	const int PARAM_B1 = AudioComponent::ComponentControl::PARAM4;
+	const int PARAM_B2 = AudioComponent::ComponentControl::PARAM5;
 }
 
 // From :http://www.earlevel.com/main/2012/11/26/biquad-c-source-code/
@@ -52,7 +52,7 @@ AudioBiquadFilter::AudioBiquadFilter()
 {
 }
 
-float AudioBiquadFilter::nextSample()
+float AudioBiquadFilter::nextSampleImpl()
 {
 	Assert(mInputs.size() == 1);
 	float input = mInputs[0]->nextSample();
