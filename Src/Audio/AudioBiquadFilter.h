@@ -20,7 +20,7 @@ public:
 public:
 	AudioBiquadFilter();
 
-	float nextSample() override;
+	float nextSampleImpl() override;
 
 private:
 	float mZ1;

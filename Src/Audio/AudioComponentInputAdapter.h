@@ -11,7 +11,7 @@ public:
 	AudioComponentInputAdapter();
 	~AudioComponentInputAdapter();
 
-	float nextSample() override;
+	float nextSampleImpl() override;
 
 private:
 

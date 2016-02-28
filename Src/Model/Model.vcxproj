@@ -20,23 +20,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Render2DCommon.h" />
-    <ClInclude Include="Render2DConverter.h" />
-    <ClInclude Include="Render2DManager.h" />
-    <ClInclude Include="Render2DRenderElement.h" />
-    <ClInclude Include="Render2DRenderLine.h" />
-    <ClInclude Include="Render2DRenderTarget.h" />
+    <ClInclude Include="ModelSynthTrack.h" />
+    <ClInclude Include="ModelSynthComponent.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Render2DConverter.cpp" />
-    <ClCompile Include="Render2DManager.cpp" />
-    <ClCompile Include="Render2DRenderElement.cpp" />
-    <ClCompile Include="Render2DRenderLine.cpp" />
-    <ClCompile Include="Render2DRenderTarget.cpp" />
+    <ClCompile Include="ModelSynthTrack.cpp" />
+    <ClCompile Include="ModelSynthComponent.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{229F4ACC-11DD-4E2B-81C4-BBE6FA0032E8}</ProjectGuid>
-    <RootNamespace>Render2D</RootNamespace>
+    <ProjectGuid>{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}</ProjectGuid>
+    <RootNamespace>Model</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -98,7 +91,6 @@
     </Link>
     <Lib>
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
-      <AdditionalDependencies>d2d1.lib</AdditionalDependencies>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
@@ -122,7 +114,6 @@
     </Link>
     <Lib>
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
-      <AdditionalDependencies>d2d1.lib</AdditionalDependencies>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
@@ -153,7 +144,6 @@
     </Link>
     <Lib>
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
-      <AdditionalDependencies>d2d1.lib</AdditionalDependencies>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

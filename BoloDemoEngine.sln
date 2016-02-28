@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_UnitTests", "Src\Test_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Render2D", "Src\Render2D\Render2D.vcxproj", "{229F4ACC-11DD-4E2B-81C4-BBE6FA0032E8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Model", "Src\Model\Model.vcxproj", "{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -82,6 +84,12 @@ Global
 		{229F4ACC-11DD-4E2B-81C4-BBE6FA0032E8}.DemoRelease|Win32.Build.0 = DemoRelease|Win32
 		{229F4ACC-11DD-4E2B-81C4-BBE6FA0032E8}.Release|Win32.ActiveCfg = Release|Win32
 		{229F4ACC-11DD-4E2B-81C4-BBE6FA0032E8}.Release|Win32.Build.0 = Release|Win32
+		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.Debug|Win32.Build.0 = Debug|Win32
+		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.DemoRelease|Win32.ActiveCfg = DemoRelease|Win32
+		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.DemoRelease|Win32.Build.0 = DemoRelease|Win32
+		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.Release|Win32.ActiveCfg = Release|Win32
+		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

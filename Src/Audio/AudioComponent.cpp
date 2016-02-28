@@ -1,5 +1,17 @@
 #include "AudioComponent.h"
 
+namespace
+{
+	const int PARAM_GAIN   = AudioComponent::ComponentControl::GAIN;
+	const int PARAM_OFFSET = AudioComponent::ComponentControl::OFFSET;
+}
+float AudioComponent::nextSample()
+{
+	float gain   = AC_GET_PARAM(PARAM_GAIN  , float);
+	float offset = AC_GET_PARAM(PARAM_OFFSET, float);
+	return offset + gain * nextSampleImpl();
+}
+
 // void AudioFilterWaveShaper::process(/*out*/AudioTrack* result, int sampleStart, int sampleCount)
 // {
 // 	// ACTUALLY IT IS AN AMPLITUDE MODIFIER, but heck cares

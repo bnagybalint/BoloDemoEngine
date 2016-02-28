@@ -51,7 +51,8 @@ private:
 
 	HWND mWindowHandle;
 	ID2D1HwndRenderTarget* mRenderTarget;
-	ID2D1SolidColorBrush* mBrush;
+	ID2D1SolidColorBrush* mBrush; // mLineBrush
+	//ID2D1SolidColorBrush* mFillBrush;
 
 	Array<Render2DRenderElement*> mRenderElements;
 

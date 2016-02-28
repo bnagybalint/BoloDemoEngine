@@ -9,7 +9,7 @@ AudioComponentInputAdapter::~AudioComponentInputAdapter()
 {
 }
 
-float AudioComponentInputAdapter::nextSample()
+float AudioComponentInputAdapter::nextSampleImpl()
 {
 	Assert(mSource);
 	Assert(mDestination);
