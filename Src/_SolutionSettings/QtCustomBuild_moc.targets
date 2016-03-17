@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <MOCFiles Include="$(ProjectDir)\Panels\*.h" />
+  </ItemGroup>
+
+  <Target Name="CompileQtMOC" BeforeTargets="ClCompile" Inputs="@(MOCFiles)"  Outputs="@(MOCFiles->'$(ProjectDir)\QtGeneratedFiles\$(Configuration)\moc_%(Filename).cpp')">
+    <Message Text="[MOC] Compiling %(MOCFiles.Filename)%(MOCFiles.Extension)" Importance="High"/>
+    <Exec Command="$(QtDir)\bin\moc.exe %(MOCFiles.FullPath) -o $(ProjectDir)\QtGeneratedFiles\$(Configuration)\moc_%(MOCFiles.Filename).cpp"/>
+  </Target>
+</Project>

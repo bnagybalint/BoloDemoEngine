@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <UIFiles Include="$(ProjectDir)\Forms\*.ui" />
+  </ItemGroup>
+ 
+	<Target Name="CompileQtUIC" BeforeTargets="ClCompile" Inputs="@(UIFiles)" Outputs="@(UIFiles->'$(ProjectDir)\QtGeneratedFiles\ui_%(Filename).h')">
+	  <Message Text="[UIC] Compiling %(UIFiles.Filename)%(UIFiles.Extension)" Importance="High"/>
+	  <Exec Command="$(QtDir)\bin\uic.exe %(UIFiles.FullPath) -o $(ProjectDir)\QtGeneratedFiles\ui_%(UIFiles.Filename).h"/>
+	</Target>
+</Project>

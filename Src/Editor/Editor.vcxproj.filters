@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Forms">
+      <UniqueIdentifier>{1b7c710b-bdf0-407b-8157-a8f294f49a32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Panels">
+      <UniqueIdentifier>{0d4d5300-aafa-4391-81ca-6e97bdfdda54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="QtGeneratedFiles">
+      <UniqueIdentifier>{c3fb6331-486e-4e55-817a-f8c4a24894c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="QtGeneratedFiles\Debug">
+      <UniqueIdentifier>{d0c313cd-c027-435c-8df5-d60610e03fc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="QtGeneratedFiles\Release">
+      <UniqueIdentifier>{0a93613b-b094-4e4a-8db1-8ce5af0d4d27}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Forms\FormGroupBoxWidget.ui">
+      <Filter>Forms</Filter>
+    </None>
+    <None Include="Forms\SliderWithLineEditWidget.ui">
+      <Filter>Forms</Filter>
+    </None>
+    <None Include="Forms\MainWindow.ui">
+      <Filter>Forms</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Panels\MainWindow.h">
+      <Filter>Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor.h" />
+    <ClInclude Include="Panels\SliderWithLineEditWidget.h">
+      <Filter>Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="QtGeneratedFiles\ui_FormGroupBoxWidget.h">
+      <Filter>QtGeneratedFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="QtGeneratedFiles\ui_MainWindow.h">
+      <Filter>QtGeneratedFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="QtGeneratedFiles\ui_SliderWithLineEditWidget.h">
+      <Filter>QtGeneratedFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Panels\FormGroupBoxWidget.h">
+      <Filter>Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="Panels\RenderWidget.h">
+      <Filter>Panels</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Panels\MainWindow.cpp">
+      <Filter>Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="QtGeneratedFiles\Debug\moc_MainWindow.cpp">
+      <Filter>QtGeneratedFiles\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Panels\SliderWithLineEditWidget.cpp">
+      <Filter>Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="QtGeneratedFiles\Debug\moc_SliderWithLineEditWidget.cpp">
+      <Filter>QtGeneratedFiles\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Panels\FormGroupBoxWidget.cpp">
+      <Filter>Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="QtGeneratedFiles\Debug\moc_FormGroupBoxWidget.cpp">
+      <Filter>QtGeneratedFiles\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Panels\RenderWidget.cpp">
+      <Filter>Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="QtGeneratedFiles\Debug\moc_RenderWidget.cpp">
+      <Filter>QtGeneratedFiles\Debug</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
