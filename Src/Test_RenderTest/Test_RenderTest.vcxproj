@@ -45,22 +45,25 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\_SolutionSettings\SolutionProperties.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\_SolutionSettings\SolutionProperties.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DemoRelease|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\_SolutionSettings\SolutionProperties.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>$(SolutionDir)\Intermediate\$(Configuration)\$(ProjectName)\</IntDir>
-    <OutDir>$(SolutionDir)\Bin_Test\</OutDir>
+    <OutDir>$(SolutionDir)\Bin\</OutDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>$(SolutionDir)\Intermediate\$(Configuration)\$(ProjectName)\</IntDir>
-    <OutDir>$(SolutionDir)\Bin_Test\</OutDir>
+    <OutDir>$(SolutionDir)\Bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DemoRelease|Win32'">
     <IntDir>$(SolutionDir)\Intermediate\$(Configuration)\$(ProjectName)\</IntDir>
@@ -126,7 +129,7 @@
       <PreprocessorDefinitions>_MBCS;COMPILE_DEMO;COMPILE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>Assist.lib;Render.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -135,6 +138,7 @@
       <EntryPointSymbol>main</EntryPointSymbol>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <SubSystem>Windows</SubSystem>
+      <DataExecutionPrevention>false</DataExecutionPrevention>
     </Link>
     <ProjectReference>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
@@ -152,6 +156,9 @@
     </ProjectReference>
     <ProjectReference Include="..\System\System.vcxproj">
       <Project>{92a8d6bd-bc20-43ad-929d-ce560abb99ca}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\_SolutionSettings\_SolutionSettings.vcxproj">
+      <Project>{4bb00c20-9f30-4133-9f26-07cefcc1465c}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -3,7 +3,7 @@
 #include "Assist/Common.h"
 #include "Assist/Color.h"
 #include "Assist/Timer.h"
-#include "Assist/Math/Math_Common.h"
+#include "Assist/Memory.h"
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -35,6 +35,7 @@ int main()
 				char c = MapVirtualKey(msg.wParam, MAPVK_VK_TO_CHAR);
 				switch (tolower(c))
 				{
+				case 0: break;
 				default: break;
 				}
 			}
