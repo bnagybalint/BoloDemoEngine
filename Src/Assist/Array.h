@@ -34,8 +34,10 @@ public:
 	// Extended functionality
 	int  eFind(const T& elem) const;
 	void eSwap(int i, int j);
-	bool eRemove(const T& elem);
-	bool eRemoveUnordered(const T& elem);
+	void eRemove(int idx);
+	void eRemoveUnordered(int idx);
+	bool eRemoveItem(const T& elem);
+	bool eRemoveItemUnordered(const T& elem);
 
 	template <class Pred>
 	void eQuickSort(const Pred& lessPred);
@@ -148,26 +150,38 @@ void Array<T>::eSwap(int i, int j)
 	Memory::Swap(mData[i], mData[j]);
 }
 template <class T>
-bool Array<T>::eRemove(const T& elem)
+void Array<T>::eRemove(int idx)
 {
-	int idx = eFind(elem);
-	if (idx < 0)
-		return false;
-
+	Assert(idx < mSize);  Assert(0 <= idx);
 	for (int i = idx; i < mSize - 1; i++)
 		mData[i] = mData[i + 1];
 	mSize--;
-
-	return true;
 }
 template <class T>
-bool Array<T>::eRemoveUnordered(const T& elem)
+void Array<T>::eRemoveUnordered(int idx)
+{
+	Assert(idx < mSize);  Assert(0 <= idx);
+	eSwap(idx, mSize);
+	mSize--;
+}
+template <class T>
+bool Array<T>::eRemoveItem(const T& elem)
 {
 	int idx = eFind(elem);
 	if (idx < 0)
 		return false;
 
-	eSwap(idx, --mSize);
+	eRemove(idx);
+	return true;
+}
+template <class T>
+bool Array<T>::eRemoveItemUnordered(const T& elem)
+{
+	int idx = eFind(elem);
+	if (idx < 0)
+		return false;
+
+	eRemoveUnordered(idx);
 	return true;
 }
 template <class T>

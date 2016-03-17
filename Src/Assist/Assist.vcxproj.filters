@@ -67,6 +67,12 @@
     <ClInclude Include="ObjectArray.h">
       <Filter>DataStructures</Filter>
     </ClInclude>
+    <ClInclude Include="Mutex.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
@@ -110,6 +116,12 @@
     <ClCompile Include="PropertyOwner.cpp">
       <Filter>Property</Filter>
     </ClCompile>
+    <ClCompile Include="Mutex.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">
@@ -132,6 +144,9 @@
     </Filter>
     <Filter Include="String">
       <UniqueIdentifier>{2e911859-a55d-40fd-aa5f-d03924b07af7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Threading">
+      <UniqueIdentifier>{f0db9898-13be-4dbb-ae85-7822953ebfe4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

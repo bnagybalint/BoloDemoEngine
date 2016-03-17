@@ -20,6 +20,7 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="Delegate.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="Mutex.h" />
     <ClInclude Include="ObjectArray.h" />
     <ClInclude Include="Property.h" />
     <ClInclude Include="PropertyOwner.h" />
@@ -35,6 +36,7 @@
     <ClInclude Include="RandomMT.hpp" />
     <ClInclude Include="RandomXS.h" />
     <ClInclude Include="String.h" />
+    <ClInclude Include="Thread.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="Vector2.h" />
@@ -47,15 +49,22 @@
     <ClCompile Include="Matrix3x3.cpp" />
     <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="Memory.cpp" />
+    <ClCompile Include="Mutex.cpp" />
     <ClCompile Include="Property.cpp" />
     <ClCompile Include="PropertyOwner.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RandomMT.cpp" />
     <ClCompile Include="RandomXS.cpp" />
     <ClCompile Include="String.cpp" />
+    <ClCompile Include="Thread.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector3.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\_SolutionSettings\_SolutionSettings.vcxproj">
+      <Project>{4bb00c20-9f30-4133-9f26-07cefcc1465c}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FFEC2014-4B09-4B60-B14F-9CED1C295B59}</ProjectGuid>
@@ -87,12 +96,15 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\_SolutionSettings\SolutionProperties.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\_SolutionSettings\SolutionProperties.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DemoRelease|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\_SolutionSettings\SolutionProperties.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
