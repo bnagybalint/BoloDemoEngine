@@ -1,7 +1,7 @@
 #include "Test_Matrix3x3.h"
 
-#include "Assist/Math/Matrix3x3.hpp"
-#include "Assist/Math/Vector3.hpp"
+#include "Assist/Matrix3x3.hpp"
+#include "Assist/Vector3.hpp"
 
 
 void Test_Matrix3x3::setupTest()

@@ -82,7 +82,7 @@ void RuntimeAssert(bool cond);
 
 #define DEFINE_SINGLETON_IMPL(ClassName) \
 	ClassName* ClassName::_msInstance = NULL; \
-	void ClassName::createSingletonInstance() { _msInstance = new ClassName(); } \
-	void ClassName::destroySingletonInstance() { delete _msInstance; _msInstance = NULL; } \
-	ClassName* ClassName::getInstance() { return _msInstance; }
+	void ClassName::createSingletonInstance() { Assert(_msInstance == NULL); _msInstance = new ClassName(); } \
+	void ClassName::destroySingletonInstance() { Assert(_msInstance); delete _msInstance; _msInstance = NULL; } \
+	ClassName* ClassName::getInstance() { Assert(_msInstance); return _msInstance; }
 

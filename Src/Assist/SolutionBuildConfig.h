@@ -5,11 +5,11 @@
 // e.g.: BDE_GLOBAL_DEBUG
 
 // ----- Define build mode -----
-#ifdef BUILD_DEBUG
+#if defined(BUILD_DEBUG)
 # define BDE_GLOBAL_BUILD_DEBUG
-#elif BUILD_RELEASE
+#elif defined(BUILD_RELEASE)
 # define BDE_GLOBAL_BUILD_RELEASE
-#elif BUILD_DEMO
+#elif defined(BUILD_DEMO)
 # define BDE_GLOBAL_BUILD_DEMO
 #endif
 
@@ -32,7 +32,7 @@
 // - BDE_RENDER_ENABLE_VSYNC                 -> enable vertical sync
 // - BDE_RENDER_ENABLE_FULLSCREEN            -> enable fullscreen mode (should be enabled for demo only)
 
-#ifdef BDE_GLOBAL_BUILD_DEBUG
+#if defined(BDE_GLOBAL_BUILD_DEBUG)
 // ----- DEBUG settings -----
 # define BDE_GLOBAL_ENABLE_EDITOR_FUNCTIONALITY  1
 # define BDE_GLOBAL_ENABLE_NICE_INIT             1
@@ -45,7 +45,7 @@
 # define BDE_RENDER_ENABLE_FULLSCREEN            0
 # define BDE_RENDER_GET_ADAPTER_DATA             1
 
-#elif BDE_GLOBAL_BUILD_RELEASE
+#elif defined(BDE_GLOBAL_BUILD_RELEASE)
 // ----- RELEASE settings -----
 # define BDE_GLOBAL_ENABLE_EDITOR_FUNCTIONALITY  1
 # define BDE_GLOBAL_ENABLE_NICE_INIT             1
@@ -58,17 +58,17 @@
 # define BDE_RENDER_ENABLE_FULLSCREEN            0
 # define BDE_RENDER_GET_ADAPTER_DATA             0
 
-#elif BDE_GLOBAL_BUILD_DEMO
+#elif defined(BDE_GLOBAL_BUILD_DEMO)
 // ----- DEMO settings -----
-# define BDE_GLOBAL_ENABLE_EDITOR_FUNCTIONALITY  0
+# define BDE_GLOBAL_ENABLE_EDITOR_FUNCTIONALITY  1
 # define BDE_GLOBAL_ENABLE_NICE_INIT             0
 # define BDE_GLOBAL_ENABLE_NICE_DESTROY          0
-# define BDE_GLOBAL_FRAME_LIMITER_FPS            60
+# define BDE_GLOBAL_FRAME_LIMITER_FPS            0
 # define BDE_ASSIST_DEFAULT_RANDOMIZER           MTRandomizer
 # define BDE_AUDIO_DS_DEBUG                      0
 # define BDE_RENDER_DX_DEBUG                     0
 # define BDE_RENDER_ENABLE_VSYNC                 0
-# define BDE_RENDER_ENABLE_FULLSCREEN            1 
+# define BDE_RENDER_ENABLE_FULLSCREEN            0 
 # define BDE_RENDER_GET_ADAPTER_DATA             0
 
 #endif
