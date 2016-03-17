@@ -10,9 +10,9 @@ Lib/*
 *.o
 *.so
 
-*.dll
-*.exe
-*.pdb
+#*.dll
+#*.exe
+#*.pdb
 
 # Visual Studio related unnecessary # 
 #####################################
@@ -20,6 +20,7 @@ Lib/*
 *.suo
 *.sdf
 *.opensdf
+*.ilk
 
 # Packages #
 ############
