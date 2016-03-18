@@ -1,11 +1,9 @@
 #include "RenderWidget.h"
 
-
 RenderWidget::RenderWidget(QWidget* parent)
 	: QWidget(parent)
 {
 }
-
 
 RenderWidget::~RenderWidget()
 {
