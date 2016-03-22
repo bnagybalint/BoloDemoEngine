@@ -5,7 +5,10 @@
 #include "Assist/Mutex.h"
 #include "Assist/Array.h"
 
-#include <thread>
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
 
 class Thread
 {
@@ -14,7 +17,8 @@ public:
 
 private:
 
-	static void startProxy(Thread* t);
+	static DWORD WINAPI startProxy(LPVOID);
+	//static void startProxy(Thread* t);
 
 public:
 
@@ -27,6 +31,9 @@ public:
 	// Start processing of tasks in the task list
 	void start();
 	// Current thread waits until this thread has finished.
+	// TODO move to a thread manager
+	//      - along with creation and destruction of thread
+	//      - along with a new function: joinAll()
 	void join();
 
 private:
@@ -36,7 +43,7 @@ private:
 
 private:
 
-	std::thread mThreadObject;
+	HANDLE mThreadHandle;
 
 	Mutex mTaskListMutex;
 	Array<ThreadTaskDelegate> mTaskList;

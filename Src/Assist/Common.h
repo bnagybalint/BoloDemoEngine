@@ -57,6 +57,14 @@ void RuntimeAssert(bool cond);
 
 #define ForceInline __forceinline
 
+// ----- WINAPI related stuff ----- 
+
+#ifdef BDE_GLOBAL_BUILD_DEBUG
+# define SafeCall( call ) Assert( !FAILED(call) )
+#else
+# define SafeCall( call ) call
+#endif
+
 // ----- Enum class ----- 
 
 #define EnumBegin( name, defval ) \

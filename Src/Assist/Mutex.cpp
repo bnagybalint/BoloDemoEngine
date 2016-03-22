@@ -1,26 +1,34 @@
 #include "Mutex.h"
 
-
 Mutex::Mutex()
-	: mMutexObject()
+	: mMutexHandle(NULL)
 {
+	mMutexHandle = CreateMutex(NULL, FALSE, NULL);
+	Assert(mMutexHandle);
 }
 
 Mutex::~Mutex()
 {
+	SafeCall(CloseHandle(mMutexHandle)); mMutexHandle = NULL;
 }
 
 void Mutex::lock()
 {
-	mMutexObject.lock();
+	DWORD result = WaitForSingleObject(mMutexHandle, INFINITE);
+	Assert(result == WAIT_OBJECT_0); (void)result;
 }
 
 bool Mutex::tryLock()
 {
-	return mMutexObject.try_lock();
+	DWORD result = WaitForSingleObject(mMutexHandle, 0);
+	if (result == WAIT_OBJECT_0)
+		return true;
+	
+	Assert(result == WAIT_TIMEOUT);
+	return false;
 }
 
 void Mutex::release()
 {
-	mMutexObject.unlock();
+	SafeCall(ReleaseMutex(mMutexHandle));
 }
