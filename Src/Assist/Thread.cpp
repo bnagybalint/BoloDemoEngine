@@ -1,7 +1,7 @@
 #include "Thread.h"
 
 Thread::Thread()
-	: mThreadObject()
+	: mThreadHandle(NULL)
 	, mTaskListMutex()
 	, mTaskList()
 {
@@ -9,11 +9,16 @@ Thread::Thread()
 
 Thread::~Thread()
 {
+	SafeCall(CloseHandle(mThreadHandle)); mThreadHandle = NULL;
 }
 
-/*static*/void Thread::startProxy(Thread* t)
+/*static*/
+DWORD WINAPI Thread::startProxy(LPVOID param)
+//void Thread::startProxy(Thread* t)
 {
+	Thread* t = (Thread*)param;
 	t->run();
+	return 0;
 }
 
 void Thread::addTask(const ThreadTaskDelegate& task)
@@ -25,12 +30,14 @@ void Thread::addTask(const ThreadTaskDelegate& task)
 
 void Thread::start()
 {
-	mThreadObject = std::thread(Thread::startProxy, this);
+	mThreadHandle = CreateThread(NULL, 0, Thread::startProxy, this, 0, NULL);
 }
 
 void Thread::join()
 {
-	mThreadObject.join();
+	// Note: not thread-safe, I know
+	Assert(mThreadHandle);
+	WaitForSingleObject(mThreadHandle, INFINITE);
 }
 
 void Thread::run()
