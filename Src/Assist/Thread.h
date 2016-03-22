@@ -3,7 +3,7 @@
 #include "Assist/Common.h"
 #include "Assist/Delegate.h"
 #include "Assist/Mutex.h"
-#include "Assist/Array.h"
+#include "Assist/List.h"
 
 #include <thread>
 
@@ -39,7 +39,7 @@ private:
 	std::thread mThreadObject;
 
 	Mutex mTaskListMutex;
-	Array<ThreadTaskDelegate> mTaskList;
+	List<ThreadTaskDelegate> mTaskList;
 
 };
 

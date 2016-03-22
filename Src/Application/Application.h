@@ -23,13 +23,16 @@ private:
 
 	int enterMainLoop();
 
+	void startEditorProxy();
+	void startAppProxy();
+
 private:
 
 	// Program inputs
 	int mArgc;
 	char** mArgv;
 
-	// Thread for the editor o run on
 	Thread mEditorThread;
+	Thread mAppThread;
 };
 

@@ -20,6 +20,7 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="Delegate.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="Mutex.h" />
     <ClInclude Include="ObjectArray.h" />
     <ClInclude Include="Property.h" />

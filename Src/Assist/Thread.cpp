@@ -19,7 +19,7 @@ Thread::~Thread()
 void Thread::addTask(const ThreadTaskDelegate& task)
 {
 	mTaskListMutex.lock();
-	mTaskList.append(task);
+	mTaskList.pushBack(task);
 	mTaskListMutex.release();
 }
 
@@ -38,15 +38,16 @@ void Thread::run()
 	for (;;)
 	{
 		mTaskListMutex.lock();
-		if (mTaskList.size() <= 0)
+		if (mTaskList.isEmpty())
 		{
 			mTaskListMutex.release();
 			break;
 		}
-		ThreadTaskDelegate nextTask = mTaskList[0];
-		mTaskList.eRemove(0);
+		ThreadTaskDelegate nextTask = mTaskList.getFirstItem();
+		mTaskList.popFront();
 		mTaskListMutex.release();
 
+		// execute task
 		nextTask();
 	}
 }

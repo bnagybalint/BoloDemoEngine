@@ -19,21 +19,12 @@ Editor::~Editor()
 {
 }
 
-void Editor::initialize(int argc, char** argv)
+void Editor::startEditor(int argc, char** argv)
 {
 	mQtApplication = new QApplication(argc, argv);
 	mMainWindow = new MainWindow();
 
 	mMainWindow->show();
-}
-
-void Editor::startGui()
-{
-	int exitCodeGui = mQtApplication->exec();
-
-	Assert(exitCodeGui == 0);
-
-	// TODO request application terminate
 }
 
 void Editor::stopGui()

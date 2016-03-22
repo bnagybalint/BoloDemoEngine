@@ -19,10 +19,8 @@ public:
 
 public:
 
-	void initialize(int argc, char** argv);
-
-	void startGui();
-	void stopGui();
+	void startEditor(int argc, char** argv);
+	void stopEditor();
 
 	HWND getSceneEditorWindowHandle() const;
 

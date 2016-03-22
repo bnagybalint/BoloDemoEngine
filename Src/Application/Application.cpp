@@ -25,20 +25,14 @@ int Application::run(int argc, char** argv)
 	// TODO Init stuff that's used by Editor
 
 	// Initialize Editor
-	Editor::createSingletonInstance();
-	Editor::getInstance()->initialize(mArgc, mArgv);
-	Unimplemented(); // TODO should be initialized on the same thread as exec() is called
-
-	// Start GUI on editor thread
-	Thread::ThreadTaskDelegate editorStartTask = Thread::ThreadTaskDelegate(Editor::getInstance(), &Editor::startGui);
+	Thread::ThreadTaskDelegate editorStartTask = Thread::ThreadTaskDelegate(this, &Application::startEditorProxy);
 	mEditorThread.addTask(editorStartTask);
 	mEditorThread.start();
-
-	// Initialize Direct3D
-	initializeRender();
-
-	// Initialize DirectSound
-	initializeAudio();
+	
+// 	// Initialize App 
+// 	Thread::ThreadTaskDelegate editorStartTask = Thread::ThreadTaskDelegate(this, &Application::startEditorProxy);
+// 	mEditorThread.addTask(editorStartTask);
+// 	mEditorThread.start();
 
 	// TODO Init stuff that needs Editor (e.g. DirectX, DirectAudio)
 
@@ -66,3 +60,20 @@ int Application::enterMainLoop()
 	}
 	return 0;
 }
+
+void Application::startEditorProxy()
+{
+	Editor::createSingletonInstance();
+	Editor::getInstance()->initialize(mArgc, mArgv);
+	Unimplemented(); // TODO should be initialized on the same thread as exec() is called
+
+	// Start GUI on editor thread
+	
+
+}
+
+void Application::startAppProxy()
+{
+
+}
+
