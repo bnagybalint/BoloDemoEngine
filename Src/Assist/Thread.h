@@ -33,9 +33,6 @@ private:
 
 public:
 
-	Thread();
-	~Thread();
-
 	// Append an item at the end of this thread's task list;
 	void addTask(const ThreadTaskDelegate& task);
 
@@ -48,6 +45,9 @@ public:
 	HANDLE getHandle() const { return mThreadHandle; }
 
 private:
+
+	Thread();
+	~Thread();
 
 	// Primary loop for this thread that processes tasks one after the other.
 	void run();

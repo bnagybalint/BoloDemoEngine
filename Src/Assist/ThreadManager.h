@@ -33,6 +33,8 @@ public:
 
 	Thread* getCurrent();
 
+	void sleepCurrentThread(unsigned long timeMs);
+
 private:
 
 	ThreadManager();

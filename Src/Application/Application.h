@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Assist/Common.h"
-#include "Assist/Thread.h"
+
+class Thread;
 
 class Application
 {
@@ -32,7 +33,7 @@ private:
 	int mArgc;
 	char** mArgv;
 
-	Thread mEditorThread;
-	Thread mAppThread;
+	Thread* mAppThread;
+	Thread* mEditorThread;
 };
 

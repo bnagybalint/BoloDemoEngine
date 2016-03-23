@@ -31,6 +31,10 @@ private:
 
 private:
 
+	void enterEditorMainLoop();
+
+private:
+
 	QApplication* mQtApplication;
 	MainWindow* mMainWindow;
 

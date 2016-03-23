@@ -64,6 +64,11 @@ void ThreadManager::joinAnyOrAll(const Array<Thread*>& ths, bool all)
 	Assert(result == WAIT_OBJECT_0); (void)result;
 }
 
+void ThreadManager::sleepCurrentThread(unsigned long timeMs)
+{
+	Sleep(DWORD(timeMs));
+}
+
 void ThreadManager::registerRunningThread(Thread* th)
 {
 	Assert(!mRunningThreadList.contains(th->getHandle()));
