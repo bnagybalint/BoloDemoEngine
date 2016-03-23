@@ -1,7 +1,9 @@
 #pragma once
 
-#include "AudioCommon.h"
-#include "AudioComponent.h"
+#include "Assist/Common.h"
+
+#include "Audio/AudioCommon.h"
+#include "Audio/AudioComponent.h"
 
 // Params:
 // 0	Coefficient A0 of the Biquad
