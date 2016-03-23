@@ -74,7 +74,9 @@ void RuntimeAssert(bool cond);
 		private: enumtype_ val_; \
 		public:  name() :val_( defval ) {} \
 		public:  name( enumtype_ val ) :val_(val) {} \
-		public:  operator enumtype_ () { return val_; } \
+		public:  operator enumtype_ () const { return val_; } \
+		public:  bool operator == (enumtype_ e) const { return e == val_; } \
+		public:  bool operator != (enumtype_ e) const { return e != val_; } \
 		public:  enum enumtype_ {
 #define EnumEnd(name) \
 		}; \
