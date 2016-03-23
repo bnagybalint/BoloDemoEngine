@@ -67,7 +67,7 @@ public:
 	const T& getLastItem() const { Assert(mLast); return mLast->mData; }
 	T& getLastItem() { Assert(mLast); return mLast->mData; }
 
-	bool isEmpty() const { return mFirst != NULL; }
+	bool isEmpty() const { return mFirst == NULL; }
 
 private:
 
