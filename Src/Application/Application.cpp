@@ -10,6 +10,7 @@ Application::Application()
 	: mArgc(0)
 	, mArgv(NULL)
 	, mEditorThread()
+	, mAppThread()
 {
 }
 
@@ -29,24 +30,18 @@ int Application::run(int argc, char** argv)
 	mEditorThread.addTask(editorStartTask);
 	mEditorThread.start();
 	
-// 	// Initialize App 
-// 	Thread::ThreadTaskDelegate editorStartTask = Thread::ThreadTaskDelegate(this, &Application::startEditorProxy);
-// 	mEditorThread.addTask(editorStartTask);
-// 	mEditorThread.start();
+	// Initialize App 
+	Thread::ThreadTaskDelegate appStartTask = Thread::ThreadTaskDelegate(this, &Application::startAppProxy);
+	mAppThread.addTask(appStartTask);
+	mAppThread.start();
 
-	// TODO Init stuff that needs Editor (e.g. DirectX, DirectAudio)
+	// TODO join both threads
+	Array<Thread*> threadsToJoin;
+	threadsToJoin.append(&mEditorThread);
+	threadsToJoin.append(&mAppThread);
+	//ThreadManager::getInstance()->joinAll(threadsToJoin);
 
-	return enterMainLoop();
-}
-
-void Application::initializeRender()
-{
-	//Unimplemented();
-}
-
-void Application::initializeAudio()
-{
-	//Unimplemented();
+	return 0;
 }
 
 int Application::enterMainLoop()
@@ -64,7 +59,7 @@ int Application::enterMainLoop()
 void Application::startEditorProxy()
 {
 	Editor::createSingletonInstance();
-	Editor::getInstance()->initialize(mArgc, mArgv);
+	Editor::getInstance()->startEditor(mArgc, mArgv);
 	Unimplemented(); // TODO should be initialized on the same thread as exec() is called
 
 	// Start GUI on editor thread
@@ -74,6 +69,16 @@ void Application::startEditorProxy()
 
 void Application::startAppProxy()
 {
-
+	// Init app
+	enterMainLoop();
 }
 
+void Application::initializeRender()
+{
+	//Unimplemented();
+}
+
+void Application::initializeAudio()
+{
+	//Unimplemented();
+}

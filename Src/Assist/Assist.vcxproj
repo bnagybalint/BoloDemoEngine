@@ -20,6 +20,7 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="Delegate.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="Dictionary.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Mutex.h" />
     <ClInclude Include="ObjectArray.h" />
@@ -38,6 +39,7 @@
     <ClInclude Include="RandomXS.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="Thread.h" />
+    <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="Vector2.h" />
@@ -58,6 +60,7 @@
     <ClCompile Include="RandomXS.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="Thread.cpp" />
+    <ClCompile Include="ThreadManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector3.cpp" />

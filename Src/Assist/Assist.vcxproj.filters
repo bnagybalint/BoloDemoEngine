@@ -76,6 +76,12 @@
     <ClInclude Include="List.h">
       <Filter>DataStructures</Filter>
     </ClInclude>
+    <ClInclude Include="Dictionary.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadManager.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
@@ -123,6 +129,9 @@
       <Filter>Threading</Filter>
     </ClCompile>
     <ClCompile Include="Thread.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadManager.cpp">
       <Filter>Threading</Filter>
     </ClCompile>
   </ItemGroup>

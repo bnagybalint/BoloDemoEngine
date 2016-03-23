@@ -12,8 +12,19 @@
 
 class Thread
 {
+	friend class ThreadManager;
+
 public:
+
 	typedef Delegate<void()> ThreadTaskDelegate;
+
+public:
+
+	EnumBegin(ThreadState, NotStarted)
+		NotStarted,
+		Running,
+		Finished,
+	EnumEnd(ThreadState)
 
 private:
 
@@ -30,11 +41,11 @@ public:
 
 	// Start processing of tasks in the task list
 	void start();
-	// Current thread waits until this thread has finished.
-	// TODO move to a thread manager
-	//      - along with creation and destruction of thread
-	//      - along with a new function: joinAll()
-	void join();
+
+	// TODO these are not thread safe:
+	bool isRunning() const { return mState == ThreadState::Running; }
+	bool isFinished() const { return mState == ThreadState::Finished; }
+	HANDLE getHandle() const { return mThreadHandle; }
 
 private:
 
@@ -43,10 +54,9 @@ private:
 
 private:
 
+	Mutex mLock;
+	ThreadState mState;
 	HANDLE mThreadHandle;
-
-	Mutex mTaskListMutex;
 	List<ThreadTaskDelegate> mTaskList;
-
 };
 

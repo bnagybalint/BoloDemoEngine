@@ -27,7 +27,7 @@ void Editor::startEditor(int argc, char** argv)
 	mMainWindow->show();
 }
 
-void Editor::stopGui()
+void Editor::stopEditor()
 {
 	Unimplemented();
 	delete mMainWindow; mMainWindow = NULL;

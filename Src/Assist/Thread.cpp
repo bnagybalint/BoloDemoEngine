@@ -1,14 +1,18 @@
 #include "Thread.h"
 
+#include "Assist/ThreadManager.h"
+
 Thread::Thread()
-	: mThreadHandle(NULL)
-	, mTaskListMutex()
+	: mLock()
+	, mState(ThreadState::NotStarted)
+	, mThreadHandle(NULL)
 	, mTaskList()
 {
 }
 
 Thread::~Thread()
 {
+	Assert(mState == ThreadState::Finished);
 	SafeCall(CloseHandle(mThreadHandle)); mThreadHandle = NULL;
 }
 
@@ -23,39 +27,44 @@ DWORD WINAPI Thread::startProxy(LPVOID param)
 
 void Thread::addTask(const ThreadTaskDelegate& task)
 {
-	mTaskListMutex.lock();
+	Assert(mState != ThreadState::Finished);
+	mLock.lock();
 	mTaskList.pushBack(task);
-	mTaskListMutex.release();
+	mLock.release();
 }
 
 void Thread::start()
 {
+	Assert(mState == ThreadState::NotStarted);
+	mLock.lock();
 	mThreadHandle = CreateThread(NULL, 0, Thread::startProxy, this, 0, NULL);
-}
-
-void Thread::join()
-{
-	// Note: not thread-safe, I know
 	Assert(mThreadHandle);
-	WaitForSingleObject(mThreadHandle, INFINITE);
+	mState = ThreadState::Running;
+	ThreadManager::getInstance()->registerRunningThread(this);
+	mLock.release();
 }
 
 void Thread::run()
 {
 	for (;;)
 	{
-		mTaskListMutex.lock();
+		mLock.lock();
 		if (mTaskList.isEmpty())
 		{
-			mTaskListMutex.release();
+			mLock.release();
 			break;
 		}
 		ThreadTaskDelegate nextTask = mTaskList.getFirstItem();
 		mTaskList.popFront();
-		mTaskListMutex.release();
+		mLock.release();
 
 		// execute task
 		nextTask();
 	}
+
+	mLock.lock();
+	ThreadManager::getInstance()->unregisterRunningThread(this);
+	mState = ThreadState::Finished;
+	mLock.release();
 }
 
