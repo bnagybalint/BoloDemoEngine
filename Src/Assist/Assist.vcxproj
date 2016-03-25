@@ -20,7 +20,9 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="Delegate.h" />
     <ClInclude Include="Event.h" />
-    <ClInclude Include="Dictionary.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="ObjectUID.h" />
+    <ClInclude Include="UIDGenerator.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Mutex.h" />
     <ClInclude Include="ObjectArray.h" />
