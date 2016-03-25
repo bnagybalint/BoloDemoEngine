@@ -76,11 +76,20 @@
     <ClInclude Include="List.h">
       <Filter>DataStructures</Filter>
     </ClInclude>
-    <ClInclude Include="Dictionary.h">
-      <Filter>DataStructures</Filter>
-    </ClInclude>
     <ClInclude Include="ThreadManager.h">
       <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Typeid.h">
+      <Filter>Property</Filter>
+    </ClInclude>
+    <ClInclude Include="UIDGenerator.h">
+      <Filter>Property</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectUID.h">
+      <Filter>Property</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +142,12 @@
     </ClCompile>
     <ClCompile Include="ThreadManager.cpp">
       <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="UIDGenerator.cpp">
+      <Filter>Property</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectUID.cpp">
+      <Filter>Property</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

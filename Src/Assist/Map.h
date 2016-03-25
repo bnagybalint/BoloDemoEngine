@@ -7,13 +7,13 @@
 #include <utility>
 
 template <class Key, class Value>
-class Dictionary
+class Map
 {
 public:
 
-	Dictionary();
-	Dictionary(const Dictionary<Key,Value>& other);
-	~Dictionary();
+	Map();
+	Map(const Map<Key,Value>& other);
+	~Map();
 
 	void add(const Key& key, const Value& val);
 	bool remove(const Key& key);
@@ -38,54 +38,55 @@ private:
 
 // TODO create real ObjectDictionary
 template <class Key, class Value>
-class ObjectDictionary : public Dictionary<Key, Value> {};
+class ObjectMap : public Map<Key, Value> {};
 
 
 
 
 template <class Key, class Value>
-Dictionary<Key, Value>::Dictionary()
+Map<Key, Value>::Map()
 {
 
 }
 
 template <class Key, class Value>
-Dictionary<Key, Value>::Dictionary(const Dictionary<Key, Value>& other)
+Map<Key, Value>::Map(const Map<Key, Value>& other)
 {
 	mValueMap.insert(other.mValueMap.begin(), other.mValueMap.end());
 }
 
 template <class Key, class Value>
-Dictionary<Key, Value>::~Dictionary()
+Map<Key, Value>::~Map()
 {
 }
 
 template <class Key, class Value>
-void Dictionary<Key, Value>::add(const Key& key, const Value& val)
+void Map<Key, Value>::add(const Key& key, const Value& val)
 {
 	mValueMap.insert(std::make_pair(key, val));
 }
 
 template <class Key, class Value>
-bool Dictionary<Key, Value>::remove(const Key& key)
+bool Map<Key, Value>::remove(const Key& key)
 {
+	Assert(contains(key));
 	return mValueMap.erase(key) > 0;
 }
 
 template <class Key, class Value>
-void Dictionary<Key, Value>::clear()
+void Map<Key, Value>::clear()
 {
 	mValueMap.clear();
 }
 
 template <class Key, class Value>
-bool Dictionary<Key, Value>::isEmpty()
+bool Map<Key, Value>::isEmpty()
 {
 	return mValueMap.empty();
 }
 
 template <class Key, class Value>
-const Value& Dictionary<Key, Value>::operator[] (const Key& key) const
+const Value& Map<Key, Value>::operator[] (const Key& key) const
 {
 	Value* val = find(key);
 	Assert(val);
@@ -93,7 +94,7 @@ const Value& Dictionary<Key, Value>::operator[] (const Key& key) const
 }
 
 template <class Key, class Value>
-Value& Dictionary<Key, Value>::operator[] (const Key& key)
+Value& Map<Key, Value>::operator[] (const Key& key)
 {
 	Value* val = find(key);
 	Assert(val);
@@ -101,7 +102,7 @@ Value& Dictionary<Key, Value>::operator[] (const Key& key)
 }
 
 template <class Key, class Value>
-const Value& Dictionary<Key, Value>::get(const Key& key) const
+const Value& Map<Key, Value>::get(const Key& key) const
 {
 	Value* val = find(key);
 	Assert(val);
@@ -109,7 +110,7 @@ const Value& Dictionary<Key, Value>::get(const Key& key) const
 }
 
 template <class Key, class Value>
-Value& Dictionary<Key, Value>::get(const Key& key)
+Value& Map<Key, Value>::get(const Key& key)
 {
 	Value* val = find(key);
 	Assert(val);
@@ -117,7 +118,7 @@ Value& Dictionary<Key, Value>::get(const Key& key)
 }
 
 template <class Key, class Value>
-const Value* Dictionary<Key, Value>::find(const Key& key) const
+const Value* Map<Key, Value>::find(const Key& key) const
 {
 	std::map<Key,Value>::const_iterator it = mValueMap.find(key);
 	if (it == mValueMap.end())
@@ -126,7 +127,7 @@ const Value* Dictionary<Key, Value>::find(const Key& key) const
 }
 
 template <class Key, class Value>
-Value* Dictionary<Key, Value>::find(const Key& key)
+Value* Map<Key, Value>::find(const Key& key)
 {
 	std::map<Key, Value>::iterator it = mValueMap.find(key);
 	if (it == mValueMap.end())
@@ -135,7 +136,7 @@ Value* Dictionary<Key, Value>::find(const Key& key)
 }
 
 template <class Key, class Value>
-bool Dictionary<Key,Value>::contains(const Key& key) const
+bool Map<Key,Value>::contains(const Key& key) const
 {
 	std::map<Key, Value>::const_iterator it = mValueMap.find(key);
 	return it != mValueMap.end();

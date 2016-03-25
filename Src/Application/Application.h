@@ -1,12 +1,17 @@
 #pragma once
 
 #include "Assist/Common.h"
+#include "Assist/Event.h"
 
 class Thread;
 
 class Application
 {
 	DECLARE_SINGLETON_HEADER(Application);
+
+public:
+
+	Event<int> testCounterChanged;
 
 public:
 
@@ -35,5 +40,7 @@ private:
 
 	Thread* mAppThread;
 	Thread* mEditorThread;
+
+	int mTestCounter;
 };
 

@@ -4,6 +4,7 @@
 #include "Assist/Delegate.h"
 #include "Assist/ObjectArray.h"
 
+// TODO make class thread-safe
 template <class... EventParams>
 class Event
 {
@@ -27,7 +28,9 @@ private:
 };
 
 template <class... EventParams>
-Event<EventParams...>::Event() {}
+Event<EventParams...>::Event() 
+	: mListeners()
+{}
 
 template <class... EventParams>
 Event<EventParams...>::~Event() {}

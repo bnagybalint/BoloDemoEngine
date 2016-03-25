@@ -18,6 +18,7 @@ public:
 
 	bool operator == (const StringBase<CharType>& other) const;
 	bool operator != (const StringBase<CharType>& other) const;
+	bool operator < (const StringBase<CharType>& other) const;
 	
 	StringBase<CharType>& operator = (const CharType* str);
 	StringBase<CharType>& operator = (const StringBase<CharType>& other);
@@ -83,6 +84,16 @@ bool StringBase<CharType>::operator != (const StringBase<CharType>& other) const
 	if (length() != other.length())
 		return true;
 	return Memory::Memcompare(data(), other.data(), length() * sizeof(CharType)) != 0;
+}
+
+template <class CharType>
+bool StringBase<CharType>::operator < (const StringBase<CharType>& other) const
+{
+	if (length() < other.length())
+		return true;
+	if (length() > other.length())
+		return false;
+	return Memory::Memcompare(data(), other.data(), length() * sizeof(CharType)) < 0;
 }
 
 template <class CharType>

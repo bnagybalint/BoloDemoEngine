@@ -2,6 +2,7 @@
 
 #include "Assist/Thread.h"
 #include "Assist/ThreadManager.h"
+#include "Assist/UIDGenerator.h"
 
 #include "Editor/Editor.h"
 
@@ -14,6 +15,7 @@ Application::Application()
 	, mArgv(NULL)
 	, mAppThread(NULL)
 	, mEditorThread(NULL)
+	, mTestCounter(0)
 {
 }
 
@@ -27,7 +29,7 @@ int Application::run(int argc, char** argv)
 	mArgc = argc;
 	mArgv = argv;
 
-	// TODO Init stuff that's used by Editor
+	UIDGenerator::createSingletonInstance();
 	ThreadManager::createSingletonInstance();
 
 	// Initialize Editor 
@@ -59,6 +61,8 @@ int Application::enterMainLoop()
 		// TODO process commands
 		// TODO step scene
 		// TODO render scene
+		mTestCounter++;
+		testCounterChanged.fire(mTestCounter);
 	}
 	return 0;
 }
@@ -77,10 +81,10 @@ void Application::startAppProxy()
 
 void Application::initializeRender()
 {
-	//Unimplemented();
+	Unimplemented();
 }
 
 void Application::initializeAudio()
 {
-	//Unimplemented();
+	Unimplemented();
 }

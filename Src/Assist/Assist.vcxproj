@@ -42,6 +42,7 @@
     <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.hpp" />
+    <ClInclude Include="Typeid.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.hpp" />
   </ItemGroup>
@@ -53,6 +54,8 @@
     <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Mutex.cpp" />
+    <ClCompile Include="ObjectUID.cpp" />
+    <ClCompile Include="UIDGenerator.cpp" />
     <ClCompile Include="Property.cpp" />
     <ClCompile Include="PropertyOwner.cpp" />
     <ClCompile Include="Quaternion.cpp" />

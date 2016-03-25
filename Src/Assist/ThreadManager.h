@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Assist/Common.h"
-#include "Assist/Dictionary.h"
+#include "Assist/Map.h"
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -50,5 +50,5 @@ private:
 private:
 
 	//ObjectDictionary<String, Thread*> mThreadList;
-	Dictionary<HANDLE, Thread*> mRunningThreadList;
+	Map<HANDLE, Thread*> mRunningThreadList;
 };

@@ -4,7 +4,7 @@
 #include "Assist/String.h"
 
 // This macro is used to initialize a property conveniently.
-#define PROPERTY_INIT(Name, Value) Name(this, #Name, Value)
+#define PROPERTY_INIT(name, value) name(this, #name, value)
 
 class PropertyOwner;
 
@@ -12,7 +12,7 @@ class PropertyBase
 {
 public:
 
-	bool operator == (const PropertyBase& other);
+	bool is (const PropertyBase& other);
 
 	const String& getName() const { return mName; }
 	PropertyOwner* getOwner() const { return mOwner; }
@@ -42,6 +42,8 @@ public:
 	~Property();
 
 	Property<T>& operator = (const T& newValue);
+	bool operator == (const T& value);
+	bool operator != (const T& value);
 
 	operator const T& () const;
 
@@ -74,6 +76,18 @@ Property<T>& Property<T>::operator = (const T& newValue)
 		mOwner->propertyChanged.fire(mOwner, this);
 	}
 	return *this;
+}
+
+template<class T>
+bool Property<T>::operator == (const T& value)
+{
+	return mValue == value;
+}
+
+template<class T>
+bool Property<T>::operator != (const T& value)
+{
+	return mValue != value;
 }
 
 template<class T>
