@@ -23,10 +23,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Command.h" />
     <ClInclude Include="ModelSynthTrack.h" />
     <ClInclude Include="ModelSynthComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Command.cpp" />
     <ClCompile Include="ModelSynthTrack.cpp" />
     <ClCompile Include="ModelSynthComponent.cpp" />
   </ItemGroup>

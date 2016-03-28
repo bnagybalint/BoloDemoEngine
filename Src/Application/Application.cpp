@@ -6,6 +6,8 @@
 
 #include "Editor/Editor.h"
 
+#include "Model/Command.h"
+
 #include "Render/RenderManager.h"
 
 DEFINE_SINGLETON_IMPL(Application);
@@ -15,6 +17,8 @@ Application::Application()
 	, mArgv(NULL)
 	, mAppThread(NULL)
 	, mEditorThread(NULL)
+	, mApplicationLock()
+	, mCommands()
 	, mTestCounter(0)
 {
 }
@@ -22,6 +26,13 @@ Application::Application()
 Application::~Application()
 {
 	// TODO release threads
+
+	mApplicationLock.lock();
+	for (int i = 0; i < mCommands.size(); i++)
+	{
+		delete mCommands[i]; mCommands[i] = NULL;
+	}
+	mApplicationLock.release();
 }
 
 int Application::run(int argc, char** argv)
@@ -87,4 +98,27 @@ void Application::initializeRender()
 void Application::initializeAudio()
 {
 	Unimplemented();
+}
+
+void Application::addCommand(Command* cmd)
+{
+	mApplicationLock.lock();
+	mCommands.append(cmd);
+	mApplicationLock.release();
+}
+
+void Application::processCommands()
+{
+	mApplicationLock.lock();
+	for (int i = 0; i < mCommands.size(); i++)
+	{
+		Command* cmd = mCommands[i];
+
+		cmd->execute();
+
+		Command::ResultCode sc = cmd->getResultCode();
+
+		delete mCommands[i]; mCommands[i] = NULL;
+	}
+	mApplicationLock.release();
 }
