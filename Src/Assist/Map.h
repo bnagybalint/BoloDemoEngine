@@ -88,7 +88,7 @@ bool Map<Key, Value>::isEmpty()
 template <class Key, class Value>
 const Value& Map<Key, Value>::operator[] (const Key& key) const
 {
-	Value* val = find(key);
+	const Value* val = find(key);
 	Assert(val);
 	return *val;
 }
@@ -104,7 +104,7 @@ Value& Map<Key, Value>::operator[] (const Key& key)
 template <class Key, class Value>
 const Value& Map<Key, Value>::get(const Key& key) const
 {
-	Value* val = find(key);
+	const Value* val = find(key);
 	Assert(val);
 	return *val;
 }
