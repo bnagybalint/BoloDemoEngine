@@ -69,9 +69,13 @@ int Application::enterMainLoop()
 	for (;;)
 	{
 		// TODO process messages, break loop if necessary
-		// TODO process commands
+		
+		processCommands();
+
 		// TODO step scene
 		// TODO render scene
+
+		// TODO remove test stuff :D
 		mTestCounter++;
 		testCounterChanged.fire(mTestCounter);
 	}
