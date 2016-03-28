@@ -2,6 +2,7 @@
 
 #include "Assist/Common.h"
 #include "Assist/String.h"
+#include "Assist/Typeid.h"
 
 // This macro is used to initialize a property conveniently.
 #define PROPERTY_INIT(name, value) name(this, #name, value)
@@ -16,6 +17,8 @@ public:
 
 	const String& getName() const { return mName; }
 	PropertyOwner* getOwner() const { return mOwner; }
+
+	virtual TypeID getType() const;
 
 protected:
 
@@ -46,6 +49,8 @@ public:
 	bool operator != (const T& value);
 
 	operator const T& () const;
+
+	TypeID getType() const override { return GetTypeId<T>(); }
 
 	const T& getValue() const;
 

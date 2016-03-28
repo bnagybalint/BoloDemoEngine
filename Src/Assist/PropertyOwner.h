@@ -36,8 +36,10 @@ public:
 	// Method to destruct property owners. Must be used to be able to fire object destroying events.
 	static void destroy(PropertyOwner* propOwner);
 
-	// Get/release property owner for exclusive access.
+	// Get property owner for exclusive access.
+	// NOTE: returns NULL if property owner does not exist (maybe because it has been destroyed)
 	static PropertyOwner* lockPropertyOwner(ObjectUID uid);
+	// Release property owner.
 	static void unlockPropertyOwner(PropertyOwner* propOwner);
 
 private:
@@ -55,6 +57,9 @@ private:
 public:
 
 	ObjectUID getUID() const { return mObjectUID; }
+
+	const PropertyBase* getProperty(const String& propName) const { return mProperties[propName]; }
+	PropertyBase* getProperty(const String& propName) { return mProperties[propName]; }
 
 protected:
 

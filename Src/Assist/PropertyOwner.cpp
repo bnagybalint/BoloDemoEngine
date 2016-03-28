@@ -54,11 +54,12 @@ PropertyOwner::~PropertyOwner()
 /*static*/PropertyOwner* PropertyOwner::lockPropertyOwner(ObjectUID uid)
 {
 	msPropertyOwnerMapLock.lock();
-	PropertyOwner* propOwner = msPropertyOwnerMap[uid];
-	propOwner->mObjectLock.lock();
+	PropertyOwner** propOwner = msPropertyOwnerMap.find(uid);
+	if(propOwner)
+		(*propOwner)->mObjectLock.lock();
 	msPropertyOwnerMapLock.release();
 
-	return propOwner;
+	return *propOwner;
 }
 
 /*static*/void PropertyOwner::unlockPropertyOwner(PropertyOwner* propOwner)
