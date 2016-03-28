@@ -27,7 +27,7 @@ protected:
 	Command();
 
 	// Signal that the command has finished execution. This is the normal behaviour.
-	void ok();
+	void finished();
 	// Signal that the command should be canceled. If this function is called, cancelCommand() will be called to clean-up/rollback the command.
 	void cancel();
 	// Signal that the command has failed to execute due to some reason.

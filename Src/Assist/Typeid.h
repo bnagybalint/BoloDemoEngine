@@ -3,37 +3,40 @@
 #include "Assist/Common.h"
 #include "Assist/UIDGenerator.h"
 
-// NOTE:
-// - not thread-safe (TODO?)
-// - not type-safe (not protected against using T and T*)
+typedef uint64 TypeID;
+
+// NOTE: not thread-safe (TODO?)
+// NOTE: T and T* are different types
 template <class T>
-struct Typeid
+TypeID GetTypeId()
 {
-	static uint64 value()
-	{
-		static uint64 id = UIDGenerator::getInstance()->generate();
-		return id;
-	}
-};
+	static TypeID id = UIDGenerator::getInstance()->generate();
+	return id;
+}
+template <class T>
+TypeID GetTypeId(const T& item)
+{
+	return GetTypeId<T>();
+}
 
 // Macros to define type hierarchy for runtime type ID comparisons that work across the class hierarchy
 // Use:
 //  SomeClass* s = new SomeDerivedClass();
 //  if( s->isa<SomeDerivedClass>() ); // true
 #define DECLARE_TYPE_BASETYPE(className) \
-	protected: virtual bool isaVirt(uint64 tid) { return Typeid<className>::value() == tid; } \
-	public: template<class T> bool isa() { return isaVirt(Typeid<T>::value()); }
+	protected: virtual bool isaVirt(TypeID tid) { return GetTypeId<className>() == tid; } \
+	public: template<class T> bool isa() { return isaVirt(GetTypeId<T>()); }
 
 #define DECLARE_TYPE_INHERITANCE(className, parentClassName) \
-	protected: virtual bool isaVirt(uint64 tid) override \
+	protected: virtual bool isaVirt(TypeID tid) override \
 		{ \
-			if( Typeid<className>::value() == tid ) return true; \
+			if( GetTypeId<className>() == tid ) return true; \
 			return parentClassName::isaVirt(tid); \
 		}
 #define DECLARE_TYPE_INHERITANCE2(className, parentClassName1, parentClassName2) \
-	protected: virtual bool isaVirt(uint64 tid) override \
+	protected: virtual bool isaVirt(TypeID tid) override \
 		{ \
-			if( Typeid<className>::value() == tid ) return true; \
+			if( GetTypeId<className>() == tid ) return true; \
 			return (parentClassName2::isaVirt(tid)) || (parentClassName1::isaVirt(tid)); \
 		}
 

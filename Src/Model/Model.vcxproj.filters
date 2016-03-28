@@ -16,6 +16,9 @@
     <ClInclude Include="Command.h">
       <Filter>Commands</Filter>
     </ClInclude>
+    <ClInclude Include="PropertyChangeCommand.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModelSynthComponent.cpp" />

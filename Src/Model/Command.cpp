@@ -13,10 +13,10 @@ Command::~Command()
 void Command::execute()
 {
 	executeCommand();
-	AssertMsg(mStatus != ResultCode::NotStarted, "Command did not call any termination-indicator methods (ok, cancel or fail)");
+	AssertMsg(mStatus != ResultCode::NotStarted, "Command did not call any termination-indicator methods (finished, cancel or fail)");
 }
 
-void Command::ok()
+void Command::finished()
 {
 	AssertMsg(mStatus == ResultCode::NotStarted, "Trying to change command result from an already set value.");
 	mStatus = ResultCode::Finished;
@@ -36,7 +36,7 @@ void Command::fail()
 	mStatus = ResultCode::Failed;
 }
 
-bool cancelCommand()
+bool Command::cancelCommand()
 {
 	// nop
 	return true;

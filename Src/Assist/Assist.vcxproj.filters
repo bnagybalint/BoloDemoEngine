@@ -91,6 +91,9 @@
     <ClInclude Include="ObjectUID.h">
       <Filter>Property</Filter>
     </ClInclude>
+    <ClInclude Include="Any.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />

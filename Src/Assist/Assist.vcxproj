@@ -15,6 +15,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Any.h" />
     <ClInclude Include="Array.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Common.h" />

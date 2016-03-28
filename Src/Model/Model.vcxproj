@@ -26,6 +26,7 @@
     <ClInclude Include="Command.h" />
     <ClInclude Include="ModelSynthTrack.h" />
     <ClInclude Include="ModelSynthComponent.h" />
+    <ClInclude Include="PropertyChangeCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Command.cpp" />
