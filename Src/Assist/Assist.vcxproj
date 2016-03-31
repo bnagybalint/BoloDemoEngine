@@ -22,7 +22,6 @@
     <ClInclude Include="Delegate.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="Map.h" />
-    <ClInclude Include="ObjectStream.h" />
     <ClInclude Include="ObjectUID.h" />
     <ClInclude Include="UIDGenerator.h" />
     <ClInclude Include="List.h" />
@@ -58,7 +57,6 @@
     <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Mutex.cpp" />
-    <ClCompile Include="ObjectStream.cpp" />
     <ClCompile Include="ObjectUID.cpp" />
     <ClCompile Include="UIDGenerator.cpp" />
     <ClCompile Include="Property.cpp" />
