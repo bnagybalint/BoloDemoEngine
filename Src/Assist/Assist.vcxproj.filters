@@ -94,6 +94,7 @@
     <ClInclude Include="Any.h">
       <Filter>DataStructures</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectStream.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="ObjectUID.cpp">
       <Filter>Property</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectStream.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">

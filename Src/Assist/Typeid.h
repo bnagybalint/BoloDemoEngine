@@ -4,6 +4,7 @@
 #include "Assist/UIDGenerator.h"
 
 typedef uint64 TypeID;
+const TypeID INVALID_TYPEID = 0;
 
 // NOTE: not thread-safe (TODO?)
 // NOTE: T and T* are different types
