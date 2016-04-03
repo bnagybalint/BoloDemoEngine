@@ -22,7 +22,7 @@ public:
 
 	// Commands are deferred execution units, that are used to defer work to a later point in time
 	// NOTE: this is reserved for Editor-Application communication, Application objects should not create and issue Commands.
-	// NOTE: ownership of the command object is transferred, application object will release the object.
+	// NOTE: ownership of the command object is transferred, Application object will release the command object.
 	void addCommand(Command* cmd);
 
 private:
@@ -32,6 +32,7 @@ private:
 
 private:
 
+	void initialize();
 	void initializeRender();
 	void initializeAudio();
 

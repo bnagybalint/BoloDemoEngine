@@ -64,6 +64,21 @@ int Application::run(int argc, char** argv)
 	return 0;
 }
 
+void Application::initialize()
+{
+	Unimplemented();
+}
+
+void Application::initializeRender()
+{
+	Unimplemented();
+}
+
+void Application::initializeAudio()
+{
+	Unimplemented();
+}
+
 int Application::enterMainLoop()
 {
 	for (;;)
@@ -90,18 +105,8 @@ void Application::startEditorProxy()
 
 void Application::startAppProxy()
 {
-	// Init app
+	initialize();
 	enterMainLoop();
-}
-
-void Application::initializeRender()
-{
-	Unimplemented();
-}
-
-void Application::initializeAudio()
-{
-	Unimplemented();
 }
 
 void Application::addCommand(Command* cmd)

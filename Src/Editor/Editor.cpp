@@ -13,6 +13,8 @@ DEFINE_SINGLETON_IMPL(Editor);
 Editor::Editor()
 	: mQtApplication(NULL)
 	, mMainWindow(NULL)
+	, mEditorLock()
+	, mRequestedCallbacks()
 {
 }
 
@@ -37,11 +39,32 @@ void Editor::stopEditor()
 	delete mQtApplication; mQtApplication = NULL;
 }
 
+void Editor::requestEventCallback(CallbackBase* cb)
+{
+	mEditorLock.lock();
+	mRequestedCallbacks.append(cb);
+	mEditorLock.release();
+}
+
 void Editor::enterEditorMainLoop()
 {
 	for (;;)
 	{
+		// TODO check exit condition
+
+		// Invoke callbacks registered since last time.
+		mEditorLock.lock();
+		for (int i = 0; i < mRequestedCallbacks.size(); i++)
+		{
+			mRequestedCallbacks[i]->call();
+			delete mRequestedCallbacks[i]; mRequestedCallbacks[i] = NULL;
+		}
+		mEditorLock.release();
+
+		// Let Qt process window events.
 		mQtApplication->processEvents();
+
+		// Sleep thread for a while...
 		ThreadManager::getInstance()->sleepCurrentThread(5);
 	}
 }
