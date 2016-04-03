@@ -94,6 +94,12 @@
     <ClInclude Include="Any.h">
       <Filter>DataStructures</Filter>
     </ClInclude>
+    <ClInclude Include="Tuple.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Callback.h">
+      <Filter>Property</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />

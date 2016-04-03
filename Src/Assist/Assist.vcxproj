@@ -17,12 +17,14 @@
   <ItemGroup>
     <ClInclude Include="Any.h" />
     <ClInclude Include="Array.h" />
+    <ClInclude Include="Callback.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Delegate.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ObjectUID.h" />
+    <ClInclude Include="Tuple.h" />
     <ClInclude Include="UIDGenerator.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Mutex.h" />

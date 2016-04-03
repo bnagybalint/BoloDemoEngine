@@ -1,4 +1,9 @@
 
+
+// ----------------
+// Class: AbstractCallback
+// Common base for member and static function callback mechanisms
+//
 template<typename Ret DLG_TEMPLATE_LIST>
 class AbstractCallback<Ret(DLG_TYPE_LIST)>
 {
@@ -32,6 +37,10 @@ protected:
 	int mType;
 };
 
+// ----------------
+// Class: StaticCallback
+// Represents/stores a static function call.
+// 
 template<typename Ret DLG_TEMPLATE_LIST>
 class StaticCallback<Ret(DLG_TYPE_LIST)> : public AbstractCallback<Ret(DLG_TYPE_LIST)>
 {
@@ -73,6 +82,10 @@ private:
 	FunctionType mFunction;
 };
 
+// ----------------
+// Class: MethodCallback
+// Represents/stores a member function call of an object.
+// 
 template<typename Obj, typename Ret DLG_TEMPLATE_LIST>
 class MethodCallback<Obj, Ret(DLG_TYPE_LIST)> : public AbstractCallback < Ret(DLG_TYPE_LIST) >
 {
@@ -116,6 +129,12 @@ private:
 	MemberFunctionType mMemberFunction;
 };
 
+// ----------------
+// Class: Delegate
+// Represents/stores a generic function call. Hides the differences of using 
+// static and member functions, making it something like the delegate 
+// concept of C#.
+// 
 template<typename Ret DLG_TEMPLATE_LIST>
 class Delegate<Ret(DLG_TYPE_LIST)>
 {
@@ -179,3 +198,47 @@ private:
 	AbstractCallbackType* mCallback;
 };
 
+// ----------------
+// Class: Callback
+// Extension to the Delegate class that also stores the call-arguments 
+// of the delegate call. This makes them very convenient to use as callbacks.
+// (E.g. when we want delayed execution of a function)
+//
+template<typename Ret DLG_TEMPLATE_LIST>
+class Callback<Ret(DLG_TYPE_LIST)> : public CallbackBase
+{
+private:
+	typedef Delegate<Ret(DLG_TYPE_LIST)> DelegateType;
+	typedef Tuple<DLG_TYPE_LIST>         ArgumentsTupleType;
+public:
+	Callback(const DelegateType& dlg DLG_PARAMETER_LIST_WITH_COMMA)
+		: mDelegate(dlg)
+		, mArguments(DLG_ARGUMENT_LIST)
+	{
+	}
+
+	Callback(const Callback& other)
+		: mDelegate(other.mDelegate)
+		, mArguments(other.mArguments)
+	{
+	}
+
+	~Callback() {}
+
+	Ret operator () (DLG_PARAMETER_LIST)
+	{
+		return mDelegate(DLG_ARGUMENT_LIST_TUPLE(mArguments));
+	}
+
+	void call () override
+	{
+		mDelegate(DLG_ARGUMENT_LIST_TUPLE(mArguments));
+	}
+
+private:
+	Callback();
+
+private:
+	DelegateType mDelegate;
+	ArgumentsTupleType mArguments;
+};
