@@ -100,6 +100,15 @@
     <ClInclude Include="Callback.h">
       <Filter>Property</Filter>
     </ClInclude>
+    <ClInclude Include="RingBuffer.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Signal.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Log</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
@@ -158,6 +167,12 @@
     <ClCompile Include="ObjectUID.cpp">
       <Filter>Property</Filter>
     </ClCompile>
+    <ClCompile Include="Signal.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">
@@ -183,6 +198,9 @@
     </Filter>
     <Filter Include="Threading">
       <UniqueIdentifier>{f0db9898-13be-4dbb-ae85-7822953ebfe4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Log">
+      <UniqueIdentifier>{9d156cb6-718c-40af-8972-7062d5b43ea1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
