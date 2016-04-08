@@ -1,5 +1,6 @@
 #include "Application.h"
 
+#include "Assist/Logger.h"
 #include "Assist/Thread.h"
 #include "Assist/ThreadManager.h"
 #include "Assist/UIDGenerator.h"
@@ -19,7 +20,6 @@ Application::Application()
 	, mEditorThread(NULL)
 	, mApplicationLock()
 	, mCommands()
-	, mTestCounter(0)
 {
 }
 
@@ -40,43 +40,86 @@ int Application::run(int argc, char** argv)
 	mArgc = argc;
 	mArgv = argv;
 
-	UIDGenerator::createSingletonInstance();
-	ThreadManager::createSingletonInstance();
+	initializeBasic();
+	LOGINFO("---> Application basic functionality reached.");
 
-	// Initialize Editor 
-	mEditorThread = ThreadManager::getInstance()->createThread();
-	Thread::ThreadTaskDelegate editorStartTask = Thread::ThreadTaskDelegate(this, &Application::startEditorProxy);
-	mEditorThread->addTask(editorStartTask);
-	mEditorThread->start();
-	
 	// Initialize App
+	LOGINFO("Starting Application thread...");
 	mAppThread = ThreadManager::getInstance()->createThread();
-	Thread::ThreadTaskDelegate appStartTask = Thread::ThreadTaskDelegate(this, &Application::startAppProxy);
+	Thread::ThreadTaskDelegate appStartTask = Thread::ThreadTaskDelegate(this, &Application::start);
 	mAppThread->addTask(appStartTask);
 	mAppThread->start();
 
+	// Initialize Editor
+	LOGINFO("Starting Editor thread...");
+	mEditorThread = ThreadManager::getInstance()->createThread();
+	Thread::ThreadTaskDelegate editorStartTask = Thread::ThreadTaskDelegate(this, &Application::startEditor);
+	mEditorThread->addTask(editorStartTask);
+	mEditorThread->start();
+	
 	// Wait for both App and Editor thread to finish
 	Array<Thread*> threadsToJoin;
 	threadsToJoin.append(mEditorThread);
 	threadsToJoin.append(mAppThread);
 	ThreadManager::getInstance()->joinAll(threadsToJoin);
 
+	LOGINFO("Exiting...");
 	return 0;
 }
 
-void Application::initialize()
+void Application::startEditor()
 {
-	Unimplemented();
+	Editor::getInstance()->startEditor(mArgc, mArgv);
+}
+
+void Application::start()
+{
+	LOGINFO("Waiting for editor to initialize...");
+	Editor::getInstance()->initializedSignal.wait();
+
+	initializeRender();
+	initializeAudio();
+	initializeScene();
+
+	LOGINFO("---> Application total functionality reached");
+
+	LOGINFO("Entering main loop");
+	enterMainLoop();
+}
+
+void Application::initializeBasic()
+{
+	Logger::createSingletonInstance();
+	LOGINFO("Logger created.");
+	
+	LOGINFO("--- BoloDemoEditor ---");
+	LOGINFO("                      ");
+	LOGINFO("      (rawr!)         ");
+	LOGINFO("                      ");
+	LOGINFO("----------------------");
+
+	UIDGenerator::createSingletonInstance();
+	ThreadManager::createSingletonInstance();
+
+	Editor::createSingletonInstance();
+}
+
+void Application::initializeScene()
+{
+	LOGINFO("Initializing scene");
+	//Unimplemented();
 }
 
 void Application::initializeRender()
 {
-	Unimplemented();
+	LOGINFO("Initializing graphics subsystem");
+	//Unimplemented();
 }
 
 void Application::initializeAudio()
 {
-	Unimplemented();
+	LOGINFO("Initializing Audio subsystem");
+	//Unimplemented();
 }
 
 int Application::enterMainLoop()
@@ -90,23 +133,10 @@ int Application::enterMainLoop()
 		// TODO step scene
 		// TODO render scene
 
-		// TODO remove test stuff :D
-		mTestCounter++;
-		testCounterChanged.fire(mTestCounter);
+		// Sleep thread for a while...
+		ThreadManager::getInstance()->sleepCurrentThread(5);
 	}
 	return 0;
-}
-
-void Application::startEditorProxy()
-{
-	Editor::createSingletonInstance();
-	Editor::getInstance()->startEditor(mArgc, mArgv);
-}
-
-void Application::startAppProxy()
-{
-	initialize();
-	enterMainLoop();
 }
 
 void Application::addCommand(Command* cmd)

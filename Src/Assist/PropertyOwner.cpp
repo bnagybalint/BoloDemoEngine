@@ -3,8 +3,8 @@
 #include "Assist/Property.h"
 
 
-/*static*/Event<ObjectUID> PropertyOwner::objectCreated;
-/*static*/Event<ObjectUID> PropertyOwner::objectDestroying;
+/*static*/Event<ObjectUID> PropertyOwner::objectCreatedEvent;
+/*static*/Event<ObjectUID> PropertyOwner::objectDestroyingEvent;
 
 /*static*/Mutex PropertyOwner::msPropertyOwnerMapLock;
 /*static*/Map<ObjectUID, PropertyOwner*> PropertyOwner::msPropertyOwnerMap;
@@ -39,12 +39,12 @@ PropertyOwner::~PropertyOwner()
 	msPropertyOwnerMap.add(propOwner->getUID(), propOwner);
 	msPropertyOwnerMapLock.release();
 
-	PropertyOwner::objectCreated.fire(propOwner->getUID());
+	PropertyOwner::objectCreatedEvent.fire(propOwner->getUID());
 }
 
 /*static*/void PropertyOwner::onPropertyOwnerDestroying(PropertyOwner* propOwner)
 {
-	PropertyOwner::objectDestroying.fire(propOwner->getUID());
+	PropertyOwner::objectDestroyingEvent.fire(propOwner->getUID());
 
 	msPropertyOwnerMapLock.lock();
 	msPropertyOwnerMap.remove(propOwner->getUID());

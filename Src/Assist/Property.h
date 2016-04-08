@@ -78,7 +78,7 @@ Property<T>& Property<T>::operator = (const T& newValue)
 	if (mValue != newValue)
 	{
 		mValue = newValue;
-		mOwner->propertyChanged.fire(mOwner, this);
+		mOwner->propertyChangedEvent.fire(mOwner, this);
 	}
 	return *this;
 }

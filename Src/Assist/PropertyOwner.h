@@ -22,11 +22,11 @@ public:
 public:
 
 	// Event called upon property change of the property owner object
-	Event<PropertyOwner*, PropertyBase*> propertyChanged;
+	Event<PropertyOwner*, PropertyBase*> propertyChangedEvent;
 	// Event called after creation of the property owner object
-	static Event<ObjectUID> objectCreated;
+	static Event<ObjectUID> objectCreatedEvent;
 	// Event called before deletion of the property owner object
-	static Event<ObjectUID> objectDestroying;
+	static Event<ObjectUID> objectDestroyingEvent;
 
 public:
 

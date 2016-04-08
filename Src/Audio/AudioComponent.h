@@ -11,7 +11,7 @@ class AudioComponent
 {
 public:
 
-#define AC_SET_PARAM(i, data) do { mParams[i] = reinterpret_cast<uint32>(data); } while(0)
+#define AC_SET_PARAM(i, data) for(;;) { mParams[i] = reinterpret_cast<uint32>(data); break; }
 #define AC_GET_PARAM(i, T)    *((T*)(&mParams[i]))
 
 	EnumBegin(ComponentControl, GAIN)

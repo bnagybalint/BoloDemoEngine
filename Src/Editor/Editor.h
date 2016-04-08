@@ -6,6 +6,7 @@
 #include "Assist/Callback.h"
 #include "Assist/Delegate.h"
 #include "Assist/Mutex.h"
+#include "Assist/Signal.h"
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -21,6 +22,10 @@ class Editor
 public:
 
 	DECLARE_SINGLETON_HEADER(Editor);
+
+public:
+
+	Signal initializedSignal;
 
 public:
 

@@ -20,12 +20,7 @@ class RenderWidget : public QWidget
 
 public:
 
-private:
-	typedef Event<int, int> RenderAreaChangedEvent;
-
-public:
-	typedef RenderAreaChangedEvent::EventHandlerDelegate RenderAreaChangedDelegate;
-	RenderAreaChangedEvent renderAreaChanged;
+	Event<int, int> renderAreaChangedEvent;
 
 public:
 

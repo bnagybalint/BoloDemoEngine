@@ -4,6 +4,7 @@
 #include "Assist/Common.h" 
 #include "Assist/Event.h"
 #include "Assist/Mutex.h"
+#include "Assist/Signal.h"
 
 class Command;
 class Thread;
@@ -15,6 +16,9 @@ class Application
 public:
 
 	Event<int> testCounterChanged;
+
+	Signal basicInitializedSignal;
+	Signal totalInitializedSignal;
 
 public:
 
@@ -32,14 +36,18 @@ private:
 
 private:
 
-	void initialize();
+	void startEditor();
+
+private:
+
+	void start();
+
+	void initializeBasic();
+	void initializeScene();
 	void initializeRender();
 	void initializeAudio();
 
 	int enterMainLoop();
-
-	void startEditorProxy();
-	void startAppProxy();
 
 	// Process commands accumulated since last time this function was called
 	void processCommands();
@@ -55,7 +63,5 @@ private:
 
 	Mutex mApplicationLock;
 	Array<Command*> mCommands;
-
-	int mTestCounter;
 };
 

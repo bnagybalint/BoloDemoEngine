@@ -1,6 +1,7 @@
 #include "Editor.h"
 
 #include "Assist/ThreadManager.h"
+#include "Assist/Logger.h"
 
 #include "Panels/MainWindow.h"
 #include "Panels/RenderWidget.h" 
@@ -24,10 +25,19 @@ Editor::~Editor()
 
 void Editor::startEditor(int argc, char** argv)
 {
+	LOGINFO("Starting Editor");
+
+	LOGINFO("Creating Qt window");
 	mQtApplication = new QApplication(argc, argv);
 	mMainWindow = new MainWindow();
 
 	mMainWindow->show();
+
+	LOGINFO("---> Editor initialized");
+
+	initializedSignal.send();
+
+	LOGINFO("Entering editor main loop");
 
 	enterEditorMainLoop();
 }
