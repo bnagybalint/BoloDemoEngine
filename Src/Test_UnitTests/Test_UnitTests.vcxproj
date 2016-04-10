@@ -19,6 +19,14 @@
     <ClInclude Include="Test.h" />
     <ClInclude Include="Test_Matrix3x3.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Assist\Assist.vcxproj">
+      <Project>{ffec2014-4b09-4b60-b14f-9ced1c295b59}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\_SolutionSettings\_SolutionSettings.vcxproj">
+      <Project>{4bb00c20-9f30-4133-9f26-07cefcc1465c}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9749FDE2-08A9-40A1-8673-812525CE789E}</ProjectGuid>
     <RootNamespace>Test_UnitTests</RootNamespace>
@@ -42,19 +50,21 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\_SolutionSettings\SolutionProperties.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\_SolutionSettings\SolutionProperties.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>$(SolutionDir)\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)\Bin_Test\</OutDir>
+    <OutDir>$(SolutionDir)\Bin\</OutDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>$(SolutionDir)\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)\Bin_Test\</OutDir>
+    <OutDir>$(SolutionDir)\Bin\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

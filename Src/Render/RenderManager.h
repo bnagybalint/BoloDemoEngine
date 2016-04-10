@@ -54,7 +54,7 @@ public:
 	ID3D11Device* getDxDevice() const { return mDxDevice; }
 	ID3D11DeviceContext* getDxDeviceContext() const { return mDxDeviceContext; }
 
-	void initDx(HWND windowHandle, unsigned int windowWidth, unsigned int windowHeight);
+	void initDx(HWND windowHandle);
 	void shutdownDx();
 
 	void renderOneFrame();

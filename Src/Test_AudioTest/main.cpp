@@ -155,7 +155,7 @@ int main()
 	const int windowWidth = 800;
 	const int windowHeight = 600;
 	windowMgr->initWindow(windowWidth, windowHeight);
-	//renderMgr->initDx(windowMgr->getMainWindowHandle(), windowWidth, windowHeight);
+	//renderMgr->initDx(windowMgr->getMainWindowHandle());
 	//audioMgr->init(windowMgr->getMainWindowHandle());
 
 	render2dMgr->init();

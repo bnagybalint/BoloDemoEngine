@@ -2,9 +2,10 @@
 
 #include "Assist/Common.h"
 #include "Assist/String.h"
+#include "Assist/Typeid.h"
 
 // This macro is used to initialize a property conveniently.
-#define PROPERTY_INIT(Name, Value) Name(this, #Name, Value)
+#define PROPERTY_INIT(name, value) name(this, #name, value)
 
 class PropertyOwner;
 
@@ -12,10 +13,12 @@ class PropertyBase
 {
 public:
 
-	bool operator == (const PropertyBase& other);
+	bool is (const PropertyBase& other);
 
 	const String& getName() const { return mName; }
 	PropertyOwner* getOwner() const { return mOwner; }
+
+	virtual TypeID getType() const;
 
 protected:
 
@@ -24,8 +27,7 @@ protected:
 
 private: // uncopyable
 	PropertyBase();
-	PropertyBase(const PropertyBase& other);
-	PropertyBase& operator = (const PropertyBase& other);
+	DISABLE_COPY(PropertyBase);
 
 protected:
 
@@ -42,8 +44,12 @@ public:
 	~Property();
 
 	Property<T>& operator = (const T& newValue);
+	bool operator == (const T& value);
+	bool operator != (const T& value);
 
 	operator const T& () const;
+
+	TypeID getType() const override { return GetTypeId<T>(); }
 
 	const T& getValue() const;
 
@@ -71,9 +77,21 @@ Property<T>& Property<T>::operator = (const T& newValue)
 	if (mValue != newValue)
 	{
 		mValue = newValue;
-		mOwner->propertyChanged.fire(mOwner, this);
+		mOwner->propertyChangedEvent.fire(mOwner, this);
 	}
 	return *this;
+}
+
+template<class T>
+bool Property<T>::operator == (const T& value)
+{
+	return mValue == value;
+}
+
+template<class T>
+bool Property<T>::operator != (const T& value)
+{
+	return mValue != value;
 }
 
 template<class T>

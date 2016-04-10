@@ -13,6 +13,7 @@
 
 #include "Assist/Common.h"
 #include "Assist/MathCommon.h"
+#include "Assist/Memory.h"
 
 // Represents a matrix of 3x3 floats.
 //

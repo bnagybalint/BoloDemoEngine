@@ -1,11 +1,11 @@
 #pragma once
 
+#include "Assist/Common.h"
+
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
 #include <windows.h>
-
-#include "Assist/Common.h"
 
 class WindowManager
 {

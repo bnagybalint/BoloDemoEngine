@@ -36,7 +36,8 @@ typedef uint8 ubyte;
 void RuntimeAssert(bool cond);
 #ifdef BDE_GLOBAL_BUILD_DEBUG
 # define Assert( cond ) RuntimeAssert( !!(cond) )
-# define AssertMsg( cond, msg ) do { std::string s = (msg); OutputDebugString( s.c_str() ); Assert( cond ); } while(false)
+# define AssertMsg( cond, msg ) Assert( cond )
+//# define AssertMsg( cond, msg ) do { String s = (msg); OutputDebugString( s.cstr() ); Assert( cond ); } while(false)
 #else
 # define Assert( cond )
 # define AssertMsg( cond, msg )
@@ -57,6 +58,14 @@ void RuntimeAssert(bool cond);
 
 #define ForceInline __forceinline
 
+// ----- WINAPI related stuff ----- 
+
+#ifdef BDE_GLOBAL_BUILD_DEBUG
+# define SafeCall( call ) Assert( !FAILED(call) )
+#else
+# define SafeCall( call ) call
+#endif
+
 // ----- Enum class ----- 
 
 #define EnumBegin( name, defval ) \
@@ -66,7 +75,9 @@ void RuntimeAssert(bool cond);
 		private: enumtype_ val_; \
 		public:  name() :val_( defval ) {} \
 		public:  name( enumtype_ val ) :val_(val) {} \
-		public:  operator enumtype_ () { return val_; } \
+		public:  operator enumtype_ () const { return val_; } \
+		public:  bool operator == (enumtype_ e) const { return e == val_; } \
+		public:  bool operator != (enumtype_ e) const { return e != val_; } \
 		public:  enum enumtype_ {
 #define EnumEnd(name) \
 		}; \
@@ -75,14 +86,22 @@ void RuntimeAssert(bool cond);
 // ----- Singleton class helper ----- 
 
 #define DECLARE_SINGLETON_HEADER(ClassName) \
-	private: static ClassName* _msInstance; \
+	private: static ClassName* msSingletonInstance; \
 	public:  static void createSingletonInstance(); \
 	public:  static void destroySingletonInstance(); \
 	public:  static ClassName* getInstance();
 
 #define DEFINE_SINGLETON_IMPL(ClassName) \
-	ClassName* ClassName::_msInstance = NULL; \
-	void ClassName::createSingletonInstance() { _msInstance = new ClassName(); } \
-	void ClassName::destroySingletonInstance() { delete _msInstance; _msInstance = NULL; } \
-	ClassName* ClassName::getInstance() { return _msInstance; }
+	ClassName* ClassName::msSingletonInstance = NULL; \
+	void ClassName::createSingletonInstance() { Assert(msSingletonInstance == NULL); msSingletonInstance = new ClassName(); } \
+	void ClassName::destroySingletonInstance() { Assert(msSingletonInstance); delete msSingletonInstance; msSingletonInstance = NULL; } \
+	ClassName* ClassName::getInstance() { Assert(msSingletonInstance); return msSingletonInstance; }
+
+// ----- Class default behaviour altering convinience macros ----- 
+
+#define DISABLE_COPY(ClassName) \
+	DISABLE_COPY_CONSTRUCT(ClassName); \
+	DISABLE_COPY_OPERATOR(ClassName);
+#define DISABLE_COPY_CONSTRUCT(ClassName) ClassName(const ClassName& other) = delete;
+#define DISABLE_COPY_OPERATOR(ClassName) ClassName& operator = (const ClassName& other) = delete;
 

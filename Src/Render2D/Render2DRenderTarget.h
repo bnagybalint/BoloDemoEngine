@@ -26,7 +26,7 @@ public:
 	void render();
 
 	void addRenderElement(Render2DRenderElement* element) { mRenderElements.append(element); }
-	void removeRenderElement(Render2DRenderElement* element) { mRenderElements.eRemoveUnordered(element); }
+	void removeRenderElement(Render2DRenderElement* element) { mRenderElements.eRemoveItemUnordered(element); }
 
 public:
 

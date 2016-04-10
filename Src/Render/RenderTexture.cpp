@@ -78,7 +78,7 @@ void RenderTexture::createTexture(uint32* dataRGBA32, unsigned int height, unsig
 	shaderResourceViewDesc.Format = textureDesc.Format;
 	shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
-	shaderResourceViewDesc.Texture2D.MipLevels = -1;
+	shaderResourceViewDesc.Texture2D.MipLevels = UINT(-1);
 	DX_SafeCall(dxdev->CreateShaderResourceView(mDxTexture, &shaderResourceViewDesc, &mDxTextureView));
 
 	fillTexture(dataRGBA32);

@@ -1,7 +1,9 @@
-#pragma once   
+#pragma once
 
-#include "AudioCommon.h"
-#include "AudioComponent.h"
+#include "Assist/Common.h"
+
+#include "Audio/AudioCommon.h"
+#include "Audio/AudioComponent.h"
 
 class AudioOutput : public AudioComponent
 {

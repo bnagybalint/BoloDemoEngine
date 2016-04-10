@@ -67,6 +67,48 @@
     <ClInclude Include="ObjectArray.h">
       <Filter>DataStructures</Filter>
     </ClInclude>
+    <ClInclude Include="Mutex.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadManager.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Typeid.h">
+      <Filter>Property</Filter>
+    </ClInclude>
+    <ClInclude Include="UIDGenerator.h">
+      <Filter>Property</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectUID.h">
+      <Filter>Property</Filter>
+    </ClInclude>
+    <ClInclude Include="Any.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuple.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Callback.h">
+      <Filter>Property</Filter>
+    </ClInclude>
+    <ClInclude Include="RingBuffer.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Signal.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Log</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
@@ -110,6 +152,27 @@
     <ClCompile Include="PropertyOwner.cpp">
       <Filter>Property</Filter>
     </ClCompile>
+    <ClCompile Include="Mutex.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadManager.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="UIDGenerator.cpp">
+      <Filter>Property</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectUID.cpp">
+      <Filter>Property</Filter>
+    </ClCompile>
+    <ClCompile Include="Signal.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">
@@ -132,6 +195,12 @@
     </Filter>
     <Filter Include="String">
       <UniqueIdentifier>{2e911859-a55d-40fd-aa5f-d03924b07af7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Threading">
+      <UniqueIdentifier>{f0db9898-13be-4dbb-ae85-7822953ebfe4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Log">
+      <UniqueIdentifier>{9d156cb6-718c-40af-8972-7062d5b43ea1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

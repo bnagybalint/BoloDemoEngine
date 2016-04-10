@@ -7,7 +7,7 @@ class Vector2
 {
 public:
 	Vector2() { }
-	Vector2(Coordtype _x, Coordtype _y) : x(_x), y(_y) {}
+	Vector2(Coordtype x0, Coordtype y0) : x(x0), y(y0) {}
 
 	virtual ~Vector2() {}
 

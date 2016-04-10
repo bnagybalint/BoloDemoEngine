@@ -1,0 +1,49 @@
+tool:
+https://www.websequencediagrams.com/
+
+
+
+title BoloDemoEngine threading
+
+main->+main: App.create()
+main->main: App.run() 
+main->+App: AppThread.start()
+main->-main: AppThread.join()
+
+App->App: initBasic()
+App->App: initSceneBL()
+App->+Editor: EditorThread.start()
+App->-App: waiting for: editor ready
+
+Editor->Editor: Qt.init()
+Editor->Editor: initPanels()
+Editor->+App: event: editor ready
+Editor->-Editor: enterEditorLoop()
+
+App->App: initRender()
+App->App: initAudio()
+App->-App: enterMainLoop()
+
+note over main,App,Editor: Fully initialized, App and GUI running
+
+Editor->+Editor: editorLoop()
+Editor->Editor: executeCallbacks()
+Editor->+Editor: Qt.processEvents()
+Editor->App: sendCommand()
+Editor->App: sendCommand()
+Editor->App: sendCommand()
+Editor->-Editor:
+Editor->-Editor: EditorThread.sleep()
+
+App->+App: mainLoop()
+App->+App: processCommands()
+App->Editor: sendEvent()
+App->Editor: sendEvent()
+App->-App:
+App->+App: manageScene()
+App->Editor: sendEvent()
+App->Editor: sendEvent()
+App->-App: AppThread.sleep()
+
+note over main,App,Editor: Exit requested
+note over main,App,Editor: TODO

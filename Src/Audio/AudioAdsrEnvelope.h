@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Assist/Common.h"
 #include "Assist/Array.h"
 
 #include "Audio/AudioComponent.h"
