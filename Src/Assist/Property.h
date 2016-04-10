@@ -27,8 +27,7 @@ protected:
 
 private: // uncopyable
 	PropertyBase();
-	PropertyBase(const PropertyBase& other);
-	PropertyBase& operator = (const PropertyBase& other);
+	DISABLE_COPY(PropertyBase);
 
 protected:
 

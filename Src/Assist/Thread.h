@@ -47,6 +47,7 @@ public:
 private:
 
 	Thread();
+	DISABLE_COPY(Thread);
 	~Thread();
 
 	// Primary loop for this thread that processes tasks one after the other.

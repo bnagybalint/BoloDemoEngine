@@ -97,3 +97,8 @@ void RuntimeAssert(bool cond);
 	void ClassName::destroySingletonInstance() { Assert(_msInstance); delete _msInstance; _msInstance = NULL; } \
 	ClassName* ClassName::getInstance() { Assert(_msInstance); return _msInstance; }
 
+#define DISABLE_COPY(ClassName) \
+	DISABLE_COPY_CONSTRUCT(ClassName); \
+	DISABLE_COPY_OPERATOR(ClassName);
+#define DISABLE_COPY_CONSTRUCT(ClassName) ClassName(const ClassName& other) = delete;
+#define DISABLE_COPY_OPERATOR(ClassName) ClassName& operator = (const ClassName& other) = delete;

@@ -16,6 +16,7 @@ public:
 private:
 
 	UIDGenerator();
+	DISABLE_COPY(UIDGenerator);
 	~UIDGenerator();
 
 private:

@@ -29,6 +29,7 @@ public:
 	} LogLevelEnum;
 
 	// constructors / destructor
+	DISABLE_COPY(Logger);
 	virtual ~Logger();
 
 	// logging functions

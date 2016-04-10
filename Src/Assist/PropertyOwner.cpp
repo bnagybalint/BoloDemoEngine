@@ -21,7 +21,6 @@ PropertyOwner::~PropertyOwner()
 {
 	// properties of derived classes will be destroyed by now
 	Assert(mProperties.isEmpty());
-
 	
 	mObjectUID = INVALID_UID;
 }

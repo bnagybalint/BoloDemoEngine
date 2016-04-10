@@ -12,6 +12,7 @@ class Mutex
 public:
 
 	Mutex();
+	DISABLE_COPY(Mutex);
 	~Mutex();
 
 	// Acquire lock. Blocks thread until lock is seized.

@@ -38,6 +38,7 @@ public:
 private:
 
 	ThreadManager();
+	DISABLE_COPY(ThreadManager);
 	~ThreadManager();
 
 private:

@@ -14,6 +14,7 @@ class Signal
 public:
 
 	Signal();
+	DISABLE_COPY(Signal);
 	~Signal();
 
 	// Blocks thread until a notify is called on the monitor.
