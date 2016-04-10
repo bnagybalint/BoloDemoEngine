@@ -50,8 +50,14 @@ RenderManager::~RenderManager()
 {
 }
 
-void RenderManager::initDx(HWND windowHandle, unsigned int windowWidth, unsigned int windowHeight)
+void RenderManager::initDx(HWND windowHandle)
 {
+	RECT rc;
+	GetWindowRect(windowHandle, &rc);
+
+	UINT windowWidth = rc.right - rc.left;
+	UINT windowHeight = rc.bottom - rc.top;
+
 #if BDE_RENDER_ENABLE_VSYNC
 	// Create a DirectX graphics interface factory.
 	IDXGIFactory* factory;
@@ -302,6 +308,10 @@ void RenderManager::renderOneFrame()
 
 void RenderManager::renderObjects()
 {
+	// TODO debug only, remove
+	if (!mActiveCamera)
+		return;
+
 	Assert(mActiveCamera);
 	Assert(mActiveViewport);
 
