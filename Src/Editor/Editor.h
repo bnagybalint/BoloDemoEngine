@@ -13,10 +13,11 @@
 #endif
 #include <windows.h>
 
-class MainWindow;
 class EventReactor;
 
 class QApplication;
+class MainWindow;
+class RenderWidget;
 
 class Editor
 {
@@ -38,6 +39,7 @@ public:
 	void requestEventCallback(CallbackBase* cb);
 
 	HWND getSceneEditorWindowHandle() const;
+	HWND getAudioEditorWindowHandle() const;
 	
 private:
 
@@ -62,5 +64,8 @@ private:
 	// Event reactor object that is used to decouple BL events 
 	// from the editor and execute them on the editor thread.
 	EventReactor* mEventReactor;
+
+	RenderWidget* mSceneEditorRenderWidget;
+	RenderWidget* mAudioEditorRenderWidget;
 };
 

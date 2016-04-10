@@ -4,14 +4,21 @@
 
 MainWindow::MainWindow(QWidget* parent)
 	: QMainWindow(parent)
-	, mSceneEditorWidget(NULL)
 {
 	ui.setupUi(this);
-
-	mSceneEditorWidget = new RenderWidget(ui.sceneEditorTab);
 }
 
 MainWindow::~MainWindow()
 {
-	delete mSceneEditorWidget; mSceneEditorWidget = NULL;
+	
+}
+
+void MainWindow::setSceneEditorRenderWidget(QWidget* widget)
+{
+	ui.sceneEditorTab->layout()->addWidget(widget);
+}
+
+void MainWindow::setAudioEditorRenderWidget(QWidget* widget)
+{
+	ui.audioEditorTab->layout()->addWidget(widget);
 }

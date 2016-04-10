@@ -81,6 +81,9 @@
              <property name="bottomMargin">
               <number>0</number>
              </property>
+             <item>
+              <layout class="QVBoxLayout" name="sceneEditorTab_layout"/>
+             </item>
             </layout>
            </widget>
            <widget class="QWidget" name="audioEditorTab">
@@ -100,6 +103,9 @@
              <property name="bottomMargin">
               <number>0</number>
              </property>
+             <item>
+              <layout class="QVBoxLayout" name="audioEditorTab_layout"/>
+             </item>
             </layout>
            </widget>
           </widget>
@@ -178,7 +184,7 @@
                    <x>0</x>
                    <y>0</y>
                    <width>298</width>
-                   <height>471</height>
+                   <height>445</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_4"/>
@@ -191,6 +197,140 @@
           </widget>
          </item>
         </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="mainWindow_timelineWidget" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>2</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="timelineWidget_addKeyPushButton">
+         <property name="maximumSize">
+          <size>
+           <width>23</width>
+           <height>23</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="timelineWidget_deleteKeyPushButton">
+         <property name="maximumSize">
+          <size>
+           <width>23</width>
+           <height>23</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QScrollBar" name="timelineWidget_timelineScrollbar">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>23</height>
+          </size>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Frame:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>23</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>50</width>
+           <height>16777215</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="timelineWidget_playPausePushButton">
+         <property name="maximumSize">
+          <size>
+           <width>23</width>
+           <height>23</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="timelineWidget_stopPushButton">
+         <property name="maximumSize">
+          <size>
+           <width>23</width>
+           <height>23</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="timelineWidget_rewindPushButton">
+         <property name="maximumSize">
+          <size>
+           <width>23</width>
+           <height>23</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

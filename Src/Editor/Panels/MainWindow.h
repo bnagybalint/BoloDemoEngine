@@ -20,11 +20,10 @@ public:
 	MainWindow(QWidget* parent = NULL);
 	~MainWindow();
 
-	RenderWidget* getSceneEditorRenderWidget() const { return mSceneEditorWidget; }
+	void setSceneEditorRenderWidget(QWidget* widget);
+	void setAudioEditorRenderWidget(QWidget* widget);
 
 private:
 
 	Ui::MainWindow ui;
-
-	RenderWidget* mSceneEditorWidget;
 };

@@ -15,8 +15,6 @@ class Application
 
 public:
 
-	Event<int> testCounterChanged;
-
 	Signal basicInitializedSignal;
 	Signal totalInitializedSignal;
 

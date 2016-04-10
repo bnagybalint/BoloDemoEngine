@@ -16,8 +16,12 @@ DEFINE_SINGLETON_IMPL(Editor);
 Editor::Editor()
 	: mQtApplication(NULL)
 	, mMainWindow(NULL)
+	, mSceneEditorRenderWidget(NULL)
+	, mAudioEditorRenderWidget(NULL)
+
 	, mEditorLock()
 	, mRequestedCallbacks()
+	, mEventReactor(NULL)
 {
 	mEventReactor = new EventReactor();
 }
@@ -34,6 +38,12 @@ void Editor::startEditor(int argc, char** argv)
 	LOGINFO("Creating Qt window");
 	mQtApplication = new QApplication(argc, argv);
 	mMainWindow = new MainWindow();
+
+	mSceneEditorRenderWidget = new RenderWidget();
+	mMainWindow->setSceneEditorRenderWidget(mSceneEditorRenderWidget);
+	
+	mAudioEditorRenderWidget = new RenderWidget();
+	mMainWindow->setAudioEditorRenderWidget(mAudioEditorRenderWidget);
 
 	mMainWindow->show();
 
@@ -87,5 +97,10 @@ void Editor::enterEditorMainLoop()
 
 HWND Editor::getSceneEditorWindowHandle() const
 {
-	return mMainWindow->getSceneEditorRenderWidget()->getNativeWindowHandle();
+	return mSceneEditorRenderWidget->getNativeWindowHandle();
+}
+
+HWND Editor::getAudioEditorWindowHandle() const
+{
+	return mAudioEditorRenderWidget->getNativeWindowHandle();
 }

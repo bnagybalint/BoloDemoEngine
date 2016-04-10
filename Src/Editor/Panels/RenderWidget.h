@@ -20,15 +20,16 @@ class RenderWidget : public QWidget
 
 public:
 
-	Event<int, int> renderAreaChangedEvent;
-
-public:
-
 	RenderWidget(QWidget* parent = NULL);
 	~RenderWidget();
 
 	HWND getNativeWindowHandle() const;
 
 	QPaintEngine* paintEngine() const override { return NULL; }
+
+protected:
+
+	virtual void resizeEvent(QResizeEvent* evt);
+	virtual void paintEvent(QPaintEvent* evt);
 };
 

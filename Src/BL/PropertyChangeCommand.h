@@ -5,7 +5,7 @@
 #include "Assist/Property.h"
 #include "Assist/String.h"
 
-#include "Model/Command.h"
+#include "BL/Command.h"
 
 template <class T>
 class PropertyChangeCommand : public Command

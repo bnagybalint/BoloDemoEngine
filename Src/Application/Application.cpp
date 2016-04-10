@@ -7,7 +7,9 @@
 
 #include "Editor/Editor.h"
 
-#include "Model/Command.h"
+#include "BL/Command.h"
+
+#include "Audio/AudioManager.h"
 
 #include "Render/RenderManager.h"
 
@@ -113,13 +115,20 @@ void Application::initializeScene()
 void Application::initializeRender()
 {
 	LOGINFO("Initializing graphics subsystem");
-	//Unimplemented();
+
+	Editor* editor = Editor::getInstance();
+
+	RenderManager::createSingletonInstance();
+	RenderManager* renderMgr = RenderManager::getInstance();
+	renderMgr->initDx(editor->getSceneEditorWindowHandle());
 }
 
 void Application::initializeAudio()
 {
 	LOGINFO("Initializing Audio subsystem");
-	//Unimplemented();
+// 	AudioManager::createSingletonInstance();
+// 	AudioManager* audioMgr = AudioManager::getInstance();
+// 	audioMgr->init();
 }
 
 int Application::enterMainLoop()
@@ -131,7 +140,9 @@ int Application::enterMainLoop()
 		processCommands();
 
 		// TODO step scene
-		// TODO render scene
+		
+		// Render 3D view
+		RenderManager::getInstance()->renderOneFrame();
 
 		// Sleep thread for a while...
 		ThreadManager::getInstance()->sleepCurrentThread(5);
