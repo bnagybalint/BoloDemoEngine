@@ -86,19 +86,22 @@ void RuntimeAssert(bool cond);
 // ----- Singleton class helper ----- 
 
 #define DECLARE_SINGLETON_HEADER(ClassName) \
-	private: static ClassName* _msInstance; \
+	private: static ClassName* msSingletonInstance; \
 	public:  static void createSingletonInstance(); \
 	public:  static void destroySingletonInstance(); \
 	public:  static ClassName* getInstance();
 
 #define DEFINE_SINGLETON_IMPL(ClassName) \
-	ClassName* ClassName::_msInstance = NULL; \
-	void ClassName::createSingletonInstance() { Assert(_msInstance == NULL); _msInstance = new ClassName(); } \
-	void ClassName::destroySingletonInstance() { Assert(_msInstance); delete _msInstance; _msInstance = NULL; } \
-	ClassName* ClassName::getInstance() { Assert(_msInstance); return _msInstance; }
+	ClassName* ClassName::msSingletonInstance = NULL; \
+	void ClassName::createSingletonInstance() { Assert(msSingletonInstance == NULL); msSingletonInstance = new ClassName(); } \
+	void ClassName::destroySingletonInstance() { Assert(msSingletonInstance); delete msSingletonInstance; msSingletonInstance = NULL; } \
+	ClassName* ClassName::getInstance() { Assert(msSingletonInstance); return msSingletonInstance; }
+
+// ----- Class default behaviour altering convinience macros ----- 
 
 #define DISABLE_COPY(ClassName) \
 	DISABLE_COPY_CONSTRUCT(ClassName); \
 	DISABLE_COPY_OPERATOR(ClassName);
 #define DISABLE_COPY_CONSTRUCT(ClassName) ClassName(const ClassName& other) = delete;
 #define DISABLE_COPY_OPERATOR(ClassName) ClassName& operator = (const ClassName& other) = delete;
+

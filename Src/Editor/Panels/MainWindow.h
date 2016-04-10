@@ -7,9 +7,6 @@
 
 #include <QMainWindow>
 
-// TODO debug
-#include "Assist/String.h"
-
 class RenderWidget;
 
 class QWidget;
@@ -24,11 +21,6 @@ public:
 	~MainWindow();
 
 	RenderWidget* getSceneEditorRenderWidget() const { return mSceneEditorWidget; }
-
-private:
-
-	// TODO debug
-	void debug_onPropertyChange(ObjectUID propOwnerUID, const String& propName);
 
 private:
 
