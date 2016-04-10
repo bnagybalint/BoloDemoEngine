@@ -3,8 +3,10 @@
 #include "Assist/ThreadManager.h"
 #include "Assist/Logger.h"
 
-#include "Panels/MainWindow.h"
-#include "Panels/RenderWidget.h" 
+#include "Editor/EventReactor.h"
+
+#include "Editor/Panels/MainWindow.h"
+#include "Editor/Panels/RenderWidget.h" 
 
 #include <QApplication>
 
@@ -17,10 +19,12 @@ Editor::Editor()
 	, mEditorLock()
 	, mRequestedCallbacks()
 {
+	mEventReactor = new EventReactor();
 }
 
 Editor::~Editor()
 {
+	delete mEventReactor; mEventReactor = NULL;
 }
 
 void Editor::startEditor(int argc, char** argv)
@@ -52,7 +56,14 @@ void Editor::stopEditor()
 void Editor::requestEventCallback(CallbackBase* cb)
 {
 	mEditorLock.lock();
-	mRequestedCallbacks.append(cb);
+	mEventReactor->registerEvent(cb);
+	mEditorLock.release();
+}
+
+void Editor::processEventCallbacks()
+{
+	mEditorLock.lock();
+	mEventReactor->processEvents();
 	mEditorLock.release();
 }
 
@@ -63,13 +74,7 @@ void Editor::enterEditorMainLoop()
 		// TODO check exit condition
 
 		// Invoke callbacks registered since last time.
-		mEditorLock.lock();
-		for (int i = 0; i < mRequestedCallbacks.size(); i++)
-		{
-			mRequestedCallbacks[i]->call();
-			delete mRequestedCallbacks[i]; mRequestedCallbacks[i] = NULL;
-		}
-		mEditorLock.release();
+		processEventCallbacks();
 
 		// Let Qt process window events.
 		mQtApplication->processEvents();
@@ -78,6 +83,7 @@ void Editor::enterEditorMainLoop()
 		ThreadManager::getInstance()->sleepCurrentThread(5);
 	}
 }
+
 
 HWND Editor::getSceneEditorWindowHandle() const
 {

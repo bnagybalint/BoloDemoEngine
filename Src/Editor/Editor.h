@@ -14,6 +14,7 @@
 #include <windows.h>
 
 class MainWindow;
+class EventReactor;
 
 class QApplication;
 
@@ -37,15 +38,18 @@ public:
 	void requestEventCallback(CallbackBase* cb);
 
 	HWND getSceneEditorWindowHandle() const;
-
+	
 private:
 
 	Editor();
+	DISABLE_COPY(Editor);
 	~Editor();
 
 private:
 
 	void enterEditorMainLoop();
+
+	void processEventCallbacks();
 
 private:
 
@@ -54,5 +58,9 @@ private:
 
 	Mutex mEditorLock;
 	Array<CallbackBase*> mRequestedCallbacks;
+
+	// Event reactor object that is used to decouple BL events 
+	// from the editor and execute them on the editor thread.
+	EventReactor* mEventReactor;
 };
 
