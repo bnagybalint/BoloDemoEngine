@@ -35,7 +35,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}</ProjectGuid>
-    <RootNamespace>Model</RootNamespace>
+    <RootNamespace>BL</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

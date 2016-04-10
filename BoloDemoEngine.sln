@@ -17,8 +17,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_UnitTests", "Src\Test_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Render2D", "Src\Render2D\Render2D.vcxproj", "{229F4ACC-11DD-4E2B-81C4-BBE6FA0032E8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Model", "Src\Model\Model.vcxproj", "{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_SolutionSettings", "Src\_SolutionSettings\_SolutionSettings.vcxproj", "{4BB00C20-9F30-4133-9F26-07CEFCC1465C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Editor", "Src\Editor\Editor.vcxproj", "{69748F80-CAF9-408C-B930-5E6C786EB0AC}"
@@ -30,6 +28,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_RenderTest", "Src\Test_RenderTest\Test_RenderTest.vcxproj", "{6AAE46E4-CFD5-4958-BB9B-0153F58F7230}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Application", "Src\Application\Application.vcxproj", "{49F0FF2C-4EFA-42F8-9972-635DB6EA7EAE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BL", "Src\BL\BL.vcxproj", "{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,12 +77,6 @@ Global
 		{229F4ACC-11DD-4E2B-81C4-BBE6FA0032E8}.DemoRelease|Win32.ActiveCfg = DemoRelease|Win32
 		{229F4ACC-11DD-4E2B-81C4-BBE6FA0032E8}.Release|Win32.ActiveCfg = Release|Win32
 		{229F4ACC-11DD-4E2B-81C4-BBE6FA0032E8}.Release|Win32.Build.0 = Release|Win32
-		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.Debug|Win32.ActiveCfg = Debug|Win32
-		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.Debug|Win32.Build.0 = Debug|Win32
-		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.DemoRelease|Win32.ActiveCfg = DemoRelease|Win32
-		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.DemoRelease|Win32.Build.0 = DemoRelease|Win32
-		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.Release|Win32.ActiveCfg = Release|Win32
-		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.Release|Win32.Build.0 = Release|Win32
 		{4BB00C20-9F30-4133-9F26-07CEFCC1465C}.Debug|Win32.ActiveCfg = Debug|Win32
 		{4BB00C20-9F30-4133-9F26-07CEFCC1465C}.Debug|Win32.Build.0 = Debug|Win32
 		{4BB00C20-9F30-4133-9F26-07CEFCC1465C}.DemoRelease|Win32.ActiveCfg = DemoRelease|Win32
@@ -115,6 +109,12 @@ Global
 		{49F0FF2C-4EFA-42F8-9972-635DB6EA7EAE}.DemoRelease|Win32.ActiveCfg = DemoRelease|Win32
 		{49F0FF2C-4EFA-42F8-9972-635DB6EA7EAE}.Release|Win32.ActiveCfg = Release|Win32
 		{49F0FF2C-4EFA-42F8-9972-635DB6EA7EAE}.Release|Win32.Build.0 = Release|Win32
+		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.Debug|Win32.Build.0 = Debug|Win32
+		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.DemoRelease|Win32.ActiveCfg = DemoRelease|Win32
+		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.DemoRelease|Win32.Build.0 = DemoRelease|Win32
+		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.Release|Win32.ActiveCfg = Release|Win32
+		{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
