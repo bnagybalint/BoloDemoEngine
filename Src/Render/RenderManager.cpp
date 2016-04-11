@@ -8,6 +8,9 @@
 #include "Render/RenderObject.h" 
 #include "Render/RenderLightSource.h"
 #include "Render/RenderBuffer.h"
+#include "Render/RenderMesh.h" 
+#include "Render/RenderShader.h"
+#include "Render/RenderMaterial.h"
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -66,7 +69,7 @@ void RenderManager::initDx(HWND windowHandle)
 	// Use the factory to create an adapter for the primary graphics interface (video card).
 	IDXGIAdapter* adapter;
 	DX_SafeCall(factory->EnumAdapters(0, &adapter));
-	
+
 	// Enumerate the primary adapter output (monitor).
 	IDXGIOutput* adapterOutput;
 	DX_SafeCall(adapter->EnumOutputs(0, &adapterOutput));
@@ -155,7 +158,7 @@ void RenderManager::initDx(HWND windowHandle)
 	deviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 	DX_SafeCall(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, deviceFlags, &featureLevel, 1, D3D11_SDK_VERSION, &swapChainDesc, &mDxSwapChain, &mDxDevice, NULL, &mDxDeviceContext));
-	
+
 	// Get the pointer to the back buffer.
 	ID3D11Texture2D* backBufferPtr;
 	DX_SafeCall(mDxSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBufferPtr));
@@ -213,7 +216,7 @@ void RenderManager::initDx(HWND windowHandle)
 
 	// Create the depth stencil state.
 	DX_SafeCall(mDxDevice->CreateDepthStencilState(&depthStencilDesc, &mDxDepthStencilState));
-	
+
 	// Set the depth stencil state.
 	mDxDeviceContext->OMSetDepthStencilState(mDxDepthStencilState, 1);
 
@@ -231,7 +234,7 @@ void RenderManager::initDx(HWND windowHandle)
 
 	// Bind the render target view and depth stencil buffer to the output render pipeline.
 	mDxDeviceContext->OMSetRenderTargets(1, &mDxRenderTargetView, mDxDepthStencilView);
-	
+
 	// Setup the raster description which will determine how and what polygons will be drawn.
 	D3D11_RASTERIZER_DESC rasterizerDesc;
 	rasterizerDesc.AntialiasedLineEnable = false;
@@ -251,17 +254,9 @@ void RenderManager::initDx(HWND windowHandle)
 	// Now set the rasterizer state.
 	mDxDeviceContext->RSSetState(mDxRasterizerState);
 
-	// TODO move it to RenderViewport class
-	// Setup the viewport for rendering.
-	D3D11_VIEWPORT viewport;
-	viewport.Width = (float)windowWidth;
-	viewport.Height = (float)windowHeight;
-	viewport.MinDepth = 0.0f;
-	viewport.MaxDepth = 1.0f;
-	viewport.TopLeftX = 0.0f;
-	viewport.TopLeftY = 0.0f;
-	// Create the viewport.
-	mDxDeviceContext->RSSetViewports(1, &viewport);
+	mDefaultViewport = RENDER_NEW(RenderViewport);
+	mDefaultViewport->setRectangle(0, 0, windowWidth, windowHeight);
+	setActiveViewport(mDefaultViewport);
 
 	mMatrixBuffer = RENDER_NEW(RenderConstantBuffer)();
 	mLightsBuffer = RENDER_NEW(RenderConstantBuffer)();
@@ -297,7 +292,7 @@ void RenderManager::renderOneFrame()
 	renderObjects();
 
 	// TODO add postProcess
-	
+
 	Assert(mDxSwapChain);
 #if BDE_RENDER_ENABLE_VSYNC
 	mDxSwapChain->Present(1, 0);
@@ -308,10 +303,6 @@ void RenderManager::renderOneFrame()
 
 void RenderManager::renderObjects()
 {
-	// TODO debug only, remove
-	if (!mActiveCamera)
-		return;
-
 	Assert(mActiveCamera);
 	Assert(mActiveViewport);
 
@@ -343,9 +334,9 @@ void RenderManager::setupMatrices(const DirectX::XMMATRIX& worldMx, const Direct
 	DirectX::XMMATRIX normalMx = DirectX::XMMatrixInverse(NULL, DirectX::XMMatrixTranspose(modelViewMx));
 
 	MatrixBufferType buf;
-	buf.mxWorld  = XMMatrixTranspose(worldMx);
-	buf.mxView   = XMMatrixTranspose(viewMx);
-	buf.mxProj   = XMMatrixTranspose(projMx);
+	buf.mxWorld = XMMatrixTranspose(worldMx);
+	buf.mxView = XMMatrixTranspose(viewMx);
+	buf.mxProj = XMMatrixTranspose(projMx);
 	buf.mxNormal = XMMatrixTranspose(normalMx);
 
 	mMatrixBuffer->setData(&buf, sizeof(MatrixBufferType));
@@ -363,9 +354,9 @@ void RenderManager::setupLights()
 	{
 		if (lightIdx < mLights.size())
 		{
-			buf[lightIdx].lightPosition  = mLights[lightIdx]->getDxPosition();
+			buf[lightIdx].lightPosition = mLights[lightIdx]->getDxPosition();
 			buf[lightIdx].lightDirection = mLights[lightIdx]->getDxDirection();
-			buf[lightIdx].lightColor     = mLights[lightIdx]->getDxColor();
+			buf[lightIdx].lightColor = mLights[lightIdx]->getDxColor();
 		}
 		else
 		{
@@ -397,3 +388,22 @@ void RenderManager::setActiveViewport(RenderViewport* viewport)
 	mActiveViewport = viewport;
 }
 
+RenderVertexBuffer* RenderManager::createVertexBuffer() { return RENDER_NEW(RenderVertexBuffer); }
+RenderIndexBuffer* RenderManager::createIndexBuffer() { return RENDER_NEW(RenderIndexBuffer); }
+RenderMesh* RenderManager::createMesh(RenderIndexBuffer* indexBuf, RenderVertexBuffer* vertexBuf) { return RENDER_NEW(RenderMesh)(indexBuf, vertexBuf); }
+RenderShader* RenderManager::createShader() { return RENDER_NEW(RenderShader); }
+RenderMaterial* RenderManager::createMaterial(RenderShader* shader) { return RENDER_NEW(RenderMaterial)(shader); }
+RenderObject* RenderManager::createObject(RenderMesh* mesh, RenderMaterial* mat) { return RENDER_NEW(RenderObject)(mesh, mat); }
+RenderLightSource* RenderManager::createLightSource() { return RENDER_NEW(RenderLightSource); }
+RenderCamera* RenderManager::createCamera() { return RENDER_NEW(RenderCamera); }
+RenderViewport* RenderManager::createViewport() { return RENDER_NEW(RenderViewport); }
+
+void RenderManager::destroyVertexBuffer(RenderVertexBuffer*vb) { RENDER_DELETE(vb, RenderVertexBuffer); }
+void RenderManager::destroyIndexBuffer(RenderIndexBuffer* ib) { RENDER_DELETE(ib, RenderIndexBuffer); }
+void RenderManager::destroyMesh(RenderMesh* mesh) { RENDER_DELETE(mesh, RenderMesh); }
+void RenderManager::destroyShader(RenderShader* shader) { RENDER_DELETE(shader, RenderShader); }
+void RenderManager::destroyMaterial(RenderMaterial* mat) { RENDER_DELETE(mat, RenderMaterial); }
+void RenderManager::destroyObject(RenderObject* obj) { RENDER_DELETE(obj, RenderObject); }
+void RenderManager::destroyLightSource(RenderLightSource* light) { RENDER_DELETE(light, RenderLightSource); }
+void RenderManager::destroyCamera(RenderCamera* cam) { RENDER_DELETE(cam, RenderCamera); }
+void RenderManager::destroyViewport(RenderViewport* vp) { RENDER_DELETE(vp, RenderViewport); }

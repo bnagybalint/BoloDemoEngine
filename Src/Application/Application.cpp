@@ -7,11 +7,12 @@
 
 #include "Editor/Editor.h"
 
-#include "BL/Command.h"
-
 #include "Audio/AudioManager.h"
 
 #include "Render/RenderManager.h"
+
+#include "BL/Scene.h"
+#include "BL/Command.h"
 
 DEFINE_SINGLETON_IMPL(Application);
 
@@ -22,6 +23,7 @@ Application::Application()
 	, mEditorThread(NULL)
 	, mApplicationLock()
 	, mCommands()
+	, mScene(NULL)
 {
 }
 
@@ -109,7 +111,8 @@ void Application::initializeBasic()
 void Application::initializeScene()
 {
 	LOGINFO("Initializing scene");
-	//Unimplemented();
+	
+	mScene = new Scene();
 }
 
 void Application::initializeRender()

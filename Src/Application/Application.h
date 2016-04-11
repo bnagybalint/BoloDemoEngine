@@ -8,6 +8,7 @@
 
 class Command;
 class Thread;
+class Scene;
 
 class Application
 {
@@ -61,5 +62,7 @@ private:
 
 	Mutex mApplicationLock;
 	Array<Command*> mCommands;
+
+	Scene* mScene;
 };
 

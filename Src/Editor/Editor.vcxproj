@@ -79,7 +79,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <Lib>
       <AdditionalDependencies>
@@ -103,7 +103,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <Lib>
       <AdditionalDependencies>

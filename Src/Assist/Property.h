@@ -18,7 +18,7 @@ public:
 	const String& getName() const { return mName; }
 	PropertyOwner* getOwner() const { return mOwner; }
 
-	virtual TypeID getType() const;
+	virtual TypeID getType() const = 0 { return INVALID_TYPEID; };
 
 protected:
 

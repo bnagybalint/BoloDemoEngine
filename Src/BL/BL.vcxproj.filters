@@ -7,6 +7,12 @@
     <Filter Include="Commands">
       <UniqueIdentifier>{df921acc-dfa7-4d31-8dfc-754fb139c57e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls">
+      <UniqueIdentifier>{922b540d-1a73-45e4-b168-1e81e543f757}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{ab993131-3baa-46dd-9356-3de345980cfc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModelSynthComponent.h" />
@@ -19,6 +25,12 @@
     <ClInclude Include="PropertyChangeCommand.h">
       <Filter>Commands</Filter>
     </ClInclude>
+    <ClInclude Include="DisplayCamera.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModelSynthComponent.cpp" />
@@ -27,6 +39,12 @@
     </ClCompile>
     <ClCompile Include="Command.cpp">
       <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayCamera.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
