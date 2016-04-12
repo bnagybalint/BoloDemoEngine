@@ -11,6 +11,8 @@
 
 #include "Render/RenderManager.h"
 
+#include "Graphics/GraphicsManager.h"
+
 #include "BL/Scene.h"
 #include "BL/Command.h"
 
@@ -121,9 +123,19 @@ void Application::initializeRender()
 
 	Editor* editor = Editor::getInstance();
 
+	// 3D Render
+
 	RenderManager::createSingletonInstance();
 	RenderManager* renderMgr = RenderManager::getInstance();
 	renderMgr->initDx(editor->getSceneEditorWindowHandle());
+
+	// 2D Render
+
+	GraphicsManager::createSingletonInstance();
+	GraphicsManager* graphicsMgr = GraphicsManager::getInstance();
+	graphicsMgr->init();
+
+	graphicsMgr->createCanvas("AudioEditorCanvas", editor->getAudioEditorWindowHandle());
 }
 
 void Application::initializeAudio()
@@ -142,10 +154,11 @@ int Application::enterMainLoop()
 		
 		processCommands();
 
-		// TODO step scene
-		
 		// Render 3D view
 		RenderManager::getInstance()->renderOneFrame();
+
+		// Render 2D views
+		GraphicsManager::getInstance()->renderOneFrame();
 
 		// Sleep thread for a while...
 		ThreadManager::getInstance()->sleepCurrentThread(5);
