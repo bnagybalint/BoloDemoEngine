@@ -17,9 +17,9 @@
 #include "Audio/AudioTrack.h"
 #include "Audio/AudioAdsrEnvelope.h"
 
-#include "Render2D/Render2DManager.h"
-#include "Render2D/Render2DRenderTarget.h"
-#include "Render2D/Render2DRenderElement.h"
+#include "Graphics/GraphicsManager.h"
+#include "Graphics/GraphicsCanvas.h"
+#include "Graphics/GraphicsElement.h"
 
 struct AudioEnv {
 	AudioOscillator*    osc;
@@ -111,33 +111,6 @@ void initSceneAudio()
 	AudioManager::getInstance()->playTrack(gTrack);
 }
 
-class BdeAudioComponentRender : public Render2DRenderElement
-{
-public:
-	void render(Render2DRenderTarget* rt)
-	{
-		mPosition = Vector2(300.5, 300.5);
-		float w = 200.0f;
-		float h = 60.0f;
-		float lineWidth = 1.0f;
-		Vector2 v0 = mPosition - Vector2(w / 2.0f, h / 2.0f);
-		Vector2 v1 = mPosition + Vector2(w / 2.0f, h / 2.0f);
-		rt->setFillColor(Color(0.8f, 0.8f, 0.8f, 1.0f));
-		rt->drawRectangle(v0, v1, lineWidth);
-	}
-private:
-	Vector2 mPosition;
-};
-Render2DRenderTarget* renderTarget2D = NULL;
-Render2DRenderElement* renderElement = NULL;
-void initSceneD2D()
-{
-	renderTarget2D = new Render2DRenderTarget(WindowManager::getInstance()->getMainWindowHandle());
-
-	renderElement = new BdeAudioComponentRender();
-	renderTarget2D->addRenderElement(renderElement);
-}
-
 int main()
 {
 	// ----- INITIALIZE ENVIRONMENT -----
@@ -145,12 +118,12 @@ int main()
 	WindowManager  ::createSingletonInstance();
 	RenderManager  ::createSingletonInstance();
 	AudioManager   ::createSingletonInstance();
-	Render2DManager::createSingletonInstance();
+	GraphicsManager::createSingletonInstance();
 
 	WindowManager*   windowMgr   = WindowManager::getInstance();
 	RenderManager*   renderMgr   = RenderManager::getInstance();
 	AudioManager*    audioMgr    = AudioManager::getInstance();
-	Render2DManager* render2dMgr = Render2DManager::getInstance();
+	GraphicsManager* graphicsMgr = GraphicsManager::getInstance();
 
 	const int windowWidth = 800;
 	const int windowHeight = 600;
@@ -158,15 +131,12 @@ int main()
 	//renderMgr->initDx(windowMgr->getMainWindowHandle());
 	//audioMgr->init(windowMgr->getMainWindowHandle());
 
-	render2dMgr->init();
+	graphicsMgr->init();
 
 	// ----- PLAYGROUND -----
 
 
 // 	initSceneAudio();
-
-	initSceneD2D();
-	
 
 	// ----- ENTER MAIN LOOP -----
 #if BDE_GLOBAL_FRAME_LIMITER_FPS > 0
@@ -187,7 +157,6 @@ int main()
 		// ----- FRAME START -----
 
 		// TODO scene
-		renderTarget2D->render();
 
 		// ----- FRAME END -----
 
