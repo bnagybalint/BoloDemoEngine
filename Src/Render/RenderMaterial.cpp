@@ -60,8 +60,8 @@ void RenderMaterial::setupForRendering()
 	mShader->setupForRendering();
 	mMaterialBuffer->bind(RenderManager::ConstantBufferSlot::MaterialBufferSlot);
 
-	Assert(mDiffuseTexture); // currently a must
-	mDiffuseTexture->bindToShader(RenderManager::ShaderResourceSlot::DiffuseColorTextureSlot);
+// 	Assert(mDiffuseTexture); // currently a must
+// 	mDiffuseTexture->bindToShader(RenderManager::ShaderResourceSlot::DiffuseColorTextureSlot);
 }
 
 void RenderMaterial::updateMaterialBufferData()

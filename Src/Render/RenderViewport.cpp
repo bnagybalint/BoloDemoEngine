@@ -38,10 +38,13 @@ void RenderViewport::setCamera(RenderCamera* camera)
 
 void RenderViewport::setRectangle(unsigned int minx, unsigned int miny, unsigned int width, unsigned int height)
 {
+	mWidth = width;
+	mHeight = height;
+
 	// Setup the viewport for rendering.
 	D3D11_VIEWPORT viewport;
-	viewport.Width = (float)width;
-	viewport.Height = (float)height;
+	viewport.Width = (float)mWidth;
+	viewport.Height = (float)mHeight;
 	viewport.MinDepth = 0.0f;
 	viewport.MaxDepth = 1.0f;
 	viewport.TopLeftX = (float)minx;
@@ -56,5 +59,6 @@ void RenderViewport::setRectangle(unsigned int minx, unsigned int miny, unsigned
 
 void RenderViewport::calculateCachedProjMatrix()
 {
+	Assert(mWidth > 0 && mHeight > 0);
 	mCachedDxProjMatrix = DirectX::XMMatrixPerspectiveFovLH(Math::Deg2Rad(mFovyDeg), float(mWidth) / float(mHeight), mNearDistance, mFarDistance);
 }

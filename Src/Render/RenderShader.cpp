@@ -73,7 +73,7 @@ void RenderShader::initialize(const char* vertexShaderSource, const char* pixelS
 
 #if BDE_RENDER_DX_DEBUG
 	if (FAILED(hr))
-		AssertMsg(false, std::string((unsigned char*)errorMessage->GetBufferPointer(), (unsigned char*)errorMessage->GetBufferPointer() + errorMessage->GetBufferSize()));
+		AssertMsg(false, std::string((unsigned char*)errorMessage->GetBufferPointer(), (unsigned char*)errorMessage->GetBufferPointer() + errorMessage->GetBufferSize()).c_str());
 #endif
 
 	// compile PS
@@ -100,7 +100,7 @@ void RenderShader::initialize(const char* vertexShaderSource, const char* pixelS
 
 #if BDE_RENDER_DX_DEBUG
 	if (FAILED(hr))
-		AssertMsg(false, std::string((unsigned char*)errorMessage->GetBufferPointer(), (unsigned char*)errorMessage->GetBufferPointer() + errorMessage->GetBufferSize()));
+		AssertMsg(false, std::string((unsigned char*)errorMessage->GetBufferPointer(), (unsigned char*)errorMessage->GetBufferPointer() + errorMessage->GetBufferSize()).c_str());
 #endif
 
 	DX_GetDevice(dxdev);

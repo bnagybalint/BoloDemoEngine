@@ -31,6 +31,9 @@
 // - BDE_RENDER_DX_DEBUG                     -> enable DirectX specific debugging
 // - BDE_RENDER_ENABLE_VSYNC                 -> enable vertical sync
 // - BDE_RENDER_ENABLE_FULLSCREEN            -> enable fullscreen mode (should be enabled for demo only)
+// 
+// BL:
+// - BDE_BL_ARRAY_PREALLOCATION              -> enable preallocation for array operations (like geometry modifiers) for performance reasons
 
 #if defined(BDE_GLOBAL_BUILD_DEBUG)
 // ----- DEBUG settings -----
@@ -45,6 +48,7 @@
 # define BDE_RENDER_ENABLE_VSYNC                 0
 # define BDE_RENDER_ENABLE_FULLSCREEN            0
 # define BDE_RENDER_GET_ADAPTER_DATA             1
+# define BDE_BL_ARRAY_PREALLOCATION              1
 
 #elif defined(BDE_GLOBAL_BUILD_RELEASE)
 // ----- RELEASE settings -----
@@ -59,6 +63,7 @@
 # define BDE_RENDER_ENABLE_VSYNC                 1
 # define BDE_RENDER_ENABLE_FULLSCREEN            0
 # define BDE_RENDER_GET_ADAPTER_DATA             0
+# define BDE_BL_ARRAY_PREALLOCATION              1
 
 #elif defined(BDE_GLOBAL_BUILD_DEMO)
 // ----- DEMO settings -----
@@ -73,5 +78,6 @@
 # define BDE_RENDER_ENABLE_VSYNC                 0
 # define BDE_RENDER_ENABLE_FULLSCREEN            0 
 # define BDE_RENDER_GET_ADAPTER_DATA             0
+# define BDE_BL_ARRAY_PREALLOCATION              0
 
 #endif

@@ -36,8 +36,8 @@ typedef uint8 ubyte;
 void RuntimeAssert(bool cond);
 #ifdef BDE_GLOBAL_BUILD_DEBUG
 # define Assert( cond ) RuntimeAssert( !!(cond) )
-# define AssertMsg( cond, msg ) Assert( cond )
-//# define AssertMsg( cond, msg ) do { String s = (msg); OutputDebugString( s.cstr() ); Assert( cond ); } while(false)
+//# define AssertMsg( cond, msg ) Assert( cond )
+# define AssertMsg( cond, msg ) do { OutputDebugString( msg ); Assert( cond ); } while(false)
 #else
 # define Assert( cond )
 # define AssertMsg( cond, msg )
