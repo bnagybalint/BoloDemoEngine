@@ -23,6 +23,7 @@ public:
 	const T* data() const { return mData; }
 	T* data() { return mData; }
 	int size() const { return mSize; }
+	bool isEmpty() const { return mSize == 0; }
 
 	const T& operator[] (int idx) const;
 	T& operator[] (int idx);
@@ -31,6 +32,7 @@ public:
 public:
 	// Extended functionality
 	int  eFind(const T& elem) const;
+	bool eContains(const T& elem) const;
 	void eSwap(int i, int j);
 	bool eRemove(const T& elem);
 	bool eRemoveUnordered(const T& elem);
@@ -138,6 +140,11 @@ int ObjectArray<T>::eFind(const T& elem) const
 		if (mData[i] == elem)
 			return i;
 	return -1;
+}
+template <class T>
+bool ObjectArray<T>::eContains(const T& elem) const
+{
+	return eFind(elem) > 0;
 }
 template <class T>
 void ObjectArray<T>::eSwap(int i, int j)
