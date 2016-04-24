@@ -173,6 +173,9 @@
     <ClCompile Include="Logger.cpp">
       <Filter>Log</Filter>
     </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">

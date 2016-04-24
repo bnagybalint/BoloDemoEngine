@@ -6,46 +6,32 @@
 class Vector2
 {
 public:
-	Vector2() { }
-	Vector2(Coordtype x0, Coordtype y0) : x(x0), y(y0) {}
 
-	virtual ~Vector2() {}
+	// special vectors
+	static const Vector2 UNIT_X;
+	static const Vector2 UNIT_Y;
+	static const Vector2 UNIT_NEG_X;
+	static const Vector2 UNIT_NEG_Y;
+	static const Vector2 ZERO;
+	static const Vector2 UNIT_SCALE;
 
-	Vector2& operator=(const Vector2& theOther) {
-		x = theOther.x;
-		y = theOther.y;
+public:
 
-		return *this;
-	}
+	Vector2();
+	Vector2(Coordtype x0, Coordtype y0);
 
-	Vector2 operator+(const Vector2& theOther) const {
-		return Vector2(x + theOther.x, y + theOther.y);
-	}
+	virtual ~Vector2();
 
-	Vector2 operator-(const Vector2& theOther) const {
-		return Vector2(x - theOther.x, y - theOther.y);
-	}
+	Vector2& operator = (const Vector2& theOther);
+	Vector2 operator - () const;
+	Vector2 operator + (const Vector2& theOther) const;
+	Vector2 operator - (const Vector2& theOther) const;
+	Vector2 operator / (Coordtype f) const;
+	Vector2 operator * (Coordtype f) const;
+	Coordtype operator * (const Vector2& theOther) const;
+	bool operator == (const Vector2& theOther) const;
 
-	Vector2 operator/(Coordtype f) const {
-		return Vector2(x / f, y / f);
-	}
-
-	Vector2 operator*(Coordtype f) const {
-		return Vector2(x * f, y * f);
-	}
-
-	Coordtype operator*(const Vector2& theOther) const {
-		return ((x * theOther.x) + (y * theOther.y));
-	}
-
-	bool operator==(const Vector2& theOther) const {
-		return x == theOther.x && y == theOther.y;
-	}
-
-	void normalize() {
-		Coordtype len = Math::Sqrt(x * x + y * y);
-		*this = *this / len;
-	}
+	void normalize();
 
 public:
 	Coordtype x;
