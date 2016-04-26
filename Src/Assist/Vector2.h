@@ -33,6 +33,8 @@ public:
 
 	void normalize();
 
+	Vector2 rotated(float angleRad) const;
+
 public:
 	Coordtype x;
 	Coordtype y;

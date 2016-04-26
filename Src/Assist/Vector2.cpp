@@ -70,3 +70,11 @@ void Vector2::normalize()
 	Coordtype len = Math::Sqrt(x * x + y * y);
 	*this = *this / len;
 }
+
+Vector2 Vector2::rotated(float angleRad) const
+{
+	float ca = Math::Cos(angleRad);
+	float sa = Math::Sin(angleRad);
+
+	return Vector2(x*ca - y*sa, x*sa + y*ca);
+}
