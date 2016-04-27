@@ -4,12 +4,6 @@
     <ClInclude Include="GraphicsManager.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicsElement.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsElementContext.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="GraphicsCommon.h" />
     <ClInclude Include="GraphicsConverter.h">
       <Filter>Util</Filter>
@@ -20,14 +14,20 @@
     <ClInclude Include="GraphicsCanvas.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicsRectangle.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsNode.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsScene.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsText.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GraphicsElement.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsElementContext.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="GraphicsManager.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
@@ -38,6 +38,18 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsCanvas.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsRectangle.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsNode.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsScene.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsText.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>

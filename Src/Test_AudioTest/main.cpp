@@ -19,7 +19,6 @@
 
 #include "Graphics/GraphicsManager.h"
 #include "Graphics/GraphicsCanvas.h"
-#include "Graphics/GraphicsElement.h"
 
 struct AudioEnv {
 	AudioOscillator*    osc;

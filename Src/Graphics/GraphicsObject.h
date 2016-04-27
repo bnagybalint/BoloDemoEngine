@@ -3,36 +3,34 @@
 #include "Assist/Common.h"
 #include "Assist/Array.h"
 
-class GraphicsElement;
-class GraphicsElementContext;
 class GraphicsCanvas;
 
 class GraphicsObject
 {
-private:
-
-	friend class GraphicsCanvas;
-
 public:
 
-	void draw();
-
-	GraphicsElementContext* getContext() { return mContext; }
-
-private:
-
-	GraphicsObject(GraphicsCanvas* canvas);
+	GraphicsObject();
 	DISABLE_COPY(GraphicsObject);
 	virtual ~GraphicsObject();
 
+	void draw(GraphicsCanvas* target);
+
+	// TODO getset Position -> local, relative to node
+	// TODO getset Rotation -> local, relative to node
+
 private:
 
-	void sortElements();
+	virtual void drawImpl(GraphicsCanvas* target) = 0;
+
+	// called first time the object is drawn on a canvas
+	// purpose: create device-dependent resources for the object
+	virtual void createResourcesImpl(GraphicsCanvas* target) = 0;
+	virtual void destroyResourcesImpl(GraphicsCanvas* target) = 0;
 
 private:
 
-	GraphicsCanvas*         mCanvas;
-	GraphicsElementContext* mContext;
-	Array<GraphicsElement*> mElements;
+	// TODO this solution is not nice, should be able to switch 
+	// between canvases real quick, without destroying-and-creating resources.
+	GraphicsCanvas* mCurrectCanvas;
 };
 

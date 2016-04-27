@@ -1,7 +1,5 @@
 #include "GraphicsCanvas.h"
 
-#include "Graphics/GraphicsConverter.h"
-
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
@@ -11,14 +9,18 @@
 
 #include "Graphics/GraphicsManager.h"
 #include "Graphics/GraphicsObject.h"
+#include "Graphics/GraphicsConverter.h"
+#include "Graphics/GraphicsScene.h"
 
 GraphicsCanvas::GraphicsCanvas(const String& name, HWND parentWindowHandle)
 	: mName(name)
 	, mWindowHandle(parentWindowHandle)
 	, mRenderTarget(NULL)
-	, mClearColor(Color::WHITE)
-	, mObjectList()
-	, mObjectListDirty(false)
+	, mViewportDimensions(Vector2::ZERO)
+	, mViewCenter(Vector2::ZERO)
+	, mZoomFactor(1.0f)
+	//, mClearColor(Color::WHITE)
+	, mClearColor(Color(0.0f,1.0f,1.0f)) // TODO
 {
 }
 
@@ -28,6 +30,20 @@ GraphicsCanvas::~GraphicsCanvas()
 		destroyDeviceResources();
 }
 
+void GraphicsCanvas::setViewTransform(const Vector2& center, float zoomFactor)
+{
+	mViewCenter = center;
+	mZoomFactor = zoomFactor;
+	updateRenderTargetTransform();
+}
+
+void GraphicsCanvas::setModelTransform(const Vector2& translation, float rotation)
+{
+	mModelTranslation = translation;
+	mModelRotation = rotation;
+	updateRenderTargetTransform();
+}
+
 void GraphicsCanvas::draw()
 {
 	if (!mRenderTarget)
@@ -35,11 +51,12 @@ void GraphicsCanvas::draw()
 
 	Assert(mRenderTarget);
 	mRenderTarget->BeginDraw();
-	mRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 	mRenderTarget->Clear(GraphicsConverter::convertToD2D(mClearColor));
 
-	sortObjects();
-	drawObjects();
+	updateRenderTargetTransform();
+
+	Assert(mScene);
+	mScene->draw(this);
 
 	HRESULT hr = mRenderTarget->EndDraw();
 
@@ -52,32 +69,13 @@ void GraphicsCanvas::draw()
 	SafeCall(hr);
 }
 
-void GraphicsCanvas::drawObjects()
-{
-	if (mObjectListDirty)
-	{
-		sortObjects();
-		mObjectListDirty = false;
-	}
-
-	for (int i = 0; i < mObjectList.size(); i++)
-	{
-		GraphicsObject* obj = mObjectList[i];
-		obj->draw();
-	}
-}
-
-void GraphicsCanvas::sortObjects()
-{
-	// TODO
-}
-
 void GraphicsCanvas::createDeviceResources()
 {
 	RECT rc;
 	GetClientRect(mWindowHandle, &rc);
 
 	D2D1_SIZE_U size = D2D1::SizeU(rc.right - rc.left, rc.bottom - rc.top);
+	mViewportDimensions = Vector2(float(size.width), float(size.height));
 
 	// Create render target
 	ID2D1Factory* factory = GraphicsManager::getInstance()->getD2DFactory();
@@ -90,17 +88,12 @@ void GraphicsCanvas::destroyDeviceResources()
 	mRenderTarget->Release(); mRenderTarget = NULL;
 }
 
-GraphicsObject* GraphicsCanvas::createGraphicsObject()
+void GraphicsCanvas::updateRenderTargetTransform()
 {
-	GraphicsObject* go = new GraphicsObject(this);
-	mObjectList.append(go);
-	mObjectListDirty = true;
-	return go;
-}
+	D2D1_MATRIX_3X2_F mx1 = GraphicsConverter::createTransformD2D(-mViewCenter, 0.0f, mZoomFactor);
+	D2D1_MATRIX_3X2_F mx2 = GraphicsConverter::createTransformD2D(mViewportDimensions * 0.5f, 0.0f, 1.0f);
+	D2D1_MATRIX_3X2_F t_view = mx1 * mx2;
+	D2D1_MATRIX_3X2_F t_model = GraphicsConverter::createTransformD2D(mModelTranslation, Math::Rad2Deg(mModelRotation), 1.0f);
 
-void GraphicsCanvas::destroyGraphicsObject(GraphicsObject* obj)
-{
-	mObjectList.eRemoveItemUnordered(obj);
-	mObjectListDirty = true;
-	delete obj; obj = NULL;
+	mRenderTarget->SetTransform(t_view * t_model);
 }

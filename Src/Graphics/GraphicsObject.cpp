@@ -1,32 +1,27 @@
 #include "GraphicsObject.h"
 
-#include "Graphics/GraphicsElementContext.h"
-#include "Graphics/GraphicsElement.h"
+#include "Graphics/GraphicsCanvas.h"
 
 
-GraphicsObject::GraphicsObject(GraphicsCanvas* canvas)
-	: mCanvas(canvas)
-	, mContext(NULL)
-	, mElements()
+GraphicsObject::GraphicsObject()
+	: mCurrectCanvas(NULL)
 {
-	mContext = new GraphicsElementContext(mCanvas);
 }
 
 GraphicsObject::~GraphicsObject()
 {
-	delete mContext; mContext = NULL;
 }
 
-void GraphicsObject::draw()
+void GraphicsObject::draw(GraphicsCanvas* target)
 {
-	for (int i = 0; i < mElements.size(); i++)
+	if (mCurrectCanvas != target)
 	{
-		GraphicsElement* element = mElements[i];
-		element->drawElement(mContext);
-	}
-}
+		if (mCurrectCanvas)
+			destroyResourcesImpl(target);
 
-void GraphicsObject::sortElements()
-{
-	Unimplemented();
+		createResourcesImpl(target);
+		mCurrectCanvas = target;
+	}
+	
+	drawImpl(mCurrectCanvas);
 }

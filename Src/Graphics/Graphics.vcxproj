@@ -24,20 +24,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsCanvas.h" />
-    <ClInclude Include="GraphicsElement.h" />
-    <ClInclude Include="GraphicsElementContext.h" />
     <ClInclude Include="GraphicsManager.h" />
     <ClInclude Include="GraphicsCommon.h" />
     <ClInclude Include="GraphicsConverter.h" />
+    <ClInclude Include="GraphicsNode.h" />
     <ClInclude Include="GraphicsObject.h" />
+    <ClInclude Include="GraphicsRectangle.h" />
+    <ClInclude Include="GraphicsScene.h" />
+    <ClInclude Include="GraphicsText.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsCanvas.cpp" />
-    <ClCompile Include="GraphicsElement.cpp" />
-    <ClCompile Include="GraphicsElementContext.cpp" />
     <ClCompile Include="GraphicsManager.cpp" />
     <ClCompile Include="GraphicsConverter.cpp" />
+    <ClCompile Include="GraphicsNode.cpp" />
     <ClCompile Include="GraphicsObject.cpp" />
+    <ClCompile Include="GraphicsRectangle.cpp" />
+    <ClCompile Include="GraphicsScene.cpp" />
+    <ClCompile Include="GraphicsText.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{229F4ACC-11DD-4E2B-81C4-BBE6FA0032E8}</ProjectGuid>
@@ -99,7 +103,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\Src\</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PreprocessorDefinitions>BUILD_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;BUILD_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -121,7 +125,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\Src\</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
-      <PreprocessorDefinitions>BUILD_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;BUILD_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -152,7 +156,7 @@
       <ExceptionHandling>false</ExceptionHandling>
       <StringPooling>true</StringPooling>
       <BufferSecurityCheck>false</BufferSecurityCheck>
-      <PreprocessorDefinitions>BUILD_DEMO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;BUILD_DEMO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
