@@ -4,6 +4,8 @@
 
 #include "BL/DisplayCamera.h"
 
+class SceneObject;
+
 class Scene : public PropertyOwner
 {
 public:
@@ -15,5 +17,7 @@ public:
 private:
 
 	DisplayCamera* mDisplayCamera;
+
+	Array<SceneObject*> mSceneObjects;
 };
 

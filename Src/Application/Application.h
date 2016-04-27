@@ -9,7 +9,10 @@
 class Command;
 class Thread;
 class Scene;
+class Synth;
 
+// TODO move to BL
+// TODO separate Application into BL/ApplicationStarter and BL/Application classes
 class Application
 {
 	DECLARE_SINGLETON_HEADER(Application);
@@ -64,5 +67,6 @@ private:
 	Array<Command*> mCommands;
 
 	Scene* mScene;
+	Synth* mSynth;
 };
 

@@ -22,6 +22,10 @@ public:
 
 private:
 
+	void onPropertyChanged(PropertyOwner* propOwner, PropertyBase* prop);
+
+private:
+
 	// Render
 	RenderCamera* mRenderCamera;
 };

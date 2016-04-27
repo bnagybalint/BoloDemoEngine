@@ -24,9 +24,6 @@
     <ProjectReference Include="..\Editor\Editor.vcxproj">
       <Project>{69748f80-caf9-408c-b930-5e6c786eb0ac}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Render2D\Render2D.vcxproj">
-      <Project>{229f4acc-11dd-4e2b-81c4-bbe6fa0032e8}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\Render\Render.vcxproj">
       <Project>{43f72261-d28d-4aa4-9ebf-7c4828699135}</Project>
     </ProjectReference>
@@ -37,17 +34,23 @@
   <ItemGroup>
     <ClInclude Include="Command.h" />
     <ClInclude Include="DisplayCamera.h" />
-    <ClInclude Include="ModelSynthTrack.h" />
-    <ClInclude Include="ModelSynthComponent.h" />
+    <ClInclude Include="GeometricObject.h" />
+    <ClInclude Include="GeometryGenerator.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="PropertyChangeCommand.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneObject.h" />
+    <ClInclude Include="Synth.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="DisplayCamera.cpp" />
-    <ClCompile Include="ModelSynthTrack.cpp" />
-    <ClCompile Include="ModelSynthComponent.cpp" />
+    <ClCompile Include="GeometricObject.cpp" />
+    <ClCompile Include="GeometryGenerator.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
+    <ClCompile Include="Synth.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}</ProjectGuid>

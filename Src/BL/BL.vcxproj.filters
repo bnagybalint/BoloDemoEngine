@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Audio">
-      <UniqueIdentifier>{f7425727-f8de-4c3f-954d-f9b0b27b7ac5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Commands">
       <UniqueIdentifier>{df921acc-dfa7-4d31-8dfc-754fb139c57e}</UniqueIdentifier>
     </Filter>
@@ -13,12 +10,14 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{ab993131-3baa-46dd-9356-3de345980cfc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Geometry">
+      <UniqueIdentifier>{e8797f09-95b2-4938-b336-0b70d056298b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Synth">
+      <UniqueIdentifier>{f7425727-f8de-4c3f-954d-f9b0b27b7ac5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ModelSynthComponent.h" />
-    <ClInclude Include="ModelSynthTrack.h">
-      <Filter>Audio</Filter>
-    </ClInclude>
     <ClInclude Include="Command.h">
       <Filter>Commands</Filter>
     </ClInclude>
@@ -31,12 +30,23 @@
     <ClInclude Include="Scene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="SceneObject.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometricObject.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Synth.h">
+      <Filter>Synth</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryGenerator.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ModelSynthComponent.cpp" />
-    <ClCompile Include="ModelSynthTrack.cpp">
-      <Filter>Audio</Filter>
-    </ClCompile>
     <ClCompile Include="Command.cpp">
       <Filter>Commands</Filter>
     </ClCompile>
@@ -45,6 +55,21 @@
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneObject.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometricObject.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Synth.cpp">
+      <Filter>Synth</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryGenerator.cpp">
+      <Filter>Geometry</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

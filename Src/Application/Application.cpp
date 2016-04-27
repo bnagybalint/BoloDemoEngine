@@ -14,6 +14,7 @@
 #include "Graphics/GraphicsManager.h"
 
 #include "BL/Scene.h"
+#include "BL/Synth.h"
 #include "BL/Command.h"
 
 DEFINE_SINGLETON_IMPL(Application);
@@ -26,6 +27,7 @@ Application::Application()
 	, mApplicationLock()
 	, mCommands()
 	, mScene(NULL)
+	, mSynth(NULL)
 {
 }
 
@@ -115,6 +117,7 @@ void Application::initializeScene()
 	LOGINFO("Initializing scene");
 	
 	mScene = new Scene();
+	mSynth = new Synth();
 }
 
 void Application::initializeRender()
@@ -134,8 +137,6 @@ void Application::initializeRender()
 	GraphicsManager::createSingletonInstance();
 	GraphicsManager* graphicsMgr = GraphicsManager::getInstance();
 	graphicsMgr->init();
-
-	graphicsMgr->createCanvas("AudioEditorCanvas", editor->getAudioEditorWindowHandle());
 }
 
 void Application::initializeAudio()
