@@ -19,7 +19,7 @@ public:
 
 	virtual Ret call(DLG_PARAMETER_LIST) = 0;
 	virtual ThisClassType* clone() = 0;
-	virtual bool equals(const ThisClassType& other) = 0;
+	virtual bool equals(const ThisClassType& other) const = 0;
 
 	int getType() const {
 		return mType;
@@ -69,7 +69,7 @@ public:
 		return new ThisClassType(mFunction);
 	}
 
-	bool equals(const ParentClassType& other) override
+	bool equals(const ParentClassType& other) const override
 	{ 
 		if (getType() != other.getType())
 			return false;
@@ -115,7 +115,7 @@ public:
 		return new ThisClassType(mObject, mMemberFunction);
 	}
 
-	bool equals(const ParentClassType& other) override
+	bool equals(const ParentClassType& other) const override
 	{
 		if (getType() != other.getType())
 			return false;
@@ -182,9 +182,9 @@ public:
 		return *this;
 	}
 
-	bool operator == (const ThisClassType& other)
+	bool operator == (const ThisClassType& other) const
 	{
-		return mCallback->equals(other.mCallback);
+		return mCallback->equals(*other.mCallback);
 	}
 
 	Ret operator () (DLG_PARAMETER_LIST)
