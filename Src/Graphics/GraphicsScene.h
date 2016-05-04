@@ -21,6 +21,7 @@ public:
 	// not by using Node::addChildNode() or Node::reparent()
 	// Note: life-cycle is managed by the creating party.
 	void addNode(GraphicsNode* node, GraphicsNode* parentNode);
+	void removeNode(GraphicsNode* node);
 
 private:
 

@@ -36,21 +36,29 @@
     <ClInclude Include="DisplayCamera.h" />
     <ClInclude Include="GeometricObject.h" />
     <ClInclude Include="GeometryGenerator.h" />
+    <ClInclude Include="IPickable.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="PickEngine.h" />
     <ClInclude Include="PropertyChangeCommand.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneObject.h" />
-    <ClInclude Include="Synth.h" />
+    <ClInclude Include="SynthScene.h" />
+    <ClInclude Include="SynthComponent.h" />
+    <ClInclude Include="SynthObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="DisplayCamera.cpp" />
     <ClCompile Include="GeometricObject.cpp" />
     <ClCompile Include="GeometryGenerator.cpp" />
+    <ClCompile Include="IPickable.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="PickEngine.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneObject.cpp" />
-    <ClCompile Include="Synth.cpp" />
+    <ClCompile Include="SynthScene.cpp" />
+    <ClCompile Include="SynthComponent.cpp" />
+    <ClCompile Include="SynthObject.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CAE2ACA4-50C4-4E6D-8C5D-738BD241B055}</ProjectGuid>

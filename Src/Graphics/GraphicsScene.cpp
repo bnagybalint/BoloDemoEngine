@@ -28,3 +28,9 @@ void GraphicsScene::addNode(GraphicsNode* node, GraphicsNode* parentNode)
 	else
 		mRootNodes.append(node);
 }
+
+void GraphicsScene::removeNode(GraphicsNode* node)
+{
+	Assert(node);
+	Unimplemented();
+}

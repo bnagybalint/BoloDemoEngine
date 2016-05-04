@@ -16,6 +16,9 @@
     <Filter Include="Synth">
       <UniqueIdentifier>{f7425727-f8de-4c3f-954d-f9b0b27b7ac5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{b6ac3144-40e2-4a11-96f9-0451dda87ec5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h">
@@ -39,11 +42,23 @@
     <ClInclude Include="Mesh.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Synth.h">
-      <Filter>Synth</Filter>
-    </ClInclude>
     <ClInclude Include="GeometryGenerator.h">
       <Filter>Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="IPickable.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="SynthObject.h">
+      <Filter>Synth</Filter>
+    </ClInclude>
+    <ClInclude Include="SynthComponent.h">
+      <Filter>Synth</Filter>
+    </ClInclude>
+    <ClInclude Include="PickEngine.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="SynthScene.h">
+      <Filter>Synth</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -65,11 +80,23 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Synth.cpp">
-      <Filter>Synth</Filter>
-    </ClCompile>
     <ClCompile Include="GeometryGenerator.cpp">
       <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="IPickable.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="SynthObject.cpp">
+      <Filter>Synth</Filter>
+    </ClCompile>
+    <ClCompile Include="SynthComponent.cpp">
+      <Filter>Synth</Filter>
+    </ClCompile>
+    <ClCompile Include="PickEngine.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="SynthScene.cpp">
+      <Filter>Synth</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
