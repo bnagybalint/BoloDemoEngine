@@ -15,7 +15,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Application.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -40,9 +39,6 @@
     <ProjectReference Include="..\_SolutionSettings\_SolutionSettings.vcxproj">
       <Project>{4bb00c20-9f30-4133-9f26-07cefcc1465c}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Application.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{49F0FF2C-4EFA-42F8-9972-635DB6EA7EAE}</ProjectGuid>

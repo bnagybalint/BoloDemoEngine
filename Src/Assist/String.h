@@ -7,6 +7,12 @@
 template <class CharType>
 class StringBase : private Array<CharType>
 {
+private:
+	template <class CT>
+	friend StringBase<CT> operator + (const CharType*, const StringBase<CT>&);
+	template <class CT>
+	friend StringBase<CT> operator + (const StringBase<CT>&, const CharType*);
+
 public:
 	StringBase();
 	StringBase(const CharType* str);
@@ -62,6 +68,7 @@ StringBase<CharType> StringBase<CharType>::operator + (const StringBase<CharType
 	result.resize(length() + other.length() + 1);
 	Memory::Memcopy(result.data(), data(), length() * sizeof(CharType));
 	Memory::Memcopy(result.data() + length(), other.data(), (other.length() + 1) * sizeof(CharType));
+	return result;
 }
 template <class CharType>
 StringBase<CharType>& StringBase<CharType>::operator += (const StringBase<CharType>& other)
@@ -69,6 +76,7 @@ StringBase<CharType>& StringBase<CharType>::operator += (const StringBase<CharTy
 	int oldLen = length();
 	resize(oldLen + other.length() + 1);
 	Memory::Memcopy(data() + oldLen, other.data(), (other.length() + 1) * sizeof(CharType));
+	return *this;
 }
 template <class CharType>
 bool StringBase<CharType>::operator == (const StringBase<CharType>& other) const
@@ -101,8 +109,8 @@ StringBase<CharType>& StringBase<CharType>::operator = (const CharType* str)
 {
 	int len = 0;
 	while (str[len++] != '\0');
-	resize(len + 1);
-	Memory::Memcopy(data(), str, (len + 1) * sizeof(CharType));
+	resize(len);
+	Memory::Memcopy(data(), str, (len) * sizeof(CharType));
 	return *this;
 }
 template <class CharType>
@@ -127,4 +135,16 @@ template <class CharType>
 const CharType* StringBase<CharType>::cstr() const
 {
 	return data();
+}
+
+template <class CharType>
+StringBase<CharType> operator + (const CharType* cstr, const StringBase<CharType>& str)
+{
+	return StringBase<CharType>(cstr) + str;
+}
+
+template <class CharType>
+StringBase<CharType> operator + (const StringBase<CharType>& str, const CharType* cstr)
+{
+	return str + StringBase<CharType>(cstr);
 }

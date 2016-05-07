@@ -9,17 +9,13 @@ class SynthScene
 {
 public:
 
-	DECLARE_SINGLETON_HEADER(SynthScene);
+	SynthScene(HWND parentWindow);
+	DISABLE_COPY(SynthScene);
+	~SynthScene();
 
 public:
 
 	GraphicsScene* getRenderScene() const { return mSynthScene; }
-
-private:
-
-	SynthScene();
-	DISABLE_COPY(SynthScene);
-	~SynthScene();
 
 private:
 

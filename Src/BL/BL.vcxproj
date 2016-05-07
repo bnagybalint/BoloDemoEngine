@@ -32,6 +32,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Application.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="DisplayCamera.h" />
     <ClInclude Include="GeometricObject.h" />
@@ -47,6 +48,7 @@
     <ClInclude Include="SynthObject.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Application.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="DisplayCamera.cpp" />
     <ClCompile Include="GeometricObject.cpp" />

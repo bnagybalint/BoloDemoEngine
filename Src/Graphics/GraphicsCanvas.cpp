@@ -80,6 +80,9 @@ void GraphicsCanvas::createDeviceResources()
 	// Create render target
 	ID2D1Factory* factory = GraphicsManager::getInstance()->getD2DFactory();
 	SafeCall(factory->CreateHwndRenderTarget(D2D1::RenderTargetProperties(), D2D1::HwndRenderTargetProperties(mWindowHandle, size), &mRenderTarget));
+
+	//mRenderTarget->SetAntialiasMode(D2D1_ANTIALIAS_MODE_FORCE_DWORD);
+	mRenderTarget->SetTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_CLEARTYPE);
 }
 
 void GraphicsCanvas::destroyDeviceResources()

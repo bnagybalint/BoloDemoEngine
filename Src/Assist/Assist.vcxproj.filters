@@ -109,6 +109,9 @@
     <ClInclude Include="Logger.h">
       <Filter>Log</Filter>
     </ClInclude>
+    <ClInclude Include="StringConverter.h">
+      <Filter>String</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
@@ -175,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="Vector2.cpp">
       <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="StringConverter.cpp">
+      <Filter>String</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

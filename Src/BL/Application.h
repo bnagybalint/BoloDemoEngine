@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Assist/Array.h"
-#include "Assist/Common.h" 
-#include "Assist/Event.h"
+#include "Assist/Common.h"
+
+#include "Assist/Array.h" 
 #include "Assist/Mutex.h"
 #include "Assist/Signal.h"
 
@@ -11,7 +11,6 @@ class Thread;
 class Scene;
 class SynthScene;
 
-// TODO move to BL
 // TODO separate Application into BL/ApplicationStarter and BL/Application classes
 class Application
 {

@@ -19,6 +19,9 @@
     <Filter Include="Util">
       <UniqueIdentifier>{b6ac3144-40e2-4a11-96f9-0451dda87ec5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="App">
+      <UniqueIdentifier>{deb48f42-3f8a-44eb-addc-822a21a18669}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h">
@@ -60,6 +63,9 @@
     <ClInclude Include="SynthScene.h">
       <Filter>Synth</Filter>
     </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>App</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Command.cpp">
@@ -97,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="SynthScene.cpp">
       <Filter>Synth</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>App</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

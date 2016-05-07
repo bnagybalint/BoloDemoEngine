@@ -33,7 +33,7 @@ SynthComponent::~SynthComponent()
 
 bool SynthComponent::performPick(const PickInput& input, /*out*/PickResult& result)
 {
-	if (input.pickFilter & PickObjectType::SynthComponent == 0)
+	if ((input.pickFilter & PickObjectType::SynthComponent) == 0)
 		return false;
 
 	Vector2 worldAabbMin = position.getValue() + localAabbMin.getValue();
@@ -66,15 +66,15 @@ void SynthComponent::createRender()
 	mRenderRect = new GraphicsRectangle();
 	mRenderText = new GraphicsText();
 
-	mRenderRect->setSize(Vector2(150, 60));
+	mRenderText->setText("Test");
+	mRenderText->setFontSize(18.0f);
+	mRenderText->setFontFamily("Times New Roman");
+	mRenderText->setTextAlignment(GraphicsText::TextAlignment::MidCenter);
+
+	mRenderRect->setSize(Vector2(120,40));
 	mRenderRect->setFillColor(Color(0.8, 0.8, 0.8));
 	mRenderRect->setBorderColor(Color(0.2, 0.2, 0.2));
 	mRenderRect->setBorderWidth(1.5f);
-
-	mRenderText->setText("Test");
-	mRenderText->setFontSize(24.0f);
-	mRenderText->setFontFamily("Courier New");
-	mRenderText->setTextAlignment(GraphicsText::TextAlignment::MidCenter);
 
 	mRenderNode->setPosition(Vector2(0, 0));
 	mRenderNode->addObject(mRenderRect);

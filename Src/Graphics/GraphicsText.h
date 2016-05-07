@@ -33,7 +33,7 @@ public:
 	DISABLE_COPY(GraphicsText);
 	~GraphicsText();
 
-	Vector2 getPreferredSize() const;
+	Vector2 getPreferredSize() const { return mProcessedTextDimensions; }
 
 	const String& getText() const { return mText; }
 	void setText(const String& text);

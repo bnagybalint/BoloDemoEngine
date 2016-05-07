@@ -1,7 +1,5 @@
 #include "SynthScene.h"
 
-#include "Editor/Editor.h"
-
 #include "Graphics/GraphicsManager.h"
 #include "Graphics/GraphicsScene.h"
 #include "Graphics/GraphicsCanvas.h"
@@ -10,14 +8,13 @@
 #include "Graphics/GraphicsNode.h"
 #include "Graphics/GraphicsRectangle.h"
 #include "Graphics/GraphicsText.h"
+#include "BL/SynthComponent.h"
 
-DEFINE_SINGLETON_IMPL(SynthScene);
-
-SynthScene::SynthScene()
+SynthScene::SynthScene(HWND parentWindow)
 	: mSynthCanvas(NULL)
 	, mSynthScene(NULL)
 {
-	mSynthCanvas = GraphicsManager::getInstance()->createCanvas("AudioEditorCanvas", Editor::getInstance()->getAudioEditorWindowHandle());
+	mSynthCanvas = GraphicsManager::getInstance()->createCanvas("AudioEditorCanvas", parentWindow);
 
 	mSynthScene = new GraphicsScene();
 	mSynthCanvas->setScene(mSynthScene);
@@ -44,6 +41,8 @@ SynthScene::SynthScene()
 // 	testNode->addObject(testObj);
 // 	testNode->addObject(testObj2);
 // 	mSynthScene->addNode(testNode, NULL);
+
+	static SynthComponent* testComp = new SynthComponent(this);
 }
 
 SynthScene::~SynthScene()

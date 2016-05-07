@@ -1,5 +1,8 @@
 #include "GraphicsManager.h"
 
+#include "Assist/StringConverter.h"
+#include "Assist/Logger.h"
+
 #include "Graphics/GraphicsCanvas.h"
 
 #ifndef WIN32_LEAN_AND_MEAN
@@ -27,8 +30,15 @@ GraphicsManager::~GraphicsManager()
 }
 void GraphicsManager::init()
 {
+	LOGINFO("Initializing GraphicsManager...");
 	SafeCall(D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &mFactoryD2D));
+	LOGINFO("  Direct2D factory created!");
+	FLOAT dpix, dpiy;
+	mFactoryD2D->GetDesktopDpi(&dpix, &dpiy);
+	LOGINFO("  Desktop DPI: (" + StringConverter::toString((int)dpix) + ", " + StringConverter::toString((int)dpiy) + ")");
+
 	SafeCall(DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&mFactoryDWrite)));
+	LOGINFO("  DirectWrite factory created!");
 }
 
 void GraphicsManager::shutdown()

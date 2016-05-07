@@ -1,11 +1,10 @@
 #include "Application.h"
 
-#include "Assist/Logger.h"
-#include "Assist/Thread.h"
-#include "Assist/ThreadManager.h"
-#include "Assist/UIDGenerator.h"
-
 #include "Editor/Editor.h"
+
+#include "BL/Scene.h"
+#include "BL/SynthScene.h"
+#include "BL/Command.h"
 
 #include "Audio/AudioManager.h"
 
@@ -13,9 +12,10 @@
 
 #include "Graphics/GraphicsManager.h"
 
-#include "BL/Scene.h"
-#include "BL/SynthScene.h"
-#include "BL/Command.h"
+#include "Assist/Logger.h"
+#include "Assist/Thread.h"
+#include "Assist/ThreadManager.h"
+#include "Assist/UIDGenerator.h"
 
 DEFINE_SINGLETON_IMPL(Application);
 
