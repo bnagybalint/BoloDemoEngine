@@ -112,6 +112,9 @@
     <ClInclude Include="StringConverter.h">
       <Filter>String</Filter>
     </ClInclude>
+    <ClInclude Include="String2.h">
+      <Filter>String</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
@@ -180,6 +183,9 @@
       <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="StringConverter.cpp">
+      <Filter>String</Filter>
+    </ClCompile>
+    <ClCompile Include="String2.cpp">
       <Filter>String</Filter>
     </ClCompile>
   </ItemGroup>

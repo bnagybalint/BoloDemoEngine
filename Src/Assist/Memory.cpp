@@ -42,3 +42,17 @@
 		p += numSrcBytes;
 	}
 }
+
+/*static*/ int Memory::Strlen(const char* cstr)
+{
+	int len = 0;
+	while (*cstr++ != '\0') ++len;
+	return len;
+}
+
+/*static*/ int Memory::Strcompare(const char* s1, const char* s2)
+{
+	Assert(s1); Assert(s2);
+	while ((*s1) /*&& (*s2)*/ && (*s1 == *s2)) { ++s1; ++s2; }
+	return *s1 - *s2;
+}

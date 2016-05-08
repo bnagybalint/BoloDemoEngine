@@ -27,6 +27,7 @@
     <ClInclude Include="Signal.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ObjectUID.h" />
+    <ClInclude Include="String2.h" />
     <ClInclude Include="StringConverter.h" />
     <ClInclude Include="Tuple.h" />
     <ClInclude Include="UIDGenerator.h" />
@@ -66,6 +67,7 @@
     <ClCompile Include="Signal.cpp" />
     <ClCompile Include="Mutex.cpp" />
     <ClCompile Include="ObjectUID.cpp" />
+    <ClCompile Include="String2.cpp" />
     <ClCompile Include="StringConverter.cpp" />
     <ClCompile Include="UIDGenerator.cpp" />
     <ClCompile Include="Property.cpp" />
