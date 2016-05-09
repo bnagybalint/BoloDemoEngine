@@ -8,11 +8,12 @@
 #include "Graphics/GraphicsText.h"
 #include "Graphics/GraphicsScene.h"
 
-SynthComponent::SynthComponent(SynthScene* scene)
-	: SynthObject(scene)
+SynthComponent::SynthComponent(SynthScene* scene, const String& name, AudioComponent* audioComponent)
+	: SynthObject(scene, name)
 	, PROPERTY_INIT(position, Vector2::ZERO)
 	, PROPERTY_INIT(localAabbMin, Vector2::ZERO)
 	, PROPERTY_INIT(localAabbMax, Vector2::ZERO)
+	, mAudioComponent(audioComponent)
 	, mRenderNode(NULL)
 	, mRenderRect(NULL)
 	, mRenderText(NULL)

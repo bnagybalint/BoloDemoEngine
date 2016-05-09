@@ -22,6 +22,9 @@
     <Filter Include="App">
       <UniqueIdentifier>{deb48f42-3f8a-44eb-addc-822a21a18669}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Factory">
+      <UniqueIdentifier>{28777ada-348a-477e-80b4-6c36e047375c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h">
@@ -66,6 +69,15 @@
     <ClInclude Include="Application.h">
       <Filter>App</Filter>
     </ClInclude>
+    <ClInclude Include="CreateSynthComponentCommand.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SynthComponentFactory.h">
+      <Filter>Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandManager.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Command.cpp">
@@ -106,6 +118,15 @@
     </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="CreateSynthComponentCommand.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SynthComponentFactory.cpp">
+      <Filter>Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandManager.cpp">
+      <Filter>Commands</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

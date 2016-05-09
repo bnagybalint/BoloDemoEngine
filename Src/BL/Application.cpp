@@ -4,7 +4,9 @@
 
 #include "BL/Scene.h"
 #include "BL/SynthScene.h"
+#include "BL/SynthComponentFactory.h"
 #include "BL/Command.h"
+#include "BL/CommandManager.h"
 
 #include "Audio/AudioManager.h"
 
@@ -16,6 +18,7 @@
 #include "Assist/Thread.h"
 #include "Assist/ThreadManager.h"
 #include "Assist/UIDGenerator.h"
+#include "Assist/NameGenerator.h"
 
 DEFINE_SINGLETON_IMPL(Application);
 
@@ -24,8 +27,6 @@ Application::Application()
 	, mArgv(NULL)
 	, mAppThread(NULL)
 	, mEditorThread(NULL)
-	, mApplicationLock()
-	, mCommands()
 	, mScene(NULL)
 	, mSynth(NULL)
 {
@@ -34,13 +35,6 @@ Application::Application()
 Application::~Application()
 {
 	// TODO release threads
-
-	mApplicationLock.lock();
-	for (int i = 0; i < mCommands.size(); i++)
-	{
-		delete mCommands[i]; mCommands[i] = NULL;
-	}
-	mApplicationLock.release();
 }
 
 int Application::run(int argc, char** argv)
@@ -107,6 +101,7 @@ void Application::initializeBasic()
 	LOGINFO("----------------------");
 
 	UIDGenerator::createSingletonInstance();
+	NameGenerator::createSingletonInstance();
 	ThreadManager::createSingletonInstance();
 
 	Editor::createSingletonInstance();
@@ -116,6 +111,10 @@ void Application::initializeScene()
 {
 	LOGINFO("Initializing scene");
 	
+	CommandManager::createSingletonInstance();
+
+	SynthComponentFactory::createSingletonInstance();
+
 	mScene = new Scene();
 	mSynth = new SynthScene(Editor::getInstance()->getAudioEditorWindowHandle());
 }
@@ -153,7 +152,7 @@ int Application::enterMainLoop()
 	{
 		// TODO process messages, break loop if necessary
 		
-		processCommands();
+		CommandManager::getInstance()->processCommands();
 
 		// Render 3D view
 		RenderManager::getInstance()->renderOneFrame();
@@ -165,27 +164,4 @@ int Application::enterMainLoop()
 		ThreadManager::getInstance()->sleepCurrentThread(5);
 	}
 	return 0;
-}
-
-void Application::addCommand(Command* cmd)
-{
-	mApplicationLock.lock();
-	mCommands.append(cmd);
-	mApplicationLock.release();
-}
-
-void Application::processCommands()
-{
-	mApplicationLock.lock();
-	for (int i = 0; i < mCommands.size(); i++)
-	{
-		Command* cmd = mCommands[i];
-
-		cmd->execute();
-
-		Command::ResultCode sc = cmd->getResultCode();
-
-		delete mCommands[i]; mCommands[i] = NULL;
-	}
-	mApplicationLock.release();
 }

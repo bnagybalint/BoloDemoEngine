@@ -9,6 +9,7 @@
 #include "Graphics/GraphicsRectangle.h"
 #include "Graphics/GraphicsText.h"
 #include "BL/SynthComponent.h"
+#include "Audio/AudioOscillator.h"
 
 SynthScene::SynthScene(HWND parentWindow)
 	: mSynthCanvas(NULL)
@@ -42,7 +43,8 @@ SynthScene::SynthScene(HWND parentWindow)
 // 	testNode->addObject(testObj2);
 // 	mSynthScene->addNode(testNode, NULL);
 
-	static SynthComponent* testComp = new SynthComponent(this);
+// 	static AudioComponent* ac = new AudioOscillator();
+// 	static SynthComponent* testComp = new SynthComponent(this, "TestComp", ac);
 }
 
 SynthScene::~SynthScene()
@@ -51,4 +53,16 @@ SynthScene::~SynthScene()
 	delete mSynthScene; mSynthScene = NULL;
 
 	GraphicsManager::getInstance()->destroyCanvas(mSynthCanvas); mSynthCanvas = NULL;
+}
+
+void SynthScene::addObject(SynthObject* obj)
+{
+	Assert(!mObjects.contains(obj->getName()));
+	mObjects.add(obj->getName(), obj);
+}
+
+void SynthScene::removeObject(SynthObject* obj)
+{
+	Assert(mObjects.contains(obj->getName()));
+	mObjects.remove(obj->getName());
 }

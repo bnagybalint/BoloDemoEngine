@@ -25,5 +25,9 @@ public:
 
 private:
 
+	void onTestCreateSynthComponentButtonClicked();
+
+private:
+
 	Ui::MainWindow ui;
 };

@@ -37,6 +37,9 @@ public:
 	bool eRemove(const T& elem);
 	bool eRemoveUnordered(const T& elem);
 
+	void eRemoveHead(int num);
+	void eRemoveTail(int num);
+
 	template <class Pred>
 	void eQuickSort(const Pred& lessPred);
 	void eQuickSort();
@@ -176,6 +179,26 @@ bool ObjectArray<T>::eRemoveUnordered(const T& elem)
 	eSwap(idx, --mSize);
 	return true;
 }
+
+template <class T>
+void ObjectArray<T>::eRemoveHead(int num)
+{
+	Assert(num <= mSize);
+	int dstIdx = 0;
+	int srcIdx = mSize - num;
+	while (srcIdx < mSize)
+		mData[dstIdx++] = mData[srcIdx++];
+
+	mSize -= num;
+}
+
+template <class T>
+void ObjectArray<T>::eRemoveTail(int num)
+{
+	Assert(num <= mSize);
+	mSize -= num;
+}
+
 template <class T>
 template <class Pred>
 void ObjectArray<T>::eQuickSort(const Pred& lessPred)

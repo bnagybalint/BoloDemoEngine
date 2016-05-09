@@ -13,12 +13,17 @@ class SynthObject
 {
 public:
 
-	SynthObject(SynthScene* scene);
+	SynthObject(SynthScene* scene, const String& name);
 	DISABLE_COPY(SynthObject);
 	~SynthObject();
-	
+
+	SynthScene* getScene() const { return mScene; }
+	const String& getName() const { return mName; }
+
 protected:
 
 	SynthScene* mScene;
+
+	String mName;
 };
 

@@ -115,6 +115,9 @@
     <ClInclude Include="String2.h">
       <Filter>String</Filter>
     </ClInclude>
+    <ClInclude Include="NameGenerator.h">
+      <Filter>String</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
@@ -186,6 +189,9 @@
       <Filter>String</Filter>
     </ClCompile>
     <ClCompile Include="String2.cpp">
+      <Filter>String</Filter>
+    </ClCompile>
+    <ClCompile Include="NameGenerator.cpp">
       <Filter>String</Filter>
     </ClCompile>
   </ItemGroup>

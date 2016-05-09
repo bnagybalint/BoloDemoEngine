@@ -33,7 +33,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="CommandManager.h" />
+    <ClInclude Include="SynthComponentFactory.h" />
     <ClInclude Include="Command.h" />
+    <ClInclude Include="CreateSynthComponentCommand.h" />
     <ClInclude Include="DisplayCamera.h" />
     <ClInclude Include="GeometricObject.h" />
     <ClInclude Include="GeometryGenerator.h" />
@@ -49,7 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="CommandManager.cpp" />
+    <ClCompile Include="SynthComponentFactory.cpp" />
     <ClCompile Include="Command.cpp" />
+    <ClCompile Include="CreateSynthComponentCommand.cpp" />
     <ClCompile Include="DisplayCamera.cpp" />
     <ClCompile Include="GeometricObject.cpp" />
     <ClCompile Include="GeometryGenerator.cpp" />

@@ -10,6 +10,8 @@ class GraphicsNode;
 class GraphicsRectangle;
 class GraphicsText;
 
+class AudioComponent;
+
 class SynthComponent : public SynthObject
 {
 public:
@@ -20,7 +22,7 @@ public:
 
 public:
 
-	SynthComponent(SynthScene* scene/*, AudioElement*/);
+	SynthComponent(SynthScene* scene, const String& name, AudioComponent* audioComponent);
 	~SynthComponent();
 
 	bool performPick(const PickInput& input, /*out*/PickResult& result) override;
@@ -33,6 +35,8 @@ private:
 	void destroyRender();
 
 private:
+
+	AudioComponent* mAudioComponent;
 
 	GraphicsNode* mRenderNode;
 	GraphicsRectangle* mRenderRect;
