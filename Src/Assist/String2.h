@@ -2,7 +2,7 @@
 
 #include "Assist/Common.h"
 
-#define String bla
+//#define String bla
 
 template <class CharType>
 class String2
