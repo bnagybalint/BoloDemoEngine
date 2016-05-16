@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <UIFiles Include="$(ProjectDir)\Forms\*.ui" />
+    <UIFiles Include="$(MSBuildProjectDirectory)\Forms\*.ui" />
   </ItemGroup>
  
 	<Target Name="CompileQtUIC" BeforeTargets="ClCompile" Inputs="@(UIFiles)" Outputs="@(UIFiles->'$(ProjectDir)\QtGeneratedFiles\ui_%(Filename).h')">
