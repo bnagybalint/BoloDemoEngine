@@ -12,7 +12,6 @@ MainWindow::MainWindow(QWidget* parent)
 {
 	ui.setupUi(this);
 
-	Unimplemented(); // TODO ez miért nem mûködik?
 	connect(ui.timelineWidget_playPausePushButton, SIGNAL(clicked()), this, SLOT(onTestCreateSynthComponentButtonClicked()));
 }
 

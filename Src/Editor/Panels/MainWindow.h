@@ -23,7 +23,7 @@ public:
 	void setSceneEditorRenderWidget(QWidget* widget);
 	void setAudioEditorRenderWidget(QWidget* widget);
 
-private:
+	private slots:
 
 	void onTestCreateSynthComponentButtonClicked();
 
