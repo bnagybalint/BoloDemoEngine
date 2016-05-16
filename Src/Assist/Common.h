@@ -5,6 +5,7 @@
 #endif
 #include <windows.h>
 #include <stdint.h>
+#include <cstdio>
 
 // ----- Import solution build settings ----- 
 
@@ -50,8 +51,10 @@ void RuntimeAssert(bool cond);
 
 #ifdef BDE_GLOBAL_BUILD_DEBUG
 #define IF_DEBUG(expr) expr
+#define DebugConsole(fmt, ...) for (;;) { char buf[256]; sprintf_s<256>(buf, fmt, __VA_ARGS__); OutputDebugString(buf); break; }
 #else
 #define IF_DEBUG(expr)
+#define DebugConsole(fmt, ...)
 #endif
 
 // ----- Force inline ----- 

@@ -13,6 +13,8 @@
 #include "Assist/Event.h"
 
 class QPaintEngine;
+class QObject;
+class QEvent;
 
 class RenderWidget : public QWidget
 {
@@ -26,6 +28,11 @@ public:
 	HWND getNativeWindowHandle() const;
 
 	QPaintEngine* paintEngine() const override { return NULL; }
+
+private:
+
+	// Inherited from QtObject
+	bool eventFilter(QObject* obj, QEvent* e) override;
 
 protected:
 

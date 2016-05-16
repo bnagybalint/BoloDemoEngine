@@ -23,11 +23,14 @@ public:
 	void setSceneEditorRenderWidget(QWidget* widget);
 	void setAudioEditorRenderWidget(QWidget* widget);
 
-	private slots:
+private slots:
 
 	void onTestCreateSynthComponentButtonClicked();
 
 private:
 
 	Ui::MainWindow ui;
+
+	RenderWidget* mSceneEditorRenderWidget;
+	RenderWidget* mAudioEditorRenderWidget;
 };
