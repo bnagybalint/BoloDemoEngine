@@ -19,6 +19,9 @@
     <Filter Include="EventHandling">
       <UniqueIdentifier>{36883a8a-4cc9-4554-b818-4ed0b3210d16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="EditorStates">
+      <UniqueIdentifier>{eded21fd-d6d2-4873-aa3d-31ebf74ac41c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Forms\FormGroupBoxWidget.ui">
@@ -60,6 +63,13 @@
     <ClInclude Include="PropertyChangeEventMediator.h">
       <Filter>EventHandling</Filter>
     </ClInclude>
+    <ClInclude Include="EditorState.h">
+      <Filter>EditorStates</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorInputEvent.h" />
+    <ClInclude Include="EditorStateIdle.h">
+      <Filter>EditorStates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Panels\MainWindow.cpp">
@@ -92,6 +102,13 @@
     </ClCompile>
     <ClCompile Include="PropertyChangeEventMediator.cpp">
       <Filter>EventHandling</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorState.cpp">
+      <Filter>EditorStates</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorInputEvent.cpp" />
+    <ClCompile Include="EditorStateIdle.cpp">
+      <Filter>EditorStates</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

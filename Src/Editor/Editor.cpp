@@ -4,6 +4,8 @@
 #include "Assist/Logger.h"
 
 #include "Editor/EventReactor.h"
+#include "Editor/EditorState.h"
+#include "Editor/EditorStateIdle.h"
 
 #include "Editor/Panels/MainWindow.h"
 #include "Editor/Panels/RenderWidget.h" 
@@ -22,6 +24,7 @@ Editor::Editor()
 	, mEditorLock()
 	, mRequestedCallbacks()
 	, mEventReactor(NULL)
+	, mCurrentState(NULL)
 {
 	mEventReactor = new EventReactor();
 }
@@ -47,6 +50,8 @@ void Editor::startEditor(int argc, char** argv)
 
 	mMainWindow->show();
 
+	changeState(new EditorStateIdle());
+
 	LOGINFO("---> Editor initialized");
 
 	initializedSignal.send();
@@ -59,6 +64,11 @@ void Editor::startEditor(int argc, char** argv)
 void Editor::stopEditor()
 {
 	Unimplemented();
+
+	// TODO tear down current state
+
+	// TODO unlink and release RenderWidgets
+
 	delete mMainWindow; mMainWindow = NULL;
 	delete mQtApplication; mQtApplication = NULL;
 }
@@ -92,6 +102,32 @@ void Editor::enterEditorMainLoop()
 		// Sleep thread for a while...
 		ThreadManager::getInstance()->sleepCurrentThread(5);
 	}
+}
+
+void Editor::changeState(EditorState* nextState)
+{
+	mEditorLock.lock();
+	
+	if (mCurrentState)
+	{
+		mCurrentState->leaveState();
+		delete mCurrentState;
+	}
+	
+	mCurrentState = nextState;
+	mCurrentState->enterState();
+
+	mEditorLock.release();
+}
+
+// Handle an event coming from (one of the) render widgets. 
+// Input handler part of the State Machine Pattern.
+void Editor::processInputEvent(const EditorInputEvent& evt)
+{
+	Assert(mCurrentState);
+	mEditorLock.lock();
+	mCurrentState->receiveInputEvent(evt);
+	mEditorLock.release();
 }
 
 
