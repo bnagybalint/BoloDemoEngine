@@ -156,9 +156,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h" />
-    <ClInclude Include="EditorInputEvent.h" />
-    <ClInclude Include="EditorState.h" />
-    <ClInclude Include="EditorStateIdle.h" />
     <ClInclude Include="PropertyChangeEventMediator.h" />
     <ClInclude Include="EventReactor.h" />
     <ClInclude Include="Panels\FormGroupBoxWidget.h" />
@@ -171,9 +168,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp" />
-    <ClCompile Include="EditorInputEvent.cpp" />
-    <ClCompile Include="EditorState.cpp" />
-    <ClCompile Include="EditorStateIdle.cpp" />
     <ClCompile Include="PropertyChangeEventMediator.cpp" />
     <ClCompile Include="EventReactor.cpp" />
     <ClCompile Include="Panels\FormGroupBoxWidget.cpp" />
