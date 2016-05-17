@@ -14,6 +14,8 @@
 #include <windows.h>
 
 class EventReactor;
+class EditorState;
+class EditorInputEvent;
 
 class QApplication;
 class MainWindow;
@@ -38,6 +40,16 @@ public:
 	// Note: ownership of the callback object is transferred, Editor object will release the callback object.
 	void requestEventCallback(CallbackBase* cb);
 
+	// Change current editor state. Implemented according to the State Machine Pattern.
+	// Current editor state is responsible for handling events coming from the render widget(s).
+	// Note: ownership of the passed state object is transferred, Editor object is 
+	//       responsible for releasing it.
+	void changeState(EditorState* nextState);
+
+	// Handle an event coming from (one of the) render widgets. 
+	// Input handler part of the State Machine Pattern.
+	void processInputEvent(const EditorInputEvent& evt);
+
 	HWND getSceneEditorWindowHandle() const;
 	HWND getAudioEditorWindowHandle() const;
 	
@@ -57,6 +69,8 @@ private:
 
 	QApplication* mQtApplication;
 	MainWindow* mMainWindow;
+	RenderWidget* mSceneEditorRenderWidget;
+	RenderWidget* mAudioEditorRenderWidget;
 
 	Mutex mEditorLock;
 	Array<CallbackBase*> mRequestedCallbacks;
@@ -65,7 +79,6 @@ private:
 	// from the editor and execute them on the editor thread.
 	EventReactor* mEventReactor;
 
-	RenderWidget* mSceneEditorRenderWidget;
-	RenderWidget* mAudioEditorRenderWidget;
+	EditorState* mCurrentState;
 };
 
