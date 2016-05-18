@@ -5,7 +5,8 @@
 DEFINE_SINGLETON_IMPL(NameGenerator);
 
 NameGenerator::NameGenerator()
-	: mNameCounters()
+	: mLock()
+	, mNameCounters()
 {
 }
 
@@ -15,6 +16,8 @@ NameGenerator::~NameGenerator()
 
 String NameGenerator::generateName(const String& baseName)
 {
+	mLock.lock();
+
 	int* counterPtr = mNameCounters.find(baseName);
 	int counter = 0;
 	if (!counterPtr)
@@ -24,9 +27,10 @@ String NameGenerator::generateName(const String& baseName)
 	}
 	else
 	{
-		counter = *counterPtr;
-		mNameCounters[baseName] = counter + 1;
+		counter = ++(*counterPtr);
 	}
+
+	mLock.release();
 
 	return baseName + "." + StringConverter::toString(counter);
 }
