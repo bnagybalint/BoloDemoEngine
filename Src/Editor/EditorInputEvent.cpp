@@ -121,7 +121,7 @@ namespace
 		userEvt.mouseX    = me->x();
 		userEvt.mouseY    = me->y();
 	}
-	else if (e->type() == QEvent::MouseButtonPress)
+	else if (e->type() == QEvent::MouseButtonPress || e->type() == QEvent::MouseButtonDblClick)
 	{
 		const QMouseEvent* me = static_cast<const QMouseEvent*>(e);
 		//userEvt.widgetUID = widgetUID;

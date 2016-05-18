@@ -78,7 +78,7 @@ public:
 public:
 
 	uint64 widgetUID;
-	uint32 eventType;
+	EventType eventType;
 	uint32 button;    // mouse button or keyboard key
 	uint32 modifier;  // keyboard modifier state flag
 	uint32 mouseX;

@@ -38,7 +38,7 @@ void RuntimeAssert(bool cond);
 #ifdef BDE_GLOBAL_BUILD_DEBUG
 # define Assert( cond ) RuntimeAssert( !!(cond) )
 //# define AssertMsg( cond, msg ) Assert( cond )
-# define AssertMsg( cond, msg ) for(;;) { OutputDebugString( msg ); Assert( cond ); break; }
+# define AssertMsg( cond, msg ) for(;;) { if(cond) break; OutputDebugString( msg ); Assert( cond ); break; }
 #else
 # define Assert( cond )
 # define AssertMsg( cond, msg )
