@@ -4,6 +4,7 @@
 
 #include "Assist/String.h"
 #include "Assist/Map.h"
+#include "Assist/Mutex.h"
 
 class NameGenerator
 {
@@ -22,6 +23,7 @@ private:
 
 private:
 
+	Mutex mLock;
 	Map<String, int> mNameCounters;
 };
 
