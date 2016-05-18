@@ -51,17 +51,11 @@
     <ClInclude Include="GeometryGenerator.h">
       <Filter>Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="IPickable.h">
-      <Filter>Util</Filter>
-    </ClInclude>
     <ClInclude Include="SynthObject.h">
       <Filter>Synth</Filter>
     </ClInclude>
     <ClInclude Include="SynthComponent.h">
       <Filter>Synth</Filter>
-    </ClInclude>
-    <ClInclude Include="PickEngine.h">
-      <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="SynthScene.h">
       <Filter>Synth</Filter>
@@ -77,6 +71,15 @@
     </ClInclude>
     <ClInclude Include="CommandManager.h">
       <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="IPickable2D.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="PickCalculator2D.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Picker2D.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -101,17 +104,11 @@
     <ClCompile Include="GeometryGenerator.cpp">
       <Filter>Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="IPickable.cpp">
-      <Filter>Util</Filter>
-    </ClCompile>
     <ClCompile Include="SynthObject.cpp">
       <Filter>Synth</Filter>
     </ClCompile>
     <ClCompile Include="SynthComponent.cpp">
       <Filter>Synth</Filter>
-    </ClCompile>
-    <ClCompile Include="PickEngine.cpp">
-      <Filter>Util</Filter>
     </ClCompile>
     <ClCompile Include="SynthScene.cpp">
       <Filter>Synth</Filter>
@@ -127,6 +124,15 @@
     </ClCompile>
     <ClCompile Include="CommandManager.cpp">
       <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="IPickable2D.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="PickCalculator2D.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Picker2D.cpp">
+      <Filter>Util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 #include "SynthComponent.h"
 
-#include "BL/PickEngine.h"
 #include "BL/SynthScene.h"
+#include "BL/PickCalculator2D.h"
 
 #include "Graphics/GraphicsNode.h"
 #include "Graphics/GraphicsRectangle.h"
@@ -32,20 +32,25 @@ SynthComponent::~SynthComponent()
 	destroyRender();
 }
 
-bool SynthComponent::performPick(const PickInput& input, /*out*/PickResult& result)
+bool SynthComponent::performPick(const Picker2D::PickInput& input, /*out*/Picker2D::PickResult& result)
 {
-	if ((input.pickFilter & PickObjectType::SynthComponent) == 0)
+	if ((input.pickFilter & Picker2D::ObjectType::SynthComponent) == 0)
 		return false;
 
 	Vector2 worldAabbMin = position.getValue() + localAabbMin.getValue();
 	Vector2 worldAabbMax = position.getValue() + localAabbMax.getValue();
-	bool hit = PickEngine::pickRectangle(worldAabbMin, worldAabbMax, result);
+
+	Picker2D::PickResult resultInner;
+	bool hit = PickCalculator2D::pickRectangle(worldAabbMin, worldAabbMax, input, resultInner);
 
 	if (hit)
 	{
-		result.type = IPickable2D::PickObjectType::SynthComponent;
+		result.hit = hit;
+		result.type = Picker2D::ObjectType::SynthComponent;
 		result.hitPart = 0; // default
-		// result.closestZ = 0; // TODO
+		result.closestPoint = resultInner.closestPoint;
+		result.closestDistance = resultInner.closestDistance;
+		result.closestZ = 0; // TODO FIXME
 	}
 
 	return hit;

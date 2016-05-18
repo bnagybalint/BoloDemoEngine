@@ -5,6 +5,7 @@
 #include "Assist/Property.h"
 
 #include "BL/SynthObject.h"
+#include "BL/Picker2D.h"
 
 class GraphicsNode;
 class GraphicsRectangle;
@@ -25,7 +26,8 @@ public:
 	SynthComponent(SynthScene* scene, const String& name, AudioComponent* audioComponent);
 	~SynthComponent();
 
-	bool performPick(const PickInput& input, /*out*/PickResult& result) override;
+	// Inherited from IPickable2D
+	bool performPick(const Picker2D::PickInput& input, /*out*/Picker2D::PickResult& result) override;
 
 private:
 

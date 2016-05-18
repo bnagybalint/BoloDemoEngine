@@ -3,7 +3,7 @@
 #include "Assist/Common.h"
 #include "Assist/PropertyOwner.h"
 
-#include "BL/IPickable.h"
+#include "BL/IPickable2D.h"
 
 class SynthScene;
 

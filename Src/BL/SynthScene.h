@@ -10,6 +10,7 @@ class GraphicsScene;
 
 class SynthObject;
 class SynthComponent;
+class Picker2D;
 
 class SynthScene
 {
@@ -24,11 +25,15 @@ public:
 
 	GraphicsScene* getRenderScene() const { return mSynthScene; }
 
+	Picker2D* getPicker() const { return mPicker; }
+
 private:
 
 	GraphicsCanvas* mSynthCanvas;
 	GraphicsScene* mSynthScene;
 
 	Map<String, SynthObject*> mObjects; // object.name -> object
+
+	Picker2D* mPicker;
 };
 
