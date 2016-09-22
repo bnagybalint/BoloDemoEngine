@@ -32,6 +32,10 @@ typedef int64_t int64;
 
 typedef uint8 ubyte;
 
+// ----- Stringification ----- 
+
+#define STRINGIFY(str) #str
+
 // ----- Assert ----- 
 
 void RuntimeAssert(bool cond);
