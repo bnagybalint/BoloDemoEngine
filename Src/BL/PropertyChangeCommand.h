@@ -15,7 +15,7 @@ public:
 	PropertyChangeCommand(ObjectUID uid, const String& propName, const T& value) 
 		: mPropertyOwnerUID(uid)
 		, mPropertyName(propName)
-		, mValue(val) {}
+		, mValue(value) {}
 	virtual ~PropertyChangeCommand() {}
 
 private:
@@ -39,12 +39,12 @@ void PropertyChangeCommand<T>::executeCommand()
 		fail();
 
 	PropertyBase* prop = propOwner->getProperty(mPropertyName);
-	Assert(prop->getType() != GetTypeId<T>());
+	Assert(prop->getType() == GetTypeId<T>());
 	Property<T>* propt = static_cast<Property<T>*>(prop);
 
 	(*propt) = mValue;
 
-	PropertyOwner::lockPropertyOwner(propOwner); propOwner = NULL;
+	PropertyOwner::unlockPropertyOwner(propOwner); propOwner = NULL;
 
 	finished();
 }
