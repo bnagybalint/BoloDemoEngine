@@ -17,7 +17,7 @@ public:
 	// Handle input from the user (mouse/keyboard)
 	virtual void receiveInputEvent(const EditorInputEvent& evt) = 0;
 
-	virtual void enterState() {}
-	virtual void leaveState() {}
+	virtual void enterState() { /*NOP*/ }
+	virtual void leaveState() { /*NOP*/ }
 };
 

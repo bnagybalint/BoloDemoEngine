@@ -6,7 +6,8 @@
 #include "Assist/Callback.h"
 #include "Assist/Delegate.h"
 #include "Assist/Mutex.h"
-#include "Assist/Signal.h"
+#include "Assist/Signal.h" 
+#include "Assist/ObjectUID.h"
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -52,6 +53,8 @@ public:
 
 	HWND getSceneEditorWindowHandle() const;
 	HWND getAudioEditorWindowHandle() const;
+
+	ObjectUID getMainCamera() const { return mMainCameraUid; };
 	
 private:
 
@@ -64,6 +67,11 @@ private:
 	void enterEditorMainLoop();
 
 	void processEventCallbacks();
+
+private:
+
+	void onObjectCreated(ObjectUID uid);
+	void onObjectDestroying(ObjectUID uid);
 
 private:
 
@@ -80,5 +88,7 @@ private:
 	EventReactor* mEventReactor;
 
 	EditorState* mCurrentState;
+
+	ObjectUID mMainCameraUid;
 };
 

@@ -16,7 +16,7 @@ public:
 
 	void receiveInputEvent(const EditorInputEvent& evt) override;
 
-	//virtual void enterState() {} // unused
-	//virtual void leaveState() {} // unused
+	//virtual void enterState() override; // unused
+	//virtual void leaveState() override; // unused
 };
 

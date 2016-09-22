@@ -70,6 +70,9 @@
     <ClInclude Include="EditorStateIdle.h">
       <Filter>EditorStates</Filter>
     </ClInclude>
+    <ClInclude Include="EditorStateCameraOrbit.h">
+      <Filter>EditorStates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Panels\MainWindow.cpp">
@@ -108,6 +111,9 @@
     </ClCompile>
     <ClCompile Include="EditorInputEvent.cpp" />
     <ClCompile Include="EditorStateIdle.cpp">
+      <Filter>EditorStates</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorStateCameraOrbit.cpp">
       <Filter>EditorStates</Filter>
     </ClCompile>
   </ItemGroup>

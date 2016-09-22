@@ -2,6 +2,7 @@
 
 #include "Assist/ThreadManager.h"
 #include "Assist/Logger.h"
+#include "Assist/PropertyOwner.h"
 
 #include "Editor/EventReactor.h"
 #include "Editor/EditorState.h"
@@ -25,6 +26,8 @@ Editor::Editor()
 	, mRequestedCallbacks()
 	, mEventReactor(NULL)
 	, mCurrentState(NULL)
+
+	, mMainCameraUid(INVALID_UID)
 {
 	mEventReactor = new EventReactor();
 }
@@ -52,6 +55,9 @@ void Editor::startEditor(int argc, char** argv)
 
 	changeState(new EditorStateIdle());
 
+	PropertyOwner::objectCreatedEvent    += Delegate<void(ObjectUID)>(this, &Editor::onObjectCreated);
+	PropertyOwner::objectDestroyingEvent += Delegate<void(ObjectUID)>(this, &Editor::onObjectDestroying);
+
 	LOGINFO("---> Editor initialized");
 
 	initializedSignal.send();
@@ -64,6 +70,9 @@ void Editor::startEditor(int argc, char** argv)
 void Editor::stopEditor()
 {
 	Unimplemented();
+
+	PropertyOwner::objectCreatedEvent    -= Delegate<void(ObjectUID)>(this, &Editor::onObjectCreated);
+	PropertyOwner::objectDestroyingEvent -= Delegate<void(ObjectUID)>(this, &Editor::onObjectDestroying);
 
 	// TODO tear down current state
 
@@ -130,6 +139,25 @@ void Editor::processInputEvent(const EditorInputEvent& evt)
 	mEditorLock.release();
 }
 
+void Editor::onObjectCreated(ObjectUID uid)
+{
+	PropertyOwner* propOwner = PropertyOwner::lockPropertyOwner(uid);
+
+	bool b1 = propOwner->isa("PropertyOwner");
+	bool b2 = propOwner->isa("DisplayCamera");
+
+	if (propOwner->isa("DisplayCamera"))
+	{
+		mMainCameraUid = uid;
+	}
+
+	PropertyOwner::unlockPropertyOwner(propOwner); propOwner = NULL;
+}
+
+void Editor::onObjectDestroying(ObjectUID uid)
+{
+	Unimplemented();
+}
 
 HWND Editor::getSceneEditorWindowHandle() const
 {
