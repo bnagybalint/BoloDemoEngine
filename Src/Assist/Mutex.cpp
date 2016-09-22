@@ -18,7 +18,7 @@ void Mutex::lock()
 
 bool Mutex::tryLock()
 {
-	return (bool)TryEnterCriticalSection(&mCriticalSection);
+	return TryEnterCriticalSection(&mCriticalSection) != 0;
 }
 
 void Mutex::release()
