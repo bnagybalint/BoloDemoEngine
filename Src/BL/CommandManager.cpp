@@ -33,20 +33,14 @@ void CommandManager::processCommands()
 {
 	mLock.lock();
 	int numCommands = mCommands.size();
-	mLock.release();
 
 	for (int i = 0; i < numCommands; i++)
 	{
-		mLock.lock();
 		Command* cmd = mCommands[i];
-		mLock.release();
-
 		cmd->execute();
-
 		Command::ResultCode sc = cmd->getResultCode();
 	}
 
-	mLock.lock();
 	for (int i = 0; i < numCommands; i++)
 	{
 		delete mCommands[i]; mCommands[i] = NULL;
