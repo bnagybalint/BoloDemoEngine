@@ -29,7 +29,8 @@ Transform& Transform::inverse ()
 
 Transform Transform::inverse (const Transform& transform)
 {
-   return Transform(-transform.mPosition, Quaternion::inverse(transform.mOrientation));
+	Quaternion qinv = Quaternion::inverse(transform.mOrientation);
+	return Transform(-(qinv*transform.mPosition), qinv);
 }
 
 Vector3 Transform::transform (const Vector3& u) const
