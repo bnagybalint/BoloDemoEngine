@@ -25,6 +25,15 @@
     <Filter Include="Factory">
       <UniqueIdentifier>{28777ada-348a-477e-80b4-6c36e047375c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Picking">
+      <UniqueIdentifier>{1e36d41c-4360-43b4-8c8b-0d9a6ca6b886}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Picking\2D">
+      <UniqueIdentifier>{719f2d37-7cb9-489c-8822-aed2f48da6a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Picking\3D">
+      <UniqueIdentifier>{fadc541f-f6e6-4ec8-95ce-3d466901d6b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h">
@@ -78,8 +87,17 @@
     <ClInclude Include="PickCalculator2D.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="Pick_Common.h">
+      <Filter>Picking</Filter>
+    </ClInclude>
     <ClInclude Include="Picker2D.h">
-      <Filter>Util</Filter>
+      <Filter>Picking\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="PickObject2D.h">
+      <Filter>Picking\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="PickObjectPart2D.h">
+      <Filter>Picking\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -131,8 +149,17 @@
     <ClCompile Include="PickCalculator2D.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="Pick_Common.cpp">
+      <Filter>Picking</Filter>
+    </ClCompile>
     <ClCompile Include="Picker2D.cpp">
-      <Filter>Util</Filter>
+      <Filter>Picking\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="PickObject2D.cpp">
+      <Filter>Picking\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="PickObjectPart2D.cpp">
+      <Filter>Picking\2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

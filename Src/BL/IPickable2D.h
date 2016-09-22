@@ -6,6 +6,8 @@
 
 #include "Assist/Vector2.h"
 
+class PropertyOwner;
+
 class IPickable2D
 {
 public:
@@ -13,9 +15,16 @@ public:
 
 public:
 
-	IPickable2D();
+	IPickable2D(PropertyOwner* propOwner);
 	virtual ~IPickable2D();
 
+	// LOCK: property owner's (getPropertyOwner()) lock must be held
 	virtual bool performPick(const Picker2D::PickInput& input, /*out*/Picker2D::PickResult& result) = 0;
+
+	virtual PropertyOwner* getPickedPropertyOwner() const { return mParentPropertyOwner; };
+
+private:
+
+	PropertyOwner* mParentPropertyOwner;
 };
 

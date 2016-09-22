@@ -3,7 +3,7 @@
 
 SynthObject::SynthObject(SynthScene* scene, const String& name)
 	: PropertyOwner()
-	, IPickable2D()
+	, IPickable2D(this)
 	, mScene(scene)
 	, mName(name)
 {

@@ -35,6 +35,9 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="CommandManager.h" />
     <ClInclude Include="PickCalculator2D.h" />
+    <ClInclude Include="PickObject2D.h" />
+    <ClInclude Include="PickObjectPart2D.h" />
+    <ClInclude Include="Pick_Common.h" />
     <ClInclude Include="SynthComponentFactory.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CreateSynthComponentCommand.h" />
@@ -55,6 +58,9 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="PickCalculator2D.cpp" />
+    <ClCompile Include="PickObject2D.cpp" />
+    <ClCompile Include="PickObjectPart2D.cpp" />
+    <ClCompile Include="Pick_Common.cpp" />
     <ClCompile Include="SynthComponentFactory.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CreateSynthComponentCommand.cpp" />
