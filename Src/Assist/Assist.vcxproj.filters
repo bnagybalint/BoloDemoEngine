@@ -118,6 +118,7 @@
     <ClInclude Include="NameGenerator.h">
       <Filter>String</Filter>
     </ClInclude>
+    <ClInclude Include="Point2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="NameGenerator.cpp">
       <Filter>String</Filter>
     </ClCompile>
+    <ClCompile Include="Point2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">
