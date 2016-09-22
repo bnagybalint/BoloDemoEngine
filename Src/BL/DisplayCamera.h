@@ -9,6 +9,8 @@ class RenderCamera;
 
 class DisplayCamera	: public PropertyOwner
 {
+	DECLARE_TYPE_INHERITANCE(DisplayCamera, PropertyOwner);
+
 public:
 
 	DisplayCamera();

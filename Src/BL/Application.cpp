@@ -115,7 +115,7 @@ void Application::initializeScene()
 
 	SynthComponentFactory::createSingletonInstance();
 
-	mScene = new Scene();
+	mScene = PropertyOwner::create<Scene>();
 	mSynth = new SynthScene(Editor::getInstance()->getAudioEditorWindowHandle());
 }
 

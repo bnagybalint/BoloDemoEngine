@@ -9,6 +9,8 @@
 
 class GeometricObject : public SceneObject
 {
+	DECLARE_TYPE_INHERITANCE(GeometricObject, SceneObject);
+
 public:
 
 	GeometricObject();

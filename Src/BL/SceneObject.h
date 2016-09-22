@@ -7,6 +7,8 @@
 
 class SceneObject : public PropertyOwner
 {
+	DECLARE_TYPE_INHERITANCE(SceneObject, PropertyOwner);
+
 public:
 
 	SceneObject();

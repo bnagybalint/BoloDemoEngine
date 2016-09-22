@@ -11,6 +11,8 @@ class SynthObject
 	: public PropertyOwner
 	, public IPickable2D
 {
+	DECLARE_TYPE_INHERITANCE(SynthObject, PropertyOwner);
+
 public:
 
 	SynthObject(SynthScene* scene, const String& name);

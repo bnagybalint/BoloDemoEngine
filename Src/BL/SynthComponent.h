@@ -15,6 +15,8 @@ class AudioComponent;
 
 class SynthComponent : public SynthObject
 {
+	DECLARE_TYPE_INHERITANCE(SynthComponent, SynthObject);
+
 public:
 
 	Property<Vector2> position;
