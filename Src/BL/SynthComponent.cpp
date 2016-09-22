@@ -78,8 +78,8 @@ void SynthComponent::createRender()
 	mRenderText->setTextAlignment(GraphicsText::TextAlignment::MidCenter);
 
 	mRenderRect->setSize(Vector2(120,40));
-	mRenderRect->setFillColor(Color(0.8, 0.8, 0.8));
-	mRenderRect->setBorderColor(Color(0.2, 0.2, 0.2));
+	mRenderRect->setFillColor(Color(0.8f, 0.8f, 0.8f));
+	mRenderRect->setBorderColor(Color(0.2f, 0.2f, 0.2f));
 	mRenderRect->setBorderWidth(1.5f);
 
 	mRenderNode->setPosition(Vector2(0, 0));
