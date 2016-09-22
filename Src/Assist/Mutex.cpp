@@ -1,34 +1,27 @@
 #include "Mutex.h"
 
 Mutex::Mutex()
-	: mMutexHandle(NULL)
+	: mCriticalSection()
 {
-	mMutexHandle = CreateMutex(NULL, FALSE, NULL);
-	Assert(mMutexHandle);
+	InitializeCriticalSectionAndSpinCount(&mCriticalSection, 512);
 }
 
 Mutex::~Mutex()
 {
-	SafeCall(CloseHandle(mMutexHandle)); mMutexHandle = NULL;
+	DeleteCriticalSection(&mCriticalSection);
 }
 
 void Mutex::lock()
 {
-	DWORD result = WaitForSingleObject(mMutexHandle, INFINITE);
-	Assert(result == WAIT_OBJECT_0); (void)result;
+	EnterCriticalSection(&mCriticalSection);
 }
 
 bool Mutex::tryLock()
 {
-	DWORD result = WaitForSingleObject(mMutexHandle, 0);
-	if (result == WAIT_OBJECT_0)
-		return true;
-	
-	Assert(result == WAIT_TIMEOUT);
-	return false;
+	return (bool)TryEnterCriticalSection(&mCriticalSection);
 }
 
 void Mutex::release()
 {
-	SafeCall(ReleaseMutex(mMutexHandle));
+	LeaveCriticalSection(&mCriticalSection);
 }

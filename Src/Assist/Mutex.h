@@ -24,6 +24,6 @@ public:
 
 private:
 
-	HANDLE mMutexHandle;
+	CRITICAL_SECTION mCriticalSection;
 };
 
