@@ -19,7 +19,8 @@ public:
 	virtual ~IPickable2D();
 
 	// LOCK: property owner's (getPropertyOwner()) lock must be held
-	virtual bool performPick(const Picker2D::PickInput& input, /*out*/Picker2D::PickResult& result) = 0;
+	// TODO
+	//virtual bool performPick(const Picker2D::PickInput& input, /*out*/Picker2D::PickResult& result) = 0;
 
 	virtual PropertyOwner* getPickedPropertyOwner() const { return mParentPropertyOwner; };
 

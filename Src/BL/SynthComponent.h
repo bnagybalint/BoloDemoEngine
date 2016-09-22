@@ -27,7 +27,7 @@ public:
 	~SynthComponent();
 
 	// Inherited from IPickable2D
-	bool performPick(const Picker2D::PickInput& input, /*out*/Picker2D::PickResult& result) override;
+	//bool performPick(const Picker2D::PickInput& input, /*out*/Picker2D::PickResult& result) override;
 
 private:
 

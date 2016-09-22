@@ -9,8 +9,8 @@ class PickCalculator2D
 {
 public:
 
-	static bool pickRectangle(const Vector2& rectMin, const Vector2& rectMax, const Picker2D::PickInput& input, /*out*/Picker2D::PickResult& result);
-	static bool pickLine(const Vector2& startPoint, const Vector2& endPoint, const Picker2D::PickInput& input, /*out*/Picker2D::PickResult& result);
+	//static bool pickRectangle(const Vector2& rectMin, const Vector2& rectMax, const Picker2D::PickInput& input, /*out*/Picker2D::PickResult& result);
+	//static bool pickLine(const Vector2& startPoint, const Vector2& endPoint, const Picker2D::PickInput& input, /*out*/Picker2D::PickResult& result);
 
 private:
 

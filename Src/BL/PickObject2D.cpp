@@ -1,11 +1,11 @@
-#include "PickObject.h"
+#include "PickObject2D.h"
 
 
-PickObject::PickObject()
+PickObject2D::PickObject2D()
 {
 }
 
 
-PickObject::~PickObject()
+PickObject2D::~PickObject2D()
 {
 }

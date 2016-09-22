@@ -32,29 +32,29 @@ SynthComponent::~SynthComponent()
 	destroyRender();
 }
 
-bool SynthComponent::performPick(const Picker2D::PickInput& input, /*out*/Picker2D::PickResult& result)
-{
-	if ((input.pickFilter & Picker2D::ObjectType::SynthComponent) == 0)
-		return false;
-
-	Vector2 worldAabbMin = position.getValue() + localAabbMin.getValue();
-	Vector2 worldAabbMax = position.getValue() + localAabbMax.getValue();
-
-	Picker2D::PickResult resultInner;
-	bool hit = PickCalculator2D::pickRectangle(worldAabbMin, worldAabbMax, input, resultInner);
-
-	if (hit)
-	{
-		result.hit = hit;
-		result.type = Picker2D::ObjectType::SynthComponent;
-		result.hitPart = 0; // default
-		result.closestPoint = resultInner.closestPoint;
-		result.closestDistance = resultInner.closestDistance;
-		result.closestZ = 0; // TODO FIXME
-	}
-
-	return hit;
-}
+// bool SynthComponent::performPick(const Picker2D::PickInput& input, /*out*/Picker2D::PickResult& result)
+// {
+// 	if ((input.pickFilter & Picker2D::ObjectType::SynthComponent) == 0)
+// 		return false;
+// 
+// 	Vector2 worldAabbMin = position.getValue() + localAabbMin.getValue();
+// 	Vector2 worldAabbMax = position.getValue() + localAabbMax.getValue();
+// 
+// 	Picker2D::PickResult resultInner;
+// 	bool hit = PickCalculator2D::pickRectangle(worldAabbMin, worldAabbMax, input, resultInner);
+// 
+// 	if (hit)
+// 	{
+// 		result.hit = hit;
+// 		result.type = Picker2D::ObjectType::SynthComponent;
+// 		result.hitPart = 0; // default
+// 		result.closestPoint = resultInner.closestPoint;
+// 		result.closestDistance = resultInner.closestDistance;
+// 		result.closestZ = 0; // TODO FIXME
+// 	}
+// 
+// 	return hit;
+// }
 
 void SynthComponent::onPropertyChanged(PropertyOwner* propOwner, PropertyBase* prop)
 {
