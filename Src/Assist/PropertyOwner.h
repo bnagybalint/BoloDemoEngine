@@ -42,6 +42,11 @@ public:
 	// Release property owner.
 	static void unlockPropertyOwner(PropertyOwner* propOwner);
 
+	template <class PropOwnerType>
+	static PropOwnerType* cast(PropertyOwner* propOwner);
+	template <class PropOwnerType>
+	static const PropOwnerType* cast(const PropertyOwner* propOwner);
+
 private:
 
 	static void onPropertyOwnerCreated(PropertyOwner* propOwner);
@@ -88,4 +93,28 @@ template <class PropOwnerType, class... Params>
 	PropOwnerType* propOwner = new PropOwnerType(params...);
 	PropertyOwner::onPropertyOwnerCreated(propOwner);
 	return propOwner;
+}
+
+template <class PropOwnerType>
+/*static*/PropOwnerType* PropertyOwner::cast(PropertyOwner* propOwner)
+{
+	if (propOwner)
+	{
+		Assert(propOwner->isa<PropOwnerType>());
+		return static_cast<PropOwnerType*>(propOwner);
+	}
+
+	return NULL;
+}
+
+template <class PropOwnerType>
+/*static*/const PropOwnerType* PropertyOwner::cast(const PropertyOwner* propOwner)
+{
+	if (propOwner)
+	{
+		Assert(propOwner->isa<PropOwnerType>());
+		return static_cast<const PropOwnerType*>(propOwner);
+	}
+
+	return NULL;
 }
