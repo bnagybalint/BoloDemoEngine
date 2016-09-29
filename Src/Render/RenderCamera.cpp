@@ -68,39 +68,42 @@ void RenderCamera::setCameraAxes(const Vector3& dir, const Vector3& up)
 
 void RenderCamera::roll(float angleRad)
 {
-	mUpVector.rotate(mDirection, angleRad);
+	Matrix3x3 mx = Matrix3x3::createRotationAxisAngle(angleRad, mDirection);
+	mUpVector = mx * mUpVector;
 	calculateBasis();
 }
 
 void RenderCamera::pitch(float angleRad)
 {
-	mDirection.rotate(mUpVector, angleRad);
+	Matrix3x3 mx = Matrix3x3::createRotationAxisAngle(angleRad, mUpVector);
+	mDirection = mx * mDirection;
 	calculateBasis();
 }
 
 void RenderCamera::yaw(float angleRad)
 {
 	const Vector3 right = getRight();
-	mUpVector.rotate(right, angleRad);
-	mDirection.rotate(right, angleRad);
+	Matrix3x3 mx = Matrix3x3::createRotationAxisAngle(angleRad, right);
+	mUpVector = mx * mUpVector;
+	mDirection = mx * mDirection;
 	calculateBasis();
 }
 
 void RenderCamera::calculateBasis()
 {
 	mDirection.normalize();
-	mUpVector = Vector3::cross(mDirection, getRight());
+	mUpVector = mDirection.cross(getRight());
 	mUpVector.normalize();
 
 	Vector3 z = mDirection;
 	Vector3 x = getRight();
 	Vector3 y = mUpVector;
 
-	setWorldOrientation(Quaternion::createFromAxes(x, y, z));
+	setWorldOrientation(Quaternion::createFromBasis(x, y, z));
 }
 
 Vector3 RenderCamera::getRight() const
 {
-	return Vector3::normalized(Vector3::cross(mUpVector, mDirection));
+	return mUpVector.cross(mDirection).getNormalized();
 }
 

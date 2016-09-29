@@ -16,11 +16,11 @@ RenderLightSource::~RenderLightSource()
 
 void RenderLightSource::lookAt(const Vector3& center, const Vector3& up)
 {
-	Vector3 ldir = Vector3::normalized(center - getWorldTransform().getPosition());
-	Vector3 lside = Vector3::cross(up, ldir); lside.normalize();
-	Vector3 lup = Vector3::cross(ldir, lside); lup.normalize();
+	Vector3 ldir = (center - getWorldTransform().getPosition()).getNormalized();
+	Vector3 lside = up.cross(ldir); lside.normalize();
+	Vector3 lup = ldir.cross(lside); lup.normalize();
 
-	setWorldOrientation(Quaternion::createFromAxes(lside, lup, ldir));
+	setWorldOrientation(Quaternion::createFromBasis(lside, lup, ldir));
 }
 
 void RenderLightSource::setColor(const Vector3& color)

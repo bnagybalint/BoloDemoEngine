@@ -102,69 +102,36 @@ Matrix4x4::Matrix4x4 (const Matrix4x4& m) {
 Matrix4x4::~Matrix4x4 () { }
 
 Vector3 Matrix4x4::transform(const Vector3& u) const {
-	return Matrix4x4::transform(*this, u);
-}
-
-Vector3 Matrix4x4::transform(const Matrix4x4& m, const Vector3& u) {
-	Coordtype rx = u.x*m.mx[mxidx(0, 0)] + u.y*m.mx[mxidx(0, 1)] + u.z*m.mx[mxidx(0, 2)] + u.w*m.mx[mxidx(0, 3)];
-	Coordtype ry = u.x*m.mx[mxidx(1, 0)] + u.y*m.mx[mxidx(1, 1)] + u.z*m.mx[mxidx(1, 2)] + u.w*m.mx[mxidx(1, 3)];
-	Coordtype rz = u.x*m.mx[mxidx(2, 0)] + u.y*m.mx[mxidx(2, 1)] + u.z*m.mx[mxidx(2, 2)] + u.w*m.mx[mxidx(2, 3)];
-	Coordtype rw = u.x*m.mx[mxidx(3, 0)] + u.y*m.mx[mxidx(3, 1)] + u.z*m.mx[mxidx(3, 2)] + u.w*m.mx[mxidx(3, 3)];
+	Coordtype rx = u.x*mx[mxidx(0, 0)] + u.y*mx[mxidx(0, 1)] + u.z*mx[mxidx(0, 2)] + u.w*mx[mxidx(0, 3)];
+	Coordtype ry = u.x*mx[mxidx(1, 0)] + u.y*mx[mxidx(1, 1)] + u.z*mx[mxidx(1, 2)] + u.w*mx[mxidx(1, 3)];
+	Coordtype rz = u.x*mx[mxidx(2, 0)] + u.y*mx[mxidx(2, 1)] + u.z*mx[mxidx(2, 2)] + u.w*mx[mxidx(2, 3)];
+	Coordtype rw = u.x*mx[mxidx(3, 0)] + u.y*mx[mxidx(3, 1)] + u.z*mx[mxidx(3, 2)] + u.w*mx[mxidx(3, 3)];
 	return Vector3(rx, ry, rz, rw);
 }
 
 Vector3 Matrix4x4::transformByTranspose(const Vector3& u) const {
-	return Matrix4x4::transformByTranspose(*this, u);
-}
-
-/*static*/ Vector3 Matrix4x4::transformByTranspose(const Matrix4x4& m, const Vector3& u) {
-	Coordtype rx = u.x*m.mx[mxidx(0, 0)] + u.y*m.mx[mxidx(1, 0)] + u.z*m.mx[mxidx(2, 0)] + u.w*m.mx[mxidx(3, 0)];
-	Coordtype ry = u.x*m.mx[mxidx(0, 1)] + u.y*m.mx[mxidx(1, 1)] + u.z*m.mx[mxidx(2, 1)] + u.w*m.mx[mxidx(3, 1)];
-	Coordtype rz = u.x*m.mx[mxidx(0, 2)] + u.y*m.mx[mxidx(1, 2)] + u.z*m.mx[mxidx(2, 2)] + u.w*m.mx[mxidx(3, 2)];
-	Coordtype rw = u.x*m.mx[mxidx(0, 3)] + u.y*m.mx[mxidx(1, 3)] + u.z*m.mx[mxidx(2, 3)] + u.w*m.mx[mxidx(3, 3)];
+	Coordtype rx = u.x*mx[mxidx(0, 0)] + u.y*mx[mxidx(1, 0)] + u.z*mx[mxidx(2, 0)] + u.w*mx[mxidx(3, 0)];
+	Coordtype ry = u.x*mx[mxidx(0, 1)] + u.y*mx[mxidx(1, 1)] + u.z*mx[mxidx(2, 1)] + u.w*mx[mxidx(3, 1)];
+	Coordtype rz = u.x*mx[mxidx(0, 2)] + u.y*mx[mxidx(1, 2)] + u.z*mx[mxidx(2, 2)] + u.w*mx[mxidx(3, 2)];
+	Coordtype rw = u.x*mx[mxidx(0, 3)] + u.y*mx[mxidx(1, 3)] + u.z*mx[mxidx(2, 3)] + u.w*mx[mxidx(3, 3)];
 	return Vector3(rx, ry, rz, rw);
 }
 
-Matrix4x4& Matrix4x4::inverse () {
-   Coordtype d = this->determinant();
-   Assert (d != 0);
-
-   adjugate();
-   for (int i = 0; i < msNumElements; i++) {
-	   mx[i] /= d;
-   }
-
-   return *this;
-}
-
-Matrix4x4 Matrix4x4::inverse(const Matrix4x4& m) {
-	Coordtype d = m.determinant();
+Matrix4x4 Matrix4x4::inverse () const {
+	Coordtype d = determinant();
 	Assert(d != 0.0f);
 
-	return Matrix4x4::adjugate(m) / d;
+	return adjugate() / d;
 }
 
 // ############################################
 // transpose
 
-Matrix4x4& Matrix4x4::transpose () {
-
-   Memory::Swap(mx[1], mx[4]);
-   Memory::Swap(mx[2], mx[8]);
-   Memory::Swap(mx[3], mx[12]);
-   Memory::Swap(mx[6], mx[9]);
-   Memory::Swap(mx[7], mx[13]);
-   Memory::Swap(mx[11], mx[14]);
-
-   return *this;
-}
-
-Matrix4x4 Matrix4x4::transpose (const Matrix4x4& m) {
-
+Matrix4x4 Matrix4x4::transpose () const {
 	Matrix4x4 r;
 	for (int i = 0; i < msNumRows; i++) {
 		for (int j = 0; j < msNumCols; j++) {
-			r.mx[mxidx(i,j)] = m.mx[mxidx(j,i)];
+			r.mx[mxidx(i,j)] = mx[mxidx(j,i)];
 		}
 	}
    return r;
@@ -201,10 +168,6 @@ Coordtype Matrix4x4::determinant () const {
 	return det;
 }
 
-Coordtype Matrix4x4::determinant (const Matrix4x4& m) {
-   return m.determinant();
-}
-
 // ############################################
 // adjugate matrix
 
@@ -228,7 +191,7 @@ Coordtype Matrix4x4::determinant (const Matrix4x4& m) {
 #define b43	(a11*a22*a34 + a12*a24*a31 + a14*a21*a32 - a11*a24*a32 - a12*a21*a34 - a14*a22*a31)
 #define b44	(a11*a22*a33 + a12*a23*a31 + a13*a21*a32 - a11*a23*a32 - a12*a21*a33 - a13*a22*a31)
 
-Matrix4x4& Matrix4x4::adjugate () {
+Matrix4x4 Matrix4x4::adjugate () const {
 
 	Unimplemented(); // TODO CHECK
 //    Coordtype m[msNumElements] = {
@@ -239,16 +202,6 @@ Matrix4x4& Matrix4x4::adjugate () {
 //    };
 //    return this->copy(m);
 	return *this;
-}
-
-Matrix4x4 Matrix4x4::adjugate (const Matrix4x4& m) {
-
-	(void)m;
-	Unimplemented(); // TODO CHECK
-//    Matrix4x4 r(m);
-//    r.adjugate();
-//    return r;
-	return Matrix4x4::IDENTITY;
 }
 
 #undef 	a11
@@ -285,37 +238,6 @@ Matrix4x4 Matrix4x4::adjugate (const Matrix4x4& m) {
 #undef 	b43
 #undef 	b44
 
-// ############################################
-// re-orthogonalize matrix
-
-Matrix4x4& Matrix4x4::orthogonalize () {
-	Unimplemented(); // TODO CHECK
-//    Vector3 z2 = Vector3::cross(mx[0],mx[1],mx[2], mx[4],mx[5],mx[6]).normalize();
-//    Vector3 y2 = Vector3::cross(z2.x,z2.y,z2.z,    mx[0],mx[1],mx[2]).normalize();
-//    Vector3 x2 = Vector3::normalized(mx[0],mx[1],mx[2]);
-// 
-//    this->clear();
-// 
-//    mx[0] = x2.x;
-//    mx[1] = x2.y;
-//    mx[2] = x2.z;
-//    mx[4] = y2.x;
-//    mx[5] = y2.y;
-//    mx[6] = y2.z;
-//    mx[8] = z2.x;
-//    mx[9] = z2.y;
-//    mx[10] = z2.z;
-//    mx[15] = 1.0f;
-// 
-	return *this;
-}
-
-Matrix4x4 Matrix4x4::orthogonalize (const Matrix4x4& m) {
-   Matrix4x4 res = m;
-   res.orthogonalize();
-   return res;
-}
-
 Matrix4x4& Matrix4x4::makeFromParts(const Matrix3x3& rotationPart, const Vector3& translationPart, const Vector3& projectionPart, Coordtype scalarPart) {
 	mx[mxidx(0, 0)] = rotationPart(0, 0);
 	mx[mxidx(0, 1)] = rotationPart(0, 1);
@@ -340,8 +262,8 @@ Matrix4x4& Matrix4x4::makeFromParts(const Matrix3x3& rotationPart, const Vector3
 	return *this;
 }
 
-Matrix4x4& Matrix4x4::makeTransform(const Vector3& position, const Quaternion& orientation, const Vector3& scale) {
-	makeFromParts(orientation.toMatrix3x3() * Matrix3x3::createFromScale(scale), position, Vector3::ZERO, Coordtype(1));
+Matrix4x4& Matrix4x4::makeAffineTransform(const Vector3& position, const Quaternion& orientation, const Vector3& scale) {
+	makeFromParts(orientation.toMatrix3x3() * Matrix3x3::createScale(scale), position, Vector3::ZERO, Coordtype(1));
 	return *this;
 }
 
@@ -360,15 +282,15 @@ Vector3 Matrix4x4::operator *  (const Vector3& u) const {
 	return transform(u);
 }
 
-Matrix4x4 Matrix4x4::createFromScale(const Vector3& s) {
+Matrix4x4 Matrix4x4::createScale(const Vector3& s) {
 	Matrix4x4 rv;
-	rv.makeFromParts(Matrix3x3::createFromScale(s), Vector3::ZERO, Vector3::ZERO, Coordtype(1));
+	rv.makeFromParts(Matrix3x3::createScale(s), Vector3::ZERO, Vector3::ZERO, Coordtype(1));
 	return rv;
 }
 
-Matrix4x4 Matrix4x4::createFromRotation(Coordtype angle, const Vector3& u) {
+Matrix4x4 Matrix4x4::createRotationAxisAngle(Coordtype angle, const Vector3& u) {
 	Matrix4x4 rv;
-	rv.makeFromParts(Matrix3x3::createFromRotation(angle, u), Vector3::ZERO, Vector3::ZERO, Coordtype(1));
+	rv.makeFromParts(Matrix3x3::createRotationAxisAngle(angle, u), Vector3::ZERO, Vector3::ZERO, Coordtype(1));
 	return rv;
 }
 
@@ -378,7 +300,7 @@ Matrix4x4 Matrix4x4::createFromBasis(const Vector3& u, const Vector3& v, const V
 	return rv;
 }
 
-Matrix4x4 Matrix4x4::createFromTranslation(const Vector3& u) {
+Matrix4x4 Matrix4x4::createTranslationMatrix(const Vector3& u) {
 	Matrix4x4 rv;
 	rv.makeFromParts(Matrix3x3::IDENTITY, u, Vector3::ZERO, Coordtype(1));
 	return rv;
@@ -387,6 +309,6 @@ Matrix4x4 Matrix4x4::createFromTranslation(const Vector3& u) {
 Matrix4x4 Matrix4x4::createAffineTransform(const Vector3& position, const Quaternion& orientation, const Vector3& scale)
 {
 	Matrix4x4 rv;
-	rv.makeFromParts(orientation.toMatrix3x3() * Matrix3x3::createFromScale(scale), position, Vector3::ZERO, Coordtype(1));
+	rv.makeFromParts(orientation.toMatrix3x3() * Matrix3x3::createScale(scale), position, Vector3::ZERO, Coordtype(1));
 	return rv;
 }

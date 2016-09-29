@@ -91,32 +91,19 @@ public:
 
 	// transform vector
 	Vector3           transform(const Vector3& u) const;
-	static Vector3    transform(const Matrix3x3& m, const Vector3& u);
-
 	// transform vector by transpose of this matrix
 	Vector3           transformByTranspose(const Vector3& u) const;
-	static Vector3    transformByTranspose(const Matrix3x3& m, const Vector3& u);
-
 	// inverse
 	// note: matrix should be invertible (detA != 0)
-	Matrix3x3&        inverse();
-	static Matrix3x3  inverse(const Matrix3x3& m);
-
+	Matrix3x3         inverse() const;
 	// transpose
-	Matrix3x3&        transpose();
-	static Matrix3x3  transpose(const Matrix3x3& m);
-
+	Matrix3x3         transpose() const;
 	// determinant
 	Coordtype         determinant() const;
-	static Coordtype  determinant(const Matrix3x3& m);
-
 	// adjugate matrix
-	Matrix3x3&        adjugate();
-	static Matrix3x3  adjugate(const Matrix3x3& m);
-
+	Matrix3x3         adjugate() const;
 	// re-orthogonalize matrix
-	Matrix3x3&        orthogonalize();
-	static Matrix3x3  orthogonalize(const Matrix3x3& m);
+	Matrix3x3         orthogonalized() const;
 
 	// ####################################
 
@@ -147,11 +134,11 @@ public:
 	// ####################################
 
 	// create 3D scale matrix with given scaling factors
-	static Matrix3x3  createFromScale(const Vector3& s);
+	static Matrix3x3  createScale(const Vector3& s);
 
 	// create 3D rotation matrix for rotation by angle (in rads) around axis
 	// note: axis should not be null vector
-	static Matrix3x3  createFromRotation(Coordtype angle, const Vector3& u);
+	static Matrix3x3  createRotationAxisAngle(Coordtype radians, const Vector3& u);
 
 	// create 3D transformation matrix, which transforms standard (i,j,k)
 	// base vectors into the given 3 vectors respectively

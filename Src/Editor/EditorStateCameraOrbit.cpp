@@ -49,7 +49,7 @@ void EditorStateCameraOrbit::enterState()
 	DisplayCamera* camera = PropertyOwner::cast<DisplayCamera>(propOwner);
 	Assert(camera);
 	mInitialCameraTransform = Transform(camera->position, camera->orientation);
-	mOrbitCenterInCameraLocal = Transform::inverse(mInitialCameraTransform).transform(mOrbitCenter);
+	mOrbitCenterInCameraLocal = mInitialCameraTransform.inverse().transform(mOrbitCenter);
 
 	PropertyOwner::unlockPropertyOwner(propOwner); propOwner = NULL;
 }

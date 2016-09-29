@@ -31,7 +31,7 @@ Matrix3x3::Matrix3x3 () {
 Matrix3x3::Matrix3x3 (Coordtype fill)
 {
 	for (unsigned int i = 0; i < msNumElements; ++i)
-      mx[i] = fill;
+		mx[i] = fill;
 }
 
 Matrix3x3::Matrix3x3(const Coordtype* data)
@@ -69,106 +69,61 @@ Matrix3x3::~Matrix3x3 () {
 }
 
 Vector3 Matrix3x3::transform(const Vector3& u) const {
-	return Matrix3x3::transform(*this, u);
-}
-
-Vector3 Matrix3x3::transform(const Matrix3x3& m, const Vector3& u) {
-	Coordtype rx = u.x*m.mx[mxidx(0, 0)] + u.y*m.mx[mxidx(0, 1)] + u.z*m.mx[mxidx(0, 2)];
-	Coordtype ry = u.x*m.mx[mxidx(1, 0)] + u.y*m.mx[mxidx(1, 1)] + u.z*m.mx[mxidx(1, 2)];
-	Coordtype rz = u.x*m.mx[mxidx(2, 0)] + u.y*m.mx[mxidx(2, 1)] + u.z*m.mx[mxidx(2, 2)];
+	Coordtype rx = u.x*mx[mxidx(0, 0)] + u.y*mx[mxidx(0, 1)] + u.z*mx[mxidx(0, 2)];
+	Coordtype ry = u.x*mx[mxidx(1, 0)] + u.y*mx[mxidx(1, 1)] + u.z*mx[mxidx(1, 2)];
+	Coordtype rz = u.x*mx[mxidx(2, 0)] + u.y*mx[mxidx(2, 1)] + u.z*mx[mxidx(2, 2)];
 	return Vector3(rx, ry, rz);
 }
 
 Vector3 Matrix3x3::transformByTranspose(const Vector3& u) const {
-	return Matrix3x3::transformByTranspose(*this, u);
-}
-
-Vector3 Matrix3x3::transformByTranspose(const Matrix3x3& m, const Vector3& u) {
-	Coordtype rx = u.x*m.mx[mxidx(0, 0)] + u.y*m.mx[mxidx(1, 0)] + u.z*m.mx[mxidx(2, 0)];
-	Coordtype ry = u.x*m.mx[mxidx(0, 1)] + u.y*m.mx[mxidx(1, 1)] + u.z*m.mx[mxidx(2, 1)];
-	Coordtype rz = u.x*m.mx[mxidx(0, 2)] + u.y*m.mx[mxidx(1, 2)] + u.z*m.mx[mxidx(2, 2)];
+	Coordtype rx = u.x*mx[mxidx(0, 0)] + u.y*mx[mxidx(1, 0)] + u.z*mx[mxidx(2, 0)];
+	Coordtype ry = u.x*mx[mxidx(0, 1)] + u.y*mx[mxidx(1, 1)] + u.z*mx[mxidx(2, 1)];
+	Coordtype rz = u.x*mx[mxidx(0, 2)] + u.y*mx[mxidx(1, 2)] + u.z*mx[mxidx(2, 2)];
 	return Vector3(rx, ry, rz);
 }
 
-Matrix3x3& Matrix3x3::inverse () {
-   Coordtype d = this->determinant();
-   Assert (d != 0.0f);
+Matrix3x3 Matrix3x3::inverse() const {
+	Coordtype d = determinant();
+	Assert(d != 0.0f);
 
-   adjugate();
-   for (int i = 0; i < msNumElements; i++) {
-      mx[i] /= d;
-   }
-
-   return *this;
+	return Matrix3x3::adjugate() / d;
 }
 
-Matrix3x3 Matrix3x3::inverse (const Matrix3x3& m) {
-   Coordtype d = m.determinant();
-   Assert (d != 0.0f);
-
-   return Matrix3x3::adjugate(m) / d;
-}
-
-Matrix3x3& Matrix3x3::transpose () {
-   Memory::Swap(mx[1], mx[3]);
-   Memory::Swap(mx[2], mx[6]);
-   Memory::Swap(mx[5], mx[7]);
-   return *this;
-}
-
-Matrix3x3 Matrix3x3::transpose (const Matrix3x3& m) {
-   Matrix3x3 r;
-   r.mx[0] = m.mx[0];
-   r.mx[1] = m.mx[3];
-   r.mx[2] = m.mx[6];
-   r.mx[3] = m.mx[1];
-   r.mx[4] = m.mx[4];
-   r.mx[5] = m.mx[7];
-   r.mx[6] = m.mx[2];
-   r.mx[7] = m.mx[5];
-   r.mx[8] = m.mx[8];
-   return r;
+Matrix3x3 Matrix3x3::transpose() const {
+	Matrix3x3 r;
+	r.mx[0] = mx[0];
+	r.mx[1] = mx[3];
+	r.mx[2] = mx[6];
+	r.mx[3] = mx[1];
+	r.mx[4] = mx[4];
+	r.mx[5] = mx[7];
+	r.mx[6] = mx[2];
+	r.mx[7] = mx[5];
+	r.mx[8] = mx[8];
+	return r;
 }
 
 Coordtype Matrix3x3::determinant () const {
-   Vector3 a = Vector3(mx[0], -mx[1], mx[2]);
-   Vector3 b = Vector3(mx[4] * mx[8] - mx[7] * mx[5], mx[3] * mx[8] - mx[6] * mx[5], mx[3] * mx[7] - mx[6] * mx[4]);
-   return a.dot(b);
+	Vector3 a = Vector3(mx[0], -mx[1], mx[2]);
+	Vector3 b = Vector3(mx[4] * mx[8] - mx[7] * mx[5], mx[3] * mx[8] - mx[6] * mx[5], mx[3] * mx[7] - mx[6] * mx[4]);
+	return a.dot(b);
 }
 
-Coordtype Matrix3x3::determinant(const Matrix3x3& m) {
-   return m.determinant();
+Matrix3x3 Matrix3x3::adjugate() const {
+	Matrix3x3 t;
+	t.mx[0] = mx[4] * mx[8] - mx[5] * mx[7];
+	t.mx[1] = mx[2] * mx[7] - mx[1] * mx[8];
+	t.mx[2] = mx[1] * mx[5] - mx[2] * mx[4];
+	t.mx[3] = mx[5] * mx[6] - mx[3] * mx[8];
+	t.mx[4] = mx[0] * mx[8] - mx[2] * mx[6];
+	t.mx[5] = mx[2] * mx[3] - mx[0] * mx[5];
+	t.mx[6] = mx[3] * mx[7] - mx[4] * mx[6];
+	t.mx[7] = mx[1] * mx[6] - mx[0] * mx[7];
+	t.mx[8] = mx[0] * mx[4] - mx[1] * mx[3];
+	return t;
 }
 
-Matrix3x3& Matrix3x3::adjugate() {
-   Matrix3x3 t(*this);
-   mx[0] = t.mx[4] * t.mx[8] - t.mx[5] * t.mx[7];
-   mx[3] = t.mx[5] * t.mx[6] - t.mx[3] * t.mx[8];
-   mx[6] = t.mx[3] * t.mx[7] - t.mx[4] * t.mx[6];
-   mx[1] = t.mx[2] * t.mx[7] - t.mx[1] * t.mx[8];
-   mx[4] = t.mx[0] * t.mx[8] - t.mx[2] * t.mx[6];
-   mx[7] = t.mx[1] * t.mx[6] - t.mx[0] * t.mx[7];
-   mx[2] = t.mx[1] * t.mx[5] - t.mx[2] * t.mx[4];
-   mx[5] = t.mx[2] * t.mx[3] - t.mx[0] * t.mx[5];
-   mx[8] = t.mx[0] * t.mx[4] - t.mx[1] * t.mx[3];
-   return *this;
-}
-
-Matrix3x3 Matrix3x3::adjugate(const Matrix3x3& m) {
-   Matrix3x3 t;
-   t.mx[0] = m.mx[4] * m.mx[8] - m.mx[5] * m.mx[7];
-   t.mx[1] = m.mx[2] * m.mx[7] - m.mx[1] * m.mx[8];
-   t.mx[2] = m.mx[1] * m.mx[5] - m.mx[2] * m.mx[4];
-   t.mx[3] = m.mx[5] * m.mx[6] - m.mx[3] * m.mx[8];
-   t.mx[4] = m.mx[0] * m.mx[8] - m.mx[2] * m.mx[6];
-   t.mx[5] = m.mx[2] * m.mx[3] - m.mx[0] * m.mx[5];
-   t.mx[6] = m.mx[3] * m.mx[7] - m.mx[4] * m.mx[6];
-   t.mx[7] = m.mx[1] * m.mx[6] - m.mx[0] * m.mx[7];
-   t.mx[8] = m.mx[0] * m.mx[4] - m.mx[1] * m.mx[3];
-   return t;
-}
-
-Matrix3x3& Matrix3x3::orthogonalize() {
+Matrix3x3 Matrix3x3::orthogonalized() const {
 	Unimplemented(); // TODO CHECK
 // 	Vector3 z2 = Vector3::cross(mx[0], mx[1], mx[2], mx[3], mx[4], mx[5]).normalize();
 // 	Vector3 y2 = Vector3::cross(z2.x, z2.y, z2.z, mx[0], mx[1], mx[2]).normalize();
@@ -183,14 +138,7 @@ Matrix3x3& Matrix3x3::orthogonalize() {
 // 	mx[6] = z2.x;
 // 	mx[7] = z2.y;
 // 	mx[8] = z2.z;
-
 	return *this;
-}
-
-Matrix3x3 Matrix3x3::orthogonalize(const Matrix3x3& m) {
-	Matrix3x3 res = m;
-	res.orthogonalize();
-	return res;
 }
 
 Matrix4x4 Matrix3x3::toMatrix4x4() const
@@ -219,7 +167,7 @@ Vector3 Matrix3x3::operator * (const Vector3& u) const
 	return transform(u);
 }
 
-Matrix3x3 Matrix3x3::createFromScale (const Vector3& s) {
+Matrix3x3 Matrix3x3::createScale (const Vector3& s) {
 
 	return Matrix3x3(
 		s.x,  0.0f, 0.0f,
@@ -228,10 +176,10 @@ Matrix3x3 Matrix3x3::createFromScale (const Vector3& s) {
 		);
 }
 
-Matrix3x3 Matrix3x3::createFromRotation (Coordtype angle, const Vector3& u) {
+Matrix3x3 Matrix3x3::createRotationAxisAngle(Coordtype radians, const Vector3& u) {
 
-	Coordtype c = (Coordtype)Math::Cos(angle);
-	Coordtype s = (Coordtype)Math::Sin(angle);
+	Coordtype c = (Coordtype)Math::Cos(radians);
+	Coordtype s = (Coordtype)Math::Sin(radians);
 	return Matrix3x3(
 		u.x*u.x + (1.0f - u.x*u.x)*c, u.y*u.x*(1.0f - c) + u.z*s,   u.z*u.x*(1.0f - c) - u.y*s,
 		u.x*u.y*(1.0f - c) - u.z*s,   u.y*u.y + (1.0f - u.y*u.y)*c, u.z*u.y*(1.0f - c) + u.x*s,

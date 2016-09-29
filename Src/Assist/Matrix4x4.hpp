@@ -97,32 +97,19 @@ public:
 
 	// transform vector
 	Vector3           transform(const Vector3& u) const;
-	static Vector3    transform(const Matrix4x4& m, const Vector3& u);
-
 	// transform vector by transpose of this matrix
 	Vector3           transformByTranspose(const Vector3& u) const;
-	static Vector3    transformByTranspose(const Matrix4x4& m, const Vector3& u);
-
 	// inverse
 	// note: matrix should be invertible (detA != 0)
-	Matrix4x4&        inverse();
-	static Matrix4x4  inverse(const Matrix4x4& m);
-
+	Matrix4x4         inverse() const;
 	// transpose
-	Matrix4x4&        transpose ();
-	static Matrix4x4  transpose(const Matrix4x4& m);
-
+	Matrix4x4         transpose() const;
 	// determinant
 	Coordtype         determinant () const;
-	static Coordtype  determinant(const Matrix4x4& m);
-
 	// adjugate matrix
-	Matrix4x4&        adjugate();
-	static Matrix4x4  adjugate(const Matrix4x4& m);
+	Matrix4x4         adjugate() const;
 
-	// re-orthogonalize matrix
-	Matrix4x4&        orthogonalize();
-	static Matrix4x4  orthogonalize(const Matrix4x4& m);
+	// ####################################
 
 	// create matrix from rotation-scale, translation, projection and scalar parts
 	//    [       |   ]
@@ -133,7 +120,7 @@ public:
 	Matrix4x4&        makeFromParts(const Matrix3x3& rotationPart, const Vector3& translationPart, const Vector3& projectionPart, Coordtype scalarPart);
 
 	// create affine transformation matrix from translation, rotation and scale parts
-	Matrix4x4&        makeTransform(const Vector3& position, const Quaternion& orientation, const Vector3& scale);
+	Matrix4x4&        makeAffineTransform(const Vector3& position, const Quaternion& orientation, const Vector3& scale);
 
 	// ####################################
 
@@ -149,11 +136,11 @@ public:
 	// ####################################
 
 	// create 3D scale matrix with given scaling factors
-	static Matrix4x4  createFromScale(const Vector3& s);
+	static Matrix4x4  createScale(const Vector3& s);
 
 	// create 3D rotation matrix for rotation by angle (in rads) around axis
 	// note: axis should not be null vector
-	static Matrix4x4  createFromRotation(Coordtype angle, const Vector3& u);
+	static Matrix4x4  createRotationAxisAngle(Coordtype angle, const Vector3& u);
 
 	// create 3D transformation matrix, which transforms standard (i,j,k)
 	// base vectors into the given 3 vectors respectively
@@ -163,7 +150,7 @@ public:
 	static Matrix4x4  createFromBasis(const Vector3& u, const Vector3& v, const Vector3& w);
 
 	// create 3D translation matrix with given offsets
-	static Matrix4x4  createFromTranslation(const Vector3& u);
+	static Matrix4x4  createTranslationMatrix(const Vector3& u);
 
 	// create affine transformation matrix
 	static Matrix4x4  createAffineTransform(const Vector3& position, const Quaternion& orientation, const Vector3& scale);

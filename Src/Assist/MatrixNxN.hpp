@@ -94,16 +94,11 @@ public:
 	// ####################################
 
 	// addition
-	MatrixNxN&        sum(const MatrixNxN& m);
-	static MatrixNxN  sum(const MatrixNxN& m1, const MatrixNxN& m2);
-
+	MatrixNxN        sum(const MatrixNxN& m) const;
 	// subtraction
-	MatrixNxN&        subtract(const MatrixNxN& m);
-	static MatrixNxN  subtract(const MatrixNxN& m1, const MatrixNxN& m2);
-
+	MatrixNxN        subtract(const MatrixNxN& m) const;
 	// multiply
-	MatrixNxN&        multiply(const MatrixNxN& m);
-	static MatrixNxN  multiply(const MatrixNxN& m1, const MatrixNxN& m2);
+	MatrixNxN        multiply(const MatrixNxN& m) const;
 
 	// ####################################
 
@@ -208,57 +203,29 @@ MatrixNxN<Dim>& MatrixNxN<Dim>::fill(Coordtype value) {
 }
 
 template<int Dim>
-MatrixNxN<Dim>& MatrixNxN<Dim>::sum(const MatrixNxN<Dim>& m) {
-	for (unsigned int i = 0; i < msNumElements; ++i)
-		mx[i] += m.mx[i];
-	return *this;
-}
-
-template<int Dim>
-MatrixNxN<Dim> MatrixNxN<Dim>::sum(const MatrixNxN<Dim>& m1, const MatrixNxN<Dim>& m2) {
+MatrixNxN<Dim> MatrixNxN<Dim>::sum(const MatrixNxN<Dim>& m) const {
 	MatrixNxN r;
 	for (unsigned int i = 0; i < msNumElements; ++i)
-		r.mx[i] = m1.mx[i] + m2.mx[i];
+		r.mx[i] = mx[i] + m.mx[i];
 	return r;
 }
 
 template<int Dim>
-MatrixNxN<Dim>& MatrixNxN<Dim>::subtract(const MatrixNxN<Dim>& m) {
-	for (unsigned int i = 0; i < msNumElements; ++i)
-		mx[i] -= m.mx[i];
-	return *this;
-}
-
-template<int Dim>
-MatrixNxN<Dim> MatrixNxN<Dim>::subtract(const MatrixNxN<Dim>& m1, const MatrixNxN<Dim>& m2) {
+MatrixNxN<Dim> MatrixNxN<Dim>::subtract(const MatrixNxN<Dim>& m) const {
 	MatrixNxN<Dim> r;
 	for (unsigned int i = 0; i < msNumElements; ++i)
-		r.mx[i] = m1.mx[i] - m2.mx[i];
+		r.mx[i] = mx[i] - m.mx[i];
 	return r;
 }
 
 template<int Dim>
-MatrixNxN<Dim>& MatrixNxN<Dim>::multiply(const MatrixNxN<Dim>& m) {
-	MatrixNxN<Dim> tmp(*this);
-	for (int i = 0; i < msNumRows; i++) {
-		for (int j = 0; j < msNumCols; j++) {
-			Coordtype r = Coordtype(0);
-			for (int k = 0; k < msNumRows; k++)
-				r += tmp.mx[mxidx(i, k)] * m.mx[mxidx(k, j)];
-			mx[mxidx(i, j)] = r;
-		}
-	}
-	return *this;
-}
-
-template<int Dim>
-MatrixNxN<Dim> MatrixNxN<Dim>::multiply(const MatrixNxN<Dim>& m1, const MatrixNxN<Dim>& m2) {
+MatrixNxN<Dim> MatrixNxN<Dim>::multiply(const MatrixNxN<Dim>& m) const {
 	MatrixNxN<Dim> rv;
 	for (int i = 0; i < msNumRows; i++) {
 		for (int j = 0; j < msNumCols; j++) {
 			Coordtype r = Coordtype(0);
 			for (int k = 0; k < msNumRows; k++)
-				r += m1.mx[mxidx(i, k)] * m2.mx[mxidx(k, j)];
+				r += mx[mxidx(i, k)] * m.mx[mxidx(k, j)];
 			rv.mx[mxidx(i, j)] = r;
 		}
 	}
@@ -317,17 +284,17 @@ MatrixNxN<Dim> MatrixNxN<Dim>::operator - () const {
 
 template<int Dim>
 MatrixNxN<Dim> MatrixNxN<Dim>::operator + (const MatrixNxN<Dim>& m) const {
-	return MatrixNxN<Dim>::sum(*this,m);
+	return sum(m);
 }
 
 template<int Dim>
 MatrixNxN<Dim> MatrixNxN<Dim>::operator - (const MatrixNxN<Dim>& m) const {
-	return MatrixNxN<Dim>::subtract(*this, m);
+	return subtract(m);
 }
 
 template<int Dim>
 MatrixNxN<Dim> MatrixNxN<Dim>::operator * (const MatrixNxN<Dim>& m) const {
-	return MatrixNxN<Dim>::multiply(*this, m);
+	return multiply(m);
 }
 
 template<int Dim>
@@ -350,17 +317,21 @@ MatrixNxN<Dim> MatrixNxN<Dim>::operator / (Coordtype lambda) const {
 
 template<int Dim>
 MatrixNxN<Dim>& MatrixNxN<Dim>::operator += (const MatrixNxN<Dim>& m) {
-	return sum(m);
+	for (unsigned int i = 0; i < msNumElements; ++i)
+		mx[i] += m.mx[i];
+	return *this;
 }
 
 template<int Dim>
 MatrixNxN<Dim>& MatrixNxN<Dim>::operator -= (const MatrixNxN<Dim>& m) {
-	return subtract(m);
+	for (unsigned int i = 0; i < msNumElements; ++i)
+		mx[i] -= m.mx[i];
+	return *this;
 }
 
 template<int Dim>
 MatrixNxN<Dim>& MatrixNxN<Dim>::operator *= (const MatrixNxN<Dim>& m) {
-	return multiply(m);
+	operator = (multiply(m));
 }
 
 template<int Dim>

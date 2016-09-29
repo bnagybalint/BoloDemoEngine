@@ -91,13 +91,11 @@ void Test_Matrix3x3::teardownTest()
 		static bool test(const Matrix3x3& m1, const Matrix3x3& m2, float* expected)
 		{
 			Matrix3x3 r1 = m1 * m2;
-			Matrix3x3 r2 = Matrix3x3::multiply(m1, m2);
-			Matrix3x3 r3 = m1; r3.multiply(m2);
+			Matrix3x3 r2 = m1.multiply(m2);
 
 			bool b = true;
 			b = b && checkEquality(r1, expected);
 			b = b && checkEquality(r2, expected);
-			b = b && checkEquality(r3, expected);
 			return b;
 		}
 	};
@@ -154,13 +152,11 @@ void Test_Matrix3x3::teardownTest()
 		static bool test(const Matrix3x3& m, const Vector3& v, const Vector3& res)
 		{
 			Vector3 r1 = m * v;
-			Vector3 r2 = Matrix3x3::transform(m, v);
-			Vector3 r3 = m.transform(v);
+			Vector3 r2 = m.transform(v);
 
 			bool b = true;
 			b = b && checkEquality(r1, res);
 			b = b && checkEquality(r2, res);
-			b = b && checkEquality(r3, res);
 			return b;
 		}
 	};
@@ -245,9 +241,9 @@ void Test_Matrix3x3::teardownTest()
 	b = b && checkRelation(m2.determinant(), detr2, RelationEnum::Equal, Compare_FloatEpsilon<float>(1e-3f));
 
 	//Matrix3x3 mrZero = Matrix3x3::inverse(mZero);
-	Matrix3x3 mrId = Matrix3x3::inverse(mId);
-	Matrix3x3 mr1 = Matrix3x3::inverse(m1);
-	Matrix3x3 mr2 = Matrix3x3::inverse(m2);
+	Matrix3x3 mrId = mId.inverse();
+	Matrix3x3 mr1 = m1.inverse();
+	Matrix3x3 mr2 = m2.inverse();
 
 	//b = b && checkEquality(mrZero, mdrZero);
 	b = b && checkEquality(mrId, mdrId);
@@ -266,21 +262,21 @@ void Test_Matrix3x3::teardownTest()
 	Matrix3x3 mId = Matrix3x3::IDENTITY;
 	Matrix3x3 mZero = Matrix3x3::ZERO;
 
-	Matrix3x3 mRotx90 = Matrix3x3::createFromRotation(Math::Deg2Rad(90), x);
-	Matrix3x3 mRoty90 = Matrix3x3::createFromRotation(Math::Deg2Rad(90), y);
-	Matrix3x3 mRotz90 = Matrix3x3::createFromRotation(Math::Deg2Rad(90), z);
+	Matrix3x3 mRotx90 = Matrix3x3::createRotationAxisAngle(Math::Deg2Rad(90), x);
+	Matrix3x3 mRoty90 = Matrix3x3::createRotationAxisAngle(Math::Deg2Rad(90), y);
+	Matrix3x3 mRotz90 = Matrix3x3::createRotationAxisAngle(Math::Deg2Rad(90), z);
 
-	Matrix3x3 mRotx180 = Matrix3x3::createFromRotation(Math::Deg2Rad(180), x);
-	Matrix3x3 mRoty180 = Matrix3x3::createFromRotation(Math::Deg2Rad(180), y);
-	Matrix3x3 mRotz180 = Matrix3x3::createFromRotation(Math::Deg2Rad(180), z);
+	Matrix3x3 mRotx180 = Matrix3x3::createRotationAxisAngle(Math::Deg2Rad(180), x);
+	Matrix3x3 mRoty180 = Matrix3x3::createRotationAxisAngle(Math::Deg2Rad(180), y);
+	Matrix3x3 mRotz180 = Matrix3x3::createRotationAxisAngle(Math::Deg2Rad(180), z);
 
-	Matrix3x3 mRotx_90 = Matrix3x3::createFromRotation(Math::Deg2Rad(-90), x);
-	Matrix3x3 mRoty_90 = Matrix3x3::createFromRotation(Math::Deg2Rad(-90), y);
-	Matrix3x3 mRotz_90 = Matrix3x3::createFromRotation(Math::Deg2Rad(-90), z);
+	Matrix3x3 mRotx_90 = Matrix3x3::createRotationAxisAngle(Math::Deg2Rad(-90), x);
+	Matrix3x3 mRoty_90 = Matrix3x3::createRotationAxisAngle(Math::Deg2Rad(-90), y);
+	Matrix3x3 mRotz_90 = Matrix3x3::createRotationAxisAngle(Math::Deg2Rad(-90), z);
 	
-	Matrix3x3 mRotx_90_alt = Matrix3x3::createFromRotation(Math::Deg2Rad(90), -x);
-	Matrix3x3 mRoty_90_alt = Matrix3x3::createFromRotation(Math::Deg2Rad(90), -y);
-	Matrix3x3 mRotz_90_alt = Matrix3x3::createFromRotation(Math::Deg2Rad(90), -z);
+	Matrix3x3 mRotx_90_alt = Matrix3x3::createRotationAxisAngle(Math::Deg2Rad(90), -x);
+	Matrix3x3 mRoty_90_alt = Matrix3x3::createRotationAxisAngle(Math::Deg2Rad(90), -y);
+	Matrix3x3 mRotz_90_alt = Matrix3x3::createRotationAxisAngle(Math::Deg2Rad(90), -z);
 
 	Matrix3x3 mRotx90_b = Matrix3x3::createFromBasis(x,z,-y);
 	Matrix3x3 mRoty90_b = Matrix3x3::createFromBasis(-z,y,x);
@@ -290,9 +286,9 @@ void Test_Matrix3x3::teardownTest()
 	Matrix3x3 mRoty_90_b = Matrix3x3::createFromBasis(z, y, -x);
 	Matrix3x3 mRotz_90_b = Matrix3x3::createFromBasis(-y, x, z);
 
-	Matrix3x3 mScx2 = Matrix3x3::createFromScale(Vector3(2,1,1));
-	Matrix3x3 mScy2 = Matrix3x3::createFromScale(Vector3(1,2,1));
-	Matrix3x3 mScz2 = Matrix3x3::createFromScale(Vector3(1,1,2));
+	Matrix3x3 mScx2 = Matrix3x3::createScale(Vector3(2,1,1));
+	Matrix3x3 mScy2 = Matrix3x3::createScale(Vector3(1,2,1));
+	Matrix3x3 mScz2 = Matrix3x3::createScale(Vector3(1,1,2));
 
 	bool b = true;
 

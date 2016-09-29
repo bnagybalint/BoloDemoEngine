@@ -16,33 +16,24 @@
 Transform::Transform () { }
 
 Transform::Transform(const Vector3& pos, const Quaternion& ori)
-   : mPosition(pos), mOrientation(ori)
+	: mPosition(pos), mOrientation(ori)
 {
 }
 
-Transform& Transform::inverse ()
+Transform Transform::inverse () const
 {
-   mOrientation.inverse();
-   mPosition = -mPosition;
-   return *this;
-}
-
-Transform Transform::inverse (const Transform& transform)
-{
-	Quaternion qinv = Quaternion::inverse(transform.mOrientation);
-	return Transform(-(qinv*transform.mPosition), qinv);
+	Quaternion qinv = mOrientation.inverse();
+	return Transform(-(qinv*mPosition), qinv);
 }
 
 Vector3 Transform::transform (const Vector3& u) const
 {
-   return mOrientation.transform(u) + mPosition;
+	return mOrientation.transform(u) + mPosition;
 }
 
 Matrix4x4 Transform::toMatrix4x4() const
 {
-	Matrix4x4 rv;
-	rv.makeFromParts(mOrientation.toMatrix3x3(), mPosition, Vector3::ZERO, Coordtype(0));
-	return rv;
+	return Matrix4x4::createAffineTransform(mPosition, mOrientation, Vector3::UNIT_SCALE);
 }
 
 /*static*/Transform Transform::IDENTITY = Transform(Vector3(Coordtype(0.0), Coordtype(0.0), Coordtype(0.0)), Quaternion(Coordtype(1.0), Coordtype(0.0), Coordtype(0.0), Coordtype(0.0)));

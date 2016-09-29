@@ -18,42 +18,40 @@
 
 class Transform {
 
-    public:
+public:
 
-        /// Constructor.
-        Transform ();
-        /// Constructor. Creates a transform using orientation matrix and translation vector)
-        Transform (const Vector3& pos, const Quaternion& ori);
+	/// Constructor.
+	Transform ();
+	/// Constructor. Creates a transform using orientation matrix and translation vector)
+	Transform (const Vector3& pos, const Quaternion& ori);
 
-        /// Invert this transform.
-        Transform& inverse ();
-        /// Get the inverse of transform.
-        static Transform inverse (const Transform& transform);
+	/// Invert this transform.
+	Transform inverse () const;
 
-        /// Transform vector.
-        Vector3 transform (const Vector3& u) const;
+	/// Transform vector.
+	Vector3 transform (const Vector3& u) const;
 
-		Matrix4x4 toMatrix4x4() const;
+	Matrix4x4 toMatrix4x4() const;
 
-        /// Getters
-		const Vector3& getPosition() const;
-		const Quaternion& getOrientation() const;
+	/// Getters
+	const Vector3& getPosition() const;
+	const Quaternion& getOrientation() const;
 
-        /// Setters
-		void setPosition(const Vector3& pos);
-		void setOrientation(const Quaternion& ori);
+	/// Setters
+	void setPosition(const Vector3& pos);
+	void setOrientation(const Quaternion& ori);
 
-        /// Identity transform.
-        static Transform IDENTITY;
+	/// Identity transform.
+	static Transform IDENTITY;
 
-    protected:
+protected:
 
-        /// Basis of this transform.
-        Quaternion mOrientation;
+	/// Basis of this transform.
+	Quaternion mOrientation;
 
-        /// Origin of this transformation. In other words: the translation applied
-        /// to the point after the transformation by mOrientation
-        Vector3 mPosition;
+	/// Origin of this transformation. In other words: the translation applied
+	/// to the point after the transformation by mOrientation
+	Vector3 mPosition;
 
 }; /* class Transform */
 
