@@ -155,6 +155,14 @@ public:
 	// create affine transformation matrix
 	static Matrix4x4  createAffineTransform(const Vector3& position, const Quaternion& orientation, const Vector3& scale);
 
+	// create matrix from rotation-scale, translation, projection and scalar parts
+	//    [       |   ]
+	//    [   R   | T ]
+	//    [       |   ]
+	//    [-------+---]
+	//    [   P   | S ]
+	static Matrix4x4  createFromParts(const Matrix3x3& rotationPart, const Vector3& translationPart, const Vector3& projectionPart, Coordtype scalarPart);
+
     // special matrices
     static const Matrix4x4 IDENTITY;
     static const Matrix4x4 ZERO;

@@ -312,3 +312,10 @@ Matrix4x4 Matrix4x4::createAffineTransform(const Vector3& position, const Quater
 	rv.makeFromParts(orientation.toMatrix3x3() * Matrix3x3::createScale(scale), position, Vector3::ZERO, Coordtype(1));
 	return rv;
 }
+
+Matrix4x4 Matrix4x4::createFromParts(const Matrix3x3& rotationPart, const Vector3& translationPart, const Vector3& projectionPart, Coordtype scalarPart)
+{
+	Matrix4x4 rv;
+	rv.makeFromParts(rotationPart, translationPart, projectionPart, scalarPart);
+	return rv;
+}
