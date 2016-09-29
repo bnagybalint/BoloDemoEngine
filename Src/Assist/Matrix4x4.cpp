@@ -24,7 +24,14 @@ const Matrix4x4 Matrix4x4::ZERO = Matrix4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 // ############################################
 // constructors, destructor
 
-Matrix4x4::Matrix4x4 () { }
+Matrix4x4::Matrix4x4 () {
+
+	// for debugging purposes, set all values to sNAN
+#ifdef BDE_GLOBAL_BUILD_DEBUG 
+	for (unsigned int i = 0; i < msNumElements; ++i)
+		mx[i] = Math::B_NAN;
+#endif
+}
 
 Matrix4x4::Matrix4x4 (Coordtype fill) {
 
@@ -44,20 +51,20 @@ Matrix4x4::Matrix4x4(
 	Coordtype m30, Coordtype m31, Coordtype m32, Coordtype m33)
 {
 	mx[mxidx(0, 0)] = m00;
-	mx[mxidx(1, 0)] = m01;
-	mx[mxidx(2, 0)] = m02;
-	mx[mxidx(3, 0)] = m03;
-	mx[mxidx(0, 1)] = m10;
+	mx[mxidx(0, 1)] = m01;
+	mx[mxidx(0, 2)] = m02;
+	mx[mxidx(0, 3)] = m03;
+	mx[mxidx(1, 0)] = m10;
 	mx[mxidx(1, 1)] = m11;
-	mx[mxidx(2, 1)] = m12;
-	mx[mxidx(3, 1)] = m13;
-	mx[mxidx(0, 2)] = m20;
-	mx[mxidx(1, 2)] = m21;
+	mx[mxidx(1, 2)] = m12;
+	mx[mxidx(1, 3)] = m13;
+	mx[mxidx(2, 0)] = m20;
+	mx[mxidx(2, 1)] = m21;
 	mx[mxidx(2, 2)] = m22;
-	mx[mxidx(3, 2)] = m23;
-	mx[mxidx(0, 3)] = m30;
-	mx[mxidx(1, 3)] = m31;
-	mx[mxidx(2, 3)] = m32;
+	mx[mxidx(2, 3)] = m23;
+	mx[mxidx(3, 0)] = m30;
+	mx[mxidx(3, 1)] = m31;
+	mx[mxidx(3, 2)] = m32;
 	mx[mxidx(3, 3)] = m33;
 }
 
@@ -68,23 +75,23 @@ Matrix4x4::Matrix4x4(const MatrixNxN<4>& m)
 
 Matrix4x4::Matrix4x4(const Matrix3x3& m) {
 	mx[mxidx(0, 0)] = m(0, 0);
-	mx[mxidx(1, 0)] = m(1, 0);
-	mx[mxidx(2, 0)] = m(2, 0);
-	mx[mxidx(3, 0)] = Coordtype(0);
-
 	mx[mxidx(0, 1)] = m(0, 1);
-	mx[mxidx(1, 1)] = m(1, 1);
-	mx[mxidx(2, 1)] = m(2, 1);
-	mx[mxidx(3, 1)] = Coordtype(0);
-
 	mx[mxidx(0, 2)] = m(0, 2);
-	mx[mxidx(1, 2)] = m(1, 2);
-	mx[mxidx(2, 2)] = m(2, 2);
-	mx[mxidx(3, 2)] = Coordtype(0);
-
 	mx[mxidx(0, 3)] = Coordtype(0);
+
+	mx[mxidx(1, 0)] = m(1, 0);
+	mx[mxidx(1, 1)] = m(1, 1);
+	mx[mxidx(1, 2)] = m(1, 2);
 	mx[mxidx(1, 3)] = Coordtype(0);
+
+	mx[mxidx(2, 0)] = m(2, 0);
+	mx[mxidx(2, 1)] = m(2, 1);
+	mx[mxidx(2, 2)] = m(2, 2);
 	mx[mxidx(2, 3)] = Coordtype(0);
+
+	mx[mxidx(3, 0)] = Coordtype(0);
+	mx[mxidx(3, 1)] = Coordtype(0);
+	mx[mxidx(3, 2)] = Coordtype(0);
 	mx[mxidx(3, 3)] = Coordtype(1);
 }
 
@@ -311,30 +318,30 @@ Matrix4x4 Matrix4x4::orthogonalize (const Matrix4x4& m) {
 
 Matrix4x4& Matrix4x4::makeFromParts(const Matrix3x3& rotationPart, const Vector3& translationPart, const Vector3& projectionPart, Coordtype scalarPart) {
 	mx[mxidx(0, 0)] = rotationPart(0, 0);
-	mx[mxidx(1, 0)] = rotationPart(1, 0);
-	mx[mxidx(2, 0)] = rotationPart(2, 0);
-	mx[mxidx(3, 0)] = projectionPart.x;
-
 	mx[mxidx(0, 1)] = rotationPart(0, 1);
-	mx[mxidx(1, 1)] = rotationPart(1, 1);
-	mx[mxidx(2, 1)] = rotationPart(2, 1);
-	mx[mxidx(3, 1)] = projectionPart.y;
-
 	mx[mxidx(0, 2)] = rotationPart(0, 2);
-	mx[mxidx(1, 2)] = rotationPart(1, 2);
-	mx[mxidx(2, 2)] = rotationPart(2, 2);
-	mx[mxidx(3, 2)] = projectionPart.z;
-
 	mx[mxidx(0, 3)] = translationPart.x;
+
+	mx[mxidx(1, 0)] = rotationPart(1, 0);
+	mx[mxidx(1, 1)] = rotationPart(1, 1);
+	mx[mxidx(1, 2)] = rotationPart(1, 2);
 	mx[mxidx(1, 3)] = translationPart.y;
+
+	mx[mxidx(2, 0)] = rotationPart(2, 0);
+	mx[mxidx(2, 1)] = rotationPart(2, 1);
+	mx[mxidx(2, 2)] = rotationPart(2, 2);
 	mx[mxidx(2, 3)] = translationPart.z;
+
+	mx[mxidx(3, 0)] = projectionPart.x;
+	mx[mxidx(3, 1)] = projectionPart.y;
+	mx[mxidx(3, 2)] = projectionPart.z;
 	mx[mxidx(3, 3)] = scalarPart;
 
 	return *this;
 }
 
 Matrix4x4& Matrix4x4::makeTransform(const Vector3& position, const Quaternion& orientation, const Vector3& scale) {
-	makeFromParts(Matrix3x3::createFromScale(scale) * orientation.toMatrix3x3(), position, Vector3::ZERO, Coordtype(1));
+	makeFromParts(orientation.toMatrix3x3() * Matrix3x3::createFromScale(scale), position, Vector3::ZERO, Coordtype(1));
 	return *this;
 }
 
@@ -380,6 +387,6 @@ Matrix4x4 Matrix4x4::createFromTranslation(const Vector3& u) {
 Matrix4x4 Matrix4x4::createAffineTransform(const Vector3& position, const Quaternion& orientation, const Vector3& scale)
 {
 	Matrix4x4 rv;
-	rv.makeFromParts(Matrix3x3::createFromScale(scale) * orientation.toMatrix3x3(), position, Vector3::ZERO, Coordtype(1));
+	rv.makeFromParts(orientation.toMatrix3x3() * Matrix3x3::createFromScale(scale), position, Vector3::ZERO, Coordtype(1));
 	return rv;
 }

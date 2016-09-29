@@ -17,6 +17,14 @@
 
 Quaternion::Quaternion () :
    w(q[0]), x(q[1]), y(q[2]), z(q[3]) {
+
+	// for debugging purposes, set all values to sNAN
+#ifdef BDE_GLOBAL_BUILD_DEBUG 
+	w = Math::B_NAN;
+	x = Math::B_NAN;
+	y = Math::B_NAN;
+	z = Math::B_NAN;
+#endif
 }
 
 Quaternion::Quaternion (Coordtype w0, Coordtype x0, Coordtype y0, Coordtype z0) :

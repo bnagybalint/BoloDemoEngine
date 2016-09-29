@@ -15,6 +15,10 @@ struct Math
 	static const Coordtype B_SQRT2_INV;
 	static const Coordtype B_SQRT3;
 	static const Coordtype B_SQRT3_INV;
+	static const Coordtype B_NAN;
+
+	static const float     B_NAN_F32;
+	static const double    B_NAN_F64;
 
 	template <class T> static T Abs(T x);
 	template <class T> static T Min(T x, T y);

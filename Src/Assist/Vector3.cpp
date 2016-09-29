@@ -17,7 +17,16 @@
 // constructors
 
 Vector3::Vector3 ()
-  :x(c[0]), y(c[1]), z(c[2]), w(c[3]) { }
+	:x(c[0]), y(c[1]), z(c[2]), w(c[3]) {
+
+	// for debugging purposes, set all values to sNAN
+#ifdef BDE_GLOBAL_BUILD_DEBUG
+	x = Math::B_NAN;
+	y = Math::B_NAN;
+	z = Math::B_NAN;
+	w = Math::B_NAN;
+#endif
+}
 
 Vector3::Vector3 (Coordtype xyz)
   :x(c[0]), y(c[1]), z(c[2]), w(c[3]) {

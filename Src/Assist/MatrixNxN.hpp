@@ -71,7 +71,8 @@
 //    and should be used carefully.
 //
 
-#define mxidx(row, col) ((col)*msNumCols + (row))
+//#define mxidx(row, col) ((col)*msNumCols + (row))
+#define mxidx(row, col) ((row)*msNumRows + (col))
 
 template <int Dim>
 class MatrixNxN {
@@ -137,18 +138,16 @@ public:
 	// ####################################
 
 	// data getters
-	/**/              operator const Coordtype* () const;     // cast to coordtype pointer
-	/**/              operator Coordtype* ();                 // cast to coordtype pointer
-
-	const Coordtype*  getData() const;
-	Coordtype*        getData();
+	operator const Coordtype* () const; // WARNING read doc before using this method
+	operator Coordtype* ();             // WARNING read doc before using this method
+	const Coordtype*  getData() const;  // WARNING read doc before using this method
+	Coordtype*        getData();        // WARNING read doc before using this method
 
 	// protected:
 
 	static const int msNumRows     = Dim;
 	static const int msNumCols     = Dim;
 	static const int msNumElements = Dim * Dim;
-	//static inline int mxidx(int row, int col) { return col*msNumCols + row; }
 
 	// array holding the data for the matrix
 	Coordtype mx[msNumRows*msNumRows];
@@ -270,19 +269,20 @@ template<int Dim>
 Coordtype& MatrixNxN<Dim>::at(int row, int col) {
 	Assert(row >= 0 && row <= msNumRows - 1);
 	Assert(col >= 0 && col <= msNumCols - 1);
-	return mx[col * 3 + row];
+	return mx[mxidx(row, col)];
 }
 
 template<int Dim>
 Coordtype MatrixNxN<Dim>::at(int row, int col) const {
 	Assert(row >= 0 && row <= msNumRows - 1);
 	Assert(col >= 0 && col <= msNumCols - 1);
-	return mx[col * 3 + row];
+	return mx[mxidx(row, col)];
 }
 
 template<int Dim>
 MatrixNxN<Dim>& MatrixNxN<Dim>::operator = (const MatrixNxN<Dim>& m) {
-	Memory::Memcopy(mx, m.mx, msNumElements * sizeof(Coordtype));
+	if (this != &m)
+		Memory::Memcopy(mx, m.mx, msNumElements * sizeof(Coordtype));
 	return *this;
 }
 
@@ -393,11 +393,13 @@ Coordtype& MatrixNxN<Dim>::operator () (int row, int col) {
 
 template<int Dim>
 MatrixNxN<Dim>::operator const Coordtype* () const {
+	Unimplemented(); // do not use this
 	return mx;
 }
 
 template<int Dim>
 MatrixNxN<Dim>::operator Coordtype* () {
+	Unimplemented(); // do not use this
 	return mx;
 }
 

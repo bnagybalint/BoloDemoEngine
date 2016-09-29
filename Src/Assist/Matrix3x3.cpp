@@ -19,7 +19,14 @@
 const Matrix3x3 Matrix3x3::IDENTITY = Matrix3x3(1, 0, 0, 0, 1, 0, 0, 0, 1);
 const Matrix3x3 Matrix3x3::ZERO     = Matrix3x3(0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-Matrix3x3::Matrix3x3 () {}
+Matrix3x3::Matrix3x3 () {
+
+	// for debugging purposes, set all values to sNAN
+#ifdef BDE_GLOBAL_BUILD_DEBUG 
+	for (unsigned int i = 0; i < msNumElements; ++i)
+		mx[i] = Math::B_NAN;
+#endif
+}
 
 Matrix3x3::Matrix3x3 (Coordtype fill)
 {
@@ -38,13 +45,13 @@ Matrix3x3::Matrix3x3(
 	Coordtype m20, Coordtype m21, Coordtype m22)
 {
 	mx[mxidx(0, 0)] = m00;
-	mx[mxidx(1, 0)] = m01;
-	mx[mxidx(2, 0)] = m02;
-	mx[mxidx(0, 1)] = m10;
+	mx[mxidx(0, 1)] = m01;
+	mx[mxidx(0, 2)] = m02;
+	mx[mxidx(1, 0)] = m10;
 	mx[mxidx(1, 1)] = m11;
-	mx[mxidx(2, 1)] = m12;
-	mx[mxidx(0, 2)] = m20;
-	mx[mxidx(1, 2)] = m21;
+	mx[mxidx(1, 2)] = m12;
+	mx[mxidx(2, 0)] = m20;
+	mx[mxidx(2, 1)] = m21;
 	mx[mxidx(2, 2)] = m22;
 }
 
@@ -163,19 +170,19 @@ Matrix3x3 Matrix3x3::adjugate(const Matrix3x3& m) {
 
 Matrix3x3& Matrix3x3::orthogonalize() {
 	Unimplemented(); // TODO CHECK
-	Vector3 z2 = Vector3::cross(mx[0], mx[1], mx[2], mx[3], mx[4], mx[5]).normalize();
-	Vector3 y2 = Vector3::cross(z2.x, z2.y, z2.z, mx[0], mx[1], mx[2]).normalize();
-	Vector3 x2 = Vector3::normalized(mx[0], mx[1], mx[2]);
-
-	mx[0] = x2.x;
-	mx[1] = x2.y;
-	mx[2] = x2.z;
-	mx[3] = y2.x;
-	mx[4] = y2.y;
-	mx[5] = y2.z;
-	mx[6] = z2.x;
-	mx[7] = z2.y;
-	mx[8] = z2.z;
+// 	Vector3 z2 = Vector3::cross(mx[0], mx[1], mx[2], mx[3], mx[4], mx[5]).normalize();
+// 	Vector3 y2 = Vector3::cross(z2.x, z2.y, z2.z, mx[0], mx[1], mx[2]).normalize();
+// 	Vector3 x2 = Vector3::normalized(mx[0], mx[1], mx[2]);
+// 
+// 	mx[0] = x2.x;
+// 	mx[1] = x2.y;
+// 	mx[2] = x2.z;
+// 	mx[3] = y2.x;
+// 	mx[4] = y2.y;
+// 	mx[5] = y2.z;
+// 	mx[6] = z2.x;
+// 	mx[7] = z2.y;
+// 	mx[8] = z2.z;
 
 	return *this;
 }
@@ -188,24 +195,12 @@ Matrix3x3 Matrix3x3::orthogonalize(const Matrix3x3& m) {
 
 Matrix4x4 Matrix3x3::toMatrix4x4() const
 {
-	Matrix4x4 rv = Matrix4x4::IDENTITY;
-	rv(0, 0) = mx[mxidx(0,0)];
-	rv(0, 1) = mx[mxidx(0,1)];
-	rv(0, 2) = mx[mxidx(0,2)];
-	rv(0, 3) = Coordtype(0);
-	rv(1, 0) = mx[mxidx(1, 0)];
-	rv(1, 1) = mx[mxidx(1, 1)];
-	rv(1, 2) = mx[mxidx(1, 2)];
-	rv(1, 3) = Coordtype(0);
-	rv(2, 0) = mx[mxidx(2, 0)];
-	rv(2, 1) = mx[mxidx(2, 1)];
-	rv(2, 2) = mx[mxidx(2, 2)];
-	rv(2, 3) = Coordtype(0);
-	rv(3, 0) = Coordtype(0);
-	rv(3, 1) = Coordtype(0);
-	rv(3, 2) = Coordtype(0);
-	rv(3, 3) = Coordtype(1);
-	return rv;
+	return Matrix4x4(
+		mx[mxidx(0, 0)], mx[mxidx(0, 1)], mx[mxidx(0, 2)], Coordtype(0),
+		mx[mxidx(1, 0)], mx[mxidx(1, 1)], mx[mxidx(1, 2)], Coordtype(0),
+		mx[mxidx(2, 0)], mx[mxidx(2, 1)], mx[mxidx(2, 2)], Coordtype(0),
+		Coordtype(0),    Coordtype(0),    Coordtype(0),    Coordtype(1)
+		);
 }
 
 Vector3 Matrix3x3::getRow(unsigned int row) const
@@ -226,33 +221,30 @@ Vector3 Matrix3x3::operator * (const Vector3& u) const
 
 Matrix3x3 Matrix3x3::createFromScale (const Vector3& s) {
 
-	Coordtype m[msNumElements] = {
-      s.x,  0.0f, 0.0f,
-      0.0f, s.y,  0.0f,
-      0.0f, 0.0f, s.z
-   };
-   return Matrix3x3(m);
+	return Matrix3x3(
+		s.x,  0.0f, 0.0f,
+		0.0f, s.y,  0.0f,
+		0.0f, 0.0f, s.z
+		);
 }
 
 Matrix3x3 Matrix3x3::createFromRotation (Coordtype angle, const Vector3& u) {
 
-   Coordtype c = (Coordtype)Math::Cos(angle);
-   Coordtype s = (Coordtype)Math::Sin(angle);
-   Coordtype m[msNumElements] = {
-	   u.x*u.x + (1.0f - u.x*u.x)*c, u.y*u.x*(1.0f - c) + u.z*s,   u.z*u.x*(1.0f - c) - u.y*s,
-	   u.x*u.y*(1.0f - c) - u.z*s,   u.y*u.y + (1.0f - u.y*u.y)*c, u.z*u.y*(1.0f - c) + u.x*s,
-	   u.x*u.z*(1.0f - c) + u.y*s,   u.y*u.z*(1.0f - c) - u.x*s,   u.z*u.z + (1.0f - u.z*u.z)*c
-   };
-   return Matrix3x3(m);
+	Coordtype c = (Coordtype)Math::Cos(angle);
+	Coordtype s = (Coordtype)Math::Sin(angle);
+	return Matrix3x3(
+		u.x*u.x + (1.0f - u.x*u.x)*c, u.y*u.x*(1.0f - c) + u.z*s,   u.z*u.x*(1.0f - c) - u.y*s,
+		u.x*u.y*(1.0f - c) - u.z*s,   u.y*u.y + (1.0f - u.y*u.y)*c, u.z*u.y*(1.0f - c) + u.x*s,
+		u.x*u.z*(1.0f - c) + u.y*s,   u.y*u.z*(1.0f - c) - u.x*s,   u.z*u.z + (1.0f - u.z*u.z)*c
+		);
 }
 
 Matrix3x3 Matrix3x3::createFromBasis (const Vector3& u, const Vector3& v, const Vector3& w) {
 
-	Coordtype m[msNumElements] = {
-      u.x,  u.y,  u.z,
-      v.x,  v.y,  v.z,
-      w.x,  w.y,  w.z
-   };
-   return Matrix3x3(m);
+	return Matrix3x3(
+		u.x, v.x, w.x,
+		u.y, v.y, w.y,
+		u.z, v.z, w.z
+		);
 }
 

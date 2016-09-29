@@ -35,6 +35,12 @@
 // BL:
 // - BDE_BL_ARRAY_PREALLOCATION              -> enable preallocation for array operations (like geometry modifiers) for performance reasons
 
+// ----- Configuration invariant settings -----
+
+// <EMPTY>
+
+// ----- Configuration dependent settings -----
+
 #if defined(BDE_GLOBAL_BUILD_DEBUG)
 // ----- DEBUG settings -----
 # define BDE_GLOBAL_ENABLE_EDITOR_FUNCTIONALITY  1

@@ -10,6 +10,11 @@
 
 Vector2::Vector2()
 {
+	// for debugging purposes, set all values to sNAN
+#ifdef BDE_GLOBAL_BUILD_DEBUG 
+	x = Math::B_NAN;
+	y = Math::B_NAN;
+#endif
 }
 
 Vector2::Vector2(Coordtype x0, Coordtype y0)
