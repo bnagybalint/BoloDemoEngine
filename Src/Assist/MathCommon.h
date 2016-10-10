@@ -3,6 +3,8 @@
 #include "Assist/Common.h"
 
 typedef float Coordtype;
+#define Coordtype_GeneralEps        1e-4f
+#define Coordtype_GeneralEpsSquared 1e-8f
 
 struct Math
 {

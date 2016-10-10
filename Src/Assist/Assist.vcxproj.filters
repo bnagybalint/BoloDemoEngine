@@ -119,6 +119,9 @@
       <Filter>String</Filter>
     </ClInclude>
     <ClInclude Include="Point2.h" />
+    <ClInclude Include="Plane.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
@@ -196,6 +199,9 @@
       <Filter>String</Filter>
     </ClCompile>
     <ClCompile Include="Point2.cpp" />
+    <ClCompile Include="Plane.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">

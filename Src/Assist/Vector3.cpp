@@ -211,10 +211,12 @@ bool Vector3::operator != (const Vector3& u) const {
 }
 
 Coordtype Vector3::operator [] (int i) const {
+	Assert(i >= 0 && i < 4);
 	return c[i];
 }
 
 Coordtype& Vector3::operator [] (int i) {
+	Assert(i >= 0 && i < 4);
 	return c[i];
 }
 

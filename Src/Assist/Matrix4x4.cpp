@@ -319,3 +319,79 @@ Matrix4x4 Matrix4x4::createFromParts(const Matrix3x3& rotationPart, const Vector
 	rv.makeFromParts(rotationPart, translationPart, projectionPart, scalarPart);
 	return rv;
 }
+
+Matrix4x4 Matrix4x4::createProjection(Coordtype fovY, Coordtype aspect, Coordtype zNear, Coordtype zFar)
+{
+	Assert(fovY > 0.0f && aspect < Math::B_PI);
+	Assert(aspect > 0.0f);
+	Assert(zNear > 0.0f);
+	Assert(zFar > 0.0f);
+	Assert(zFar > zNear);
+
+	// In symmetric case:
+	//   l = -r
+	//   b = -t
+	// 
+	// Symmetric projection matrix:
+	//
+	//   [ Zn/r  0     0                 0                   ]
+	//   [ 0     Zn/t  0                 0                   ]
+	//   [ 0     0     (-Zf-Zn)/(Zf-Zn)  (-2*Zf*Zn)/(Zf-Zn)  ]
+	//   [ 0     0     -1                0                   ]
+
+	Coordtype t = Math::Tan(0.5f * fovY) * zNear;
+	Coordtype r = t * aspect;
+	Coordtype A = zNear / r;
+	Coordtype B = zNear / t;
+	Coordtype C = -(zFar + zNear) / (zFar - zNear);
+	Coordtype D = -(2.0f * zFar * zNear) / (zFar - zNear);
+	Coordtype E = -1.0f;
+
+	return Matrix4x4(
+		A, 0, 0, 0,
+		0, B, 0, 0,
+		0, 0, C, D,
+		0, 0, E, 0
+		);
+}
+
+Matrix4x4 Matrix4x4::createProjectionAsymmetric(Coordtype fovY, Coordtype aspect, Coordtype zNear, Coordtype zFar, Coordtype apexX, Coordtype apexY)
+{
+	Untested();
+
+	Assert(fovY > 0.0f && aspect < Math::B_PI);
+	Assert(aspect > 0.0f);
+	Assert(zNear > 0.0f);
+	Assert(zFar > 0.0f);
+	Assert(zFar > zNear);
+
+	// General projection matrix:
+	//
+	//   [ 2*Zn/(r-l)  0           (r+l)/(r-l)       0                   ]
+	//   [ 0           2*Zn/(t-b)  (t+b)/(t-b)       0                   ]
+	//   [ 0           0           (-Zf-Zn)/(Zf-Zn)  (-2*Zf*Zn)/(Zf-Zn)  ]
+	//   [ 0           0           -1                0                   ]
+
+	Coordtype ey = Math::Tan(0.5f * fovY) * zNear;
+	Coordtype ex = ey / aspect;
+
+	Coordtype l = -(1.0f + apexX) * ex;
+	Coordtype r = (1.0f - apexX) * ex;
+	Coordtype b = -(1.0f + apexY) * ey;
+	Coordtype t = (1.0f - apexY) * ey;
+
+	Coordtype A = (2.0f * zNear) / (r - l);
+	Coordtype B = (2.0f * zNear) / (t - b);
+	Coordtype C = -(zFar + zNear) / (zFar - zNear);
+	Coordtype D = -(2.0f * zFar * zNear) / (zFar - zNear);
+	Coordtype E = -1.0f;
+	Coordtype F = (r + l) / (r - l);
+	Coordtype G = (t + b) / (t - b);
+
+	return Matrix4x4(
+		A, 0, F, 0,
+		0, B, G, 0,
+		0, 0, C, D,
+		0, 0, E, 0
+		);
+}

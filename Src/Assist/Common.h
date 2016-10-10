@@ -50,6 +50,7 @@ void RuntimeAssert(bool cond);
 
 #define Unimplemented() Assert(false);
 #define Unsupported() Assert(false);
+#define Untested() Assert(false);
 
 // ----- Debug mode related stuff ----- 
 

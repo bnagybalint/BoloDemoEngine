@@ -22,6 +22,9 @@ struct RenderConverter
 	static DirectX::XMMATRIX convertToDX(const Matrix3x3& matrix);
 	static DirectX::XMMATRIX convertToDX(const Matrix4x4& matrix);
 
+	static DirectX::XMMATRIX convertToDxViewMatrix(const Matrix4x4& viewMatrix);
+	static DirectX::XMMATRIX convertToDxProjectionMatrix(const Matrix4x4& projMatrix);
+
 	static uint32 toPackedColor(const Vector3& color);               // rgba = [0,1]
 	static uint32 toPackedColor(float r, float g, float b, float a); // rgba = [0,1]
 	static uint32 toPackedColor(uint8 r, uint8 g, uint8 b, uint8 a); // rgba = [0,255]

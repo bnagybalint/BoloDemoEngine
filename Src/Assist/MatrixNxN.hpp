@@ -71,8 +71,8 @@
 //    and should be used carefully.
 //
 
-//#define mxidx(row, col) ((col)*msNumCols + (row))
-#define mxidx(row, col) ((row)*msNumRows + (col))
+#define mxidx(row, col) ((col)*msNumCols + (row))
+//#define mxidx(row, col) ((row)*msNumRows + (col))
 
 template <int Dim>
 class MatrixNxN {

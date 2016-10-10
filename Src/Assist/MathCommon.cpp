@@ -48,7 +48,7 @@ union F64NAN_helperU {
 /*static*/Coordtype Math::Log  (Coordtype x)                  { return std::log(x);        }
 /*static*/Coordtype Math::Sin  (Coordtype angRad)             { return std::sin(angRad);   }
 /*static*/Coordtype Math::Cos  (Coordtype angRad)             { return std::cos(angRad);   }
-/*static*/Coordtype Math::Tan  (Coordtype angRad)             { return std::cos(angRad);   }
+/*static*/Coordtype Math::Tan  (Coordtype angRad)             { return std::tan(angRad);   }
 /*static*/Coordtype Math::Acos (Coordtype x)                  { return std::acos(x);       }
 /*static*/Coordtype Math::Atan2(Coordtype y, Coordtype x)     { return std::atan2(y, x);   }
 

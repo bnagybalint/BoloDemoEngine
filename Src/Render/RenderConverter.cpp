@@ -57,6 +57,32 @@
 	return rv;
 }
 
+
+/*static*/ DirectX::XMMATRIX RenderConverter::convertToDxViewMatrix(const Matrix4x4& viewMatrix)
+{
+	Matrix4x4 mx = viewMatrix;
+
+	mx(2, 0) = -mx(2, 0);
+	mx(2, 1) = -mx(2, 1);
+	mx(2, 2) = -mx(2, 2);
+	mx(2, 3) = -mx(2, 3);
+
+	return convertToDX(mx);
+}
+
+/*static*/ DirectX::XMMATRIX RenderConverter::convertToDxProjectionMatrix(const Matrix4x4& projMatrix)
+{
+	Matrix4x4 mx = projMatrix;
+
+	mx(2, 0) = 0.5f * (mx(2, 0) + mx(3, 0));
+	mx(2, 1) = 0.5f * (mx(2, 1) + mx(3, 1));
+	mx(2, 2) = 0.5f * (mx(2, 2) + mx(3, 2));
+	mx(2, 3) = 0.5f * (mx(2, 3) + mx(3, 3));
+
+	return convertToDX(mx);
+}
+
+
 /*static*/ uint32 RenderConverter::toPackedColor(const Vector3& color)
 {
 	(void)color;

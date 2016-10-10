@@ -163,6 +163,23 @@ public:
 	//    [   P   | S ]
 	static Matrix4x4  createFromParts(const Matrix3x3& rotationPart, const Vector3& translationPart, const Vector3& projectionPart, Coordtype scalarPart);
 
+	// create matrix for symmetric projection transformation
+	// 
+	// fovY:   vertical view angle (in radians) 
+	// aspect: aspect ratio (width/height) of the frustum
+	// zNear:  z distance of the near plane
+	// zFar:   z distance of the far plane
+	// apexX:  relative horizontal position of the apex of the frustum [-1,1]
+	// apexY:  relative vertical position of the apex of the frustum [-1,1]
+	//
+	// Apex placement: useful for creating asymmetrical frustums 
+	//    (0,0) means the frustum is symmetrical
+	//    (1,0) means the apex of the frustum is located "above" the right border of the near rectangle
+	//    (0,1) means the apex of the frustum is located "above" the top border of the near rectangle
+	static Matrix4x4  createProjection(Coordtype fovY, Coordtype aspect, Coordtype zNear, Coordtype zFar);
+	static Matrix4x4  createProjectionAsymmetric(Coordtype fovY, Coordtype aspect, Coordtype zNear, Coordtype zFar, Coordtype apexX, Coordtype apexY);
+
+
     // special matrices
     static const Matrix4x4 IDENTITY;
     static const Matrix4x4 ZERO;
