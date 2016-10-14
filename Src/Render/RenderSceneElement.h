@@ -1,39 +1,40 @@
 #pragma once
 
+#include "Assist/Common.h"
+
 #include "Assist/Vector3.hpp"
 #include "Assist/Quaternion.hpp"
 #include "Assist/Transform.hpp"
 
 #include <directxmath.h>
 
+class RenderScene;
+
 class RenderSceneElement
 {
 public:
 
-	RenderSceneElement();
+	RenderSceneElement(RenderScene* scene);
 	virtual ~RenderSceneElement();
 
-	void setWorldPosition(const Vector3& pos) { mWorldTransform.setPosition(pos); calculateCachedWorldMatrix(); }
-	void setWorldOrientation(const Quaternion& ori) { mWorldTransform.setOrientation(ori); calculateCachedWorldMatrix(); }
-	void setWorldScale(const Vector3& scale) { mWorldScale = scale; calculateCachedWorldMatrix(); }
-	void setWorldTransform(const Transform& transform) { mWorldTransform = transform; calculateCachedWorldMatrix(); }
+	void setWorldPosition(const Vector3& pos) { mWorldTransform.setPosition(pos); }
+	void setWorldOrientation(const Quaternion& ori) { mWorldTransform.setOrientation(ori); }
+	void setWorldScale(const Vector3& scale) { mWorldScale = scale; }
+	void setWorldTransform(const Transform& transform) { mWorldTransform = transform; }
 
 	const Transform& getWorldTransform() const { return mWorldTransform; }
 	const Vector3& getWorldScale() const { return mWorldScale; }
 
-	const DirectX::XMMATRIX& getDxWorldMatrix() const { return mCachedDxWorldMatrix; }
-	const DirectX::XMVECTOR getDxPosition() const;
+	RenderScene* getScene() { return mScene; }
+
+	DirectX::XMMATRIX getDxWorldMatrix() const;
+	DirectX::XMVECTOR getDxPosition() const;
 
 private:
 
-	void calculateCachedWorldMatrix();
-
-private:
+	RenderScene* mScene;
 
 	Transform mWorldTransform;
 	Vector3 mWorldScale;
-
-	DirectX::XMMATRIX mCachedDxWorldMatrix;
-
 };
 

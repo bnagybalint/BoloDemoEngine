@@ -32,11 +32,17 @@
     <ClCompile Include="RenderSceneElement.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="RenderViewport.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="RenderConverter.cpp">
       <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSceneRenderer.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderViewport.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,11 +77,17 @@
     <ClInclude Include="RenderSceneElement.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="RenderViewport.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="RenderConverter.h">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSceneRenderer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderViewport.h">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

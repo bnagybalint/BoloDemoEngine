@@ -6,15 +6,16 @@
 
 #include "Render/RenderCommon.h"
 #include "Render/RenderConverter.h"
+#include "Render/RenderScene.h"
 
 
-RenderSceneElement::RenderSceneElement()
-	: mWorldTransform(Transform::IDENTITY)
+RenderSceneElement::RenderSceneElement(RenderScene* scene)
+	: mScene(scene)
+	, mWorldTransform(Transform::IDENTITY)
 	, mWorldScale(Vector3::UNIT_SCALE)
 {
-	calculateCachedWorldMatrix();
+	Assert(scene);
 }
-
 
 RenderSceneElement::~RenderSceneElement()
 {
@@ -22,13 +23,13 @@ RenderSceneElement::~RenderSceneElement()
 #endif
 }
 
-const DirectX::XMVECTOR RenderSceneElement::getDxPosition() const
-{
-	return RenderConverter::convertToDX(mWorldTransform.getPosition());
-}
-
-void RenderSceneElement::calculateCachedWorldMatrix()
+DirectX::XMMATRIX RenderSceneElement::getDxWorldMatrix() const
 {
 	Matrix4x4 mx4 = Matrix4x4::createAffineTransform(mWorldTransform.getPosition(), mWorldTransform.getOrientation(), mWorldScale);
-	mCachedDxWorldMatrix = RenderConverter::convertToDX(mx4);
+	return RenderConverter::convertToDX(mx4);
+}
+
+DirectX::XMVECTOR RenderSceneElement::getDxPosition() const
+{
+	return RenderConverter::convertToDX(mWorldTransform.getPosition());
 }

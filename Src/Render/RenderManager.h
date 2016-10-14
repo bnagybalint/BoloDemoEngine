@@ -69,9 +69,7 @@ public:
 	RenderMesh*         createMesh(RenderIndexBuffer* indexBuf, RenderVertexBuffer* vertexBuf);
 	RenderShader*       createShader();
 	RenderMaterial*     createMaterial(RenderShader* shader);
-	RenderObject*       createObject(RenderMesh* mesh, RenderMaterial* mat);
-	RenderLightSource*  createLightSource();
-	RenderCamera*       createCamera();
+
 	RenderViewport*     createViewport();
 	//RenderTexture*      createTexture();
 
@@ -80,19 +78,9 @@ public:
 	void destroyMesh(RenderMesh* mesh);
 	void destroyShader(RenderShader* shader);
 	void destroyMaterial(RenderMaterial* mat);
-	void destroyObject(RenderObject* obj);
-	void destroyLightSource(RenderLightSource* light);
-	void destroyCamera(RenderCamera* cam);
+
 	void destroyViewport(RenderViewport* vp);
 	//void destroyTexture(RenderTexture* tex);
-
-	void addRenderable(RenderObject* object);
-	void addLight(RenderLightSource* light);
-
-	void setActiveCamera(RenderCamera* camera);
-	void setActiveViewport(RenderViewport* viewport);
-
-	RenderViewport* getDefaultViewport() const { return mDefaultViewport; }
 
 private:
 
@@ -101,20 +89,15 @@ private:
 
 private:
 
-	void renderObjects();
-
-	void setupMatrices(const DirectX::XMMATRIX& worldMx, const DirectX::XMMATRIX& viewMx, const DirectX::XMMATRIX& projMx);
-	void setupLights();
+// 	void renderObjects();
+// 
+// 	void setupMatrices(const DirectX::XMMATRIX& worldMx, const DirectX::XMMATRIX& viewMx, const DirectX::XMMATRIX& projMx);
+// 	void setupLights();
 
 public:
 
 	// Scene data
-	RenderCamera*   mActiveCamera;
-	RenderViewport* mActiveViewport;
-	Array<RenderObject*> mRenderObjects;
-	Array<RenderLightSource*> mLights;
-
-	RenderViewport* mDefaultViewport;
+	Array<RenderViewport*>   mViewports;
 
 	// DX related stuff
 	ID3D11Device*            mDxDevice;
@@ -125,8 +108,5 @@ public:
 	ID3D11DepthStencilState* mDxDepthStencilState;
 	ID3D11DepthStencilView*  mDxDepthStencilView;
 	ID3D11RasterizerState*   mDxRasterizerState;
-
-	RenderConstantBuffer*    mMatrixBuffer;
-	RenderConstantBuffer*    mLightsBuffer;
 };
 

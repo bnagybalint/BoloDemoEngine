@@ -158,7 +158,9 @@
     <ClInclude Include="RenderMaterial.h" />
     <ClInclude Include="RenderMesh.h" />
     <ClInclude Include="RenderObject.h" />
+    <ClInclude Include="RenderScene.h" />
     <ClInclude Include="RenderSceneElement.h" />
+    <ClInclude Include="RenderSceneRenderer.h" />
     <ClInclude Include="RenderShader.h" />
     <ClInclude Include="RenderTexture.h" />
     <ClInclude Include="RenderViewport.h" />
@@ -173,7 +175,9 @@
     <ClCompile Include="RenderMaterial.cpp" />
     <ClCompile Include="RenderMesh.cpp" />
     <ClCompile Include="RenderObject.cpp" />
+    <ClCompile Include="RenderScene.cpp" />
     <ClCompile Include="RenderSceneElement.cpp" />
+    <ClCompile Include="RenderSceneRenderer.cpp" />
     <ClCompile Include="RenderShader.cpp" />
     <ClCompile Include="RenderTexture.cpp" />
     <ClCompile Include="RenderViewport.cpp" />

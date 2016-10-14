@@ -4,6 +4,13 @@
 
 #include <new>
 
+// ----- DirectX includes ----- 
+
+// #ifndef WIN32_LEAN_AND_MEAN
+// #define WIN32_LEAN_AND_MEAN
+// #endif
+// #include <directxmath.h>
+
 // ----- Debug related stuff ----- 
 
 #if BDE_RENDER_DX_DEBUG
@@ -32,5 +39,4 @@ void RenderDealloc(void* ptr);
 #define RENDER_NEW_ARRAY(Type)         Unimplemented()
 #define RENDER_DELETE(ptr, Type)       if(ptr) { (ptr)->~Type(); RenderDealloc(ptr); }
 #define RENDER_DELETE_ARRAY(ptr, Type) Unimplemented()
-
 

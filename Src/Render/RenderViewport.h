@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Render/RenderCommon.h"
+#include "Assist/Common.h"
 
-#include <directxmath.h>
+#include "Render/RenderCommon.h"
 
 class RenderCamera;
 
@@ -19,15 +19,10 @@ public:
 
 	void setRectangle(unsigned int minx, unsigned int miny, unsigned int width, unsigned int height);
 
-	void setFOVy(float fovyDeg) { mFovyDeg = fovyDeg; calculateCachedProjMatrix(); }
-	void setNearDistance(float neardist) { mNearDistance = neardist; calculateCachedProjMatrix(); }
-	void setFarDistance(float fardist) { mFarDistance = fardist; calculateCachedProjMatrix(); }
-
-	const DirectX::XMMATRIX& getDxProjectionMatrix() const { return mCachedDxProjMatrix; }
-
-private:
-
-	void calculateCachedProjMatrix();
+	unsigned int getWidth() const { return mWidth; }
+	void setWidth(unsigned int val) { mWidth = val; }
+	unsigned int getHeight() const { return mHeight; }
+	void setHeight(unsigned int val) { mHeight = val; }
 
 private:
 
@@ -37,10 +32,5 @@ private:
 	unsigned int mHeight;
 	unsigned int mTopLeftX;
 	unsigned int mTopLeftY;
-	float mFovyDeg; // TODO move to camera
-	float mNearDistance;
-	float mFarDistance;
-
-	DirectX::XMMATRIX mCachedDxProjMatrix;
 };
 

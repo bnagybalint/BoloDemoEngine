@@ -5,8 +5,10 @@
 #include "Render/RenderMaterial.h"
 #include "Render/RenderMesh.h"
 
-RenderObject::RenderObject(RenderMesh* mesh, RenderMaterial* material)
-	: mMesh(mesh), mMaterial(material)
+RenderObject::RenderObject(RenderScene* scene, RenderMesh* mesh, RenderMaterial* material)
+	: RenderSceneElement(scene)
+	, mMesh(mesh)
+	, mMaterial(material)
 {
 }
 

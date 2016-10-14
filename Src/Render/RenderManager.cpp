@@ -2,9 +2,9 @@
 
 #include "Assist/Memory.h"
 
-#include "Render/RenderCommon.h"
 #include "Render/RenderViewport.h"
 #include "Render/RenderCamera.h"
+#include "Render/RenderCommon.h"
 #include "Render/RenderObject.h" 
 #include "Render/RenderLightSource.h"
 #include "Render/RenderBuffer.h"
@@ -18,26 +18,6 @@
 #include <windows.h>
 #include <d3d11.h>
 #include <directxmath.h>
-
-namespace {
-	struct MatrixBufferType
-	{
-		DirectX::XMMATRIX mxWorld;
-		DirectX::XMMATRIX mxView;
-		DirectX::XMMATRIX mxProj;
-		DirectX::XMMATRIX mxNormal; // Calculated
-	};
-}
-
-namespace {
-	static const int gNumMaxLights = 4;
-	struct LightBufferType
-	{
-		DirectX::XMVECTOR lightPosition;
-		DirectX::XMVECTOR lightDirection;
-		DirectX::XMVECTOR lightColor;
-	};
-}
 
 // Define singleton parts
 DEFINE_SINGLETON_IMPL(RenderManager);
@@ -238,12 +218,13 @@ void RenderManager::initDx(HWND windowHandle)
 	// Setup the raster description which will determine how and what polygons will be drawn.
 	D3D11_RASTERIZER_DESC rasterizerDesc;
 	rasterizerDesc.AntialiasedLineEnable = false;
-	rasterizerDesc.CullMode = D3D11_CULL_BACK;
+	rasterizerDesc.CullMode = D3D11_CULL_NONE;
 	rasterizerDesc.DepthBias = 0;
 	rasterizerDesc.DepthBiasClamp = 0.0f;
 	rasterizerDesc.DepthClipEnable = true;
 	rasterizerDesc.FillMode = D3D11_FILL_SOLID;
-	rasterizerDesc.FrontCounterClockwise = true; // convert to RIGHT HANDED
+	// convert to DX: in the mesh, front-facing is defined CCW, which is mirrored by the RH-to-LH transition of the projection transform
+	rasterizerDesc.FrontCounterClockwise = false;
 	rasterizerDesc.MultisampleEnable = false;
 	rasterizerDesc.ScissorEnable = false;
 	rasterizerDesc.SlopeScaledDepthBias = 0.0f;
@@ -253,21 +234,11 @@ void RenderManager::initDx(HWND windowHandle)
 
 	// Now set the rasterizer state.
 	mDxDeviceContext->RSSetState(mDxRasterizerState);
-
-	mDefaultViewport = RENDER_NEW(RenderViewport);
-	mDefaultViewport->setRectangle(0, 0, windowWidth, windowHeight);
-	setActiveViewport(mDefaultViewport);
-
-	mMatrixBuffer = RENDER_NEW(RenderConstantBuffer)();
-	mLightsBuffer = RENDER_NEW(RenderConstantBuffer)();
 }
 
 void RenderManager::shutdownDx()
 {
 #if BDE_GLOBAL_ENABLE_NICE_DESTROY
-	RENDER_DELETE(mMatrixBuffer, RenderConstantBuffer); mMatrixBuffer = NULL;
-	RENDER_DELETE(mLightsBuffer, RenderConstantBuffer); mLightsBuffer = NULL;
-
 	mDxSwapChain->SetFullscreenState(false, NULL);
 
 	mDxRasterizerState->Release(); mDxRasterizerState = NULL;
@@ -289,7 +260,11 @@ void RenderManager::renderOneFrame()
 	mDxDeviceContext->ClearRenderTargetView(mDxRenderTargetView, bgColor);
 	mDxDeviceContext->ClearDepthStencilView(mDxDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
-	renderObjects();
+	for (int i = 0; i < mViewports.size(); ++i)
+	{
+		RenderViewport* vp = mViewports[i];
+		vp->render();
+	}
 
 	// TODO add postProcess
 
@@ -301,109 +276,56 @@ void RenderManager::renderOneFrame()
 #endif
 }
 
-void RenderManager::renderObjects()
+RenderVertexBuffer* RenderManager::createVertexBuffer()
 {
-	Assert(mActiveCamera);
-	Assert(mActiveViewport);
-
-	DirectX::XMMATRIX viewMatrix = mActiveCamera->getDxViewMatrix();
-	DirectX::XMMATRIX projMatrix = mActiveViewport->getDxProjectionMatrix();
-
-	// Setup light buffer
-	setupLights();
-
-	for (int i = 0; i < mRenderObjects.size(); ++i)
-	{
-		RenderObject* ro = mRenderObjects[i];
-
-		// Setup matrix buffer
-		setupMatrices(ro->getDxWorldMatrix(), viewMatrix, projMatrix);
-
-		// Setup geometry and material
-		ro->setupForRendering();
-		// Actually render object
-		ro->render();
-	}
+	return RENDER_NEW(RenderVertexBuffer);
+}
+RenderIndexBuffer* RenderManager::createIndexBuffer()
+{
+	return RENDER_NEW(RenderIndexBuffer);
+}
+RenderMesh* RenderManager::createMesh(RenderIndexBuffer* indexBuf, RenderVertexBuffer* vertexBuf)
+{
+	return RENDER_NEW(RenderMesh)(indexBuf, vertexBuf);
+}
+RenderShader* RenderManager::createShader()
+{
+	return RENDER_NEW(RenderShader);
+}
+RenderMaterial* RenderManager::createMaterial(RenderShader* shader)
+{
+	return RENDER_NEW(RenderMaterial)(shader);
+}
+RenderViewport* RenderManager::createViewport()
+{
+	RenderViewport* vp = RENDER_NEW(RenderViewport);
+	mViewports.append(vp);
+	return vp;
 }
 
-void RenderManager::setupMatrices(const DirectX::XMMATRIX& worldMx, const DirectX::XMMATRIX& viewMx, const DirectX::XMMATRIX& projMx)
+void RenderManager::destroyVertexBuffer(RenderVertexBuffer*vb)
 {
-	Assert(mMatrixBuffer);
-
-	DirectX::XMMATRIX modelViewMx = DirectX::XMMatrixMultiply(worldMx, viewMx);
-	DirectX::XMMATRIX normalMx = DirectX::XMMatrixInverse(NULL, DirectX::XMMatrixTranspose(modelViewMx));
-
-	MatrixBufferType buf;
-	buf.mxWorld = XMMatrixTranspose(worldMx);
-	buf.mxView = XMMatrixTranspose(viewMx);
-	buf.mxProj = XMMatrixTranspose(projMx);
-	buf.mxNormal = XMMatrixTranspose(normalMx);
-
-	mMatrixBuffer->setData(&buf, sizeof(MatrixBufferType));
-	mMatrixBuffer->bind(ConstantBufferSlot::MatrixBufferSlot);
+	RENDER_DELETE(vb, RenderVertexBuffer);
 }
-
-void RenderManager::setupLights()
+void RenderManager::destroyIndexBuffer(RenderIndexBuffer* ib)
 {
-	Assert(mLights.size() < gNumMaxLights);
-	Assert(mLightsBuffer);
-
-	LightBufferType buf[gNumMaxLights];
-
-	for (int lightIdx = 0; lightIdx < gNumMaxLights; lightIdx++)
-	{
-		if (lightIdx < mLights.size())
-		{
-			buf[lightIdx].lightPosition = mLights[lightIdx]->getDxPosition();
-			buf[lightIdx].lightDirection = mLights[lightIdx]->getDxDirection();
-			buf[lightIdx].lightColor = mLights[lightIdx]->getDxColor();
-		}
-		else
-		{
-			Memory::Memset(&buf[lightIdx], 0x00, sizeof(LightBufferType));
-		}
-	}
-
-	mLightsBuffer->setData(&buf, gNumMaxLights*sizeof(LightBufferType));
-	mLightsBuffer->bind(ConstantBufferSlot::LightBufferSlot);
+	RENDER_DELETE(ib, RenderIndexBuffer);
 }
-
-void RenderManager::addRenderable(RenderObject* object)
+void RenderManager::destroyMesh(RenderMesh* mesh)
 {
-	mRenderObjects.append(object);
+	RENDER_DELETE(mesh, RenderMesh);
 }
-
-void RenderManager::addLight(RenderLightSource* light)
+void RenderManager::destroyShader(RenderShader* shader)
 {
-	mLights.append(light);
+	RENDER_DELETE(shader, RenderShader);
 }
-
-void RenderManager::setActiveCamera(RenderCamera* camera)
+void RenderManager::destroyMaterial(RenderMaterial* mat)
 {
-	mActiveCamera = camera;
+	RENDER_DELETE(mat, RenderMaterial);
 }
-
-void RenderManager::setActiveViewport(RenderViewport* viewport)
+void RenderManager::destroyViewport(RenderViewport* vp)
 {
-	mActiveViewport = viewport;
+	Assert(mViewports.eContains(vp));
+	mViewports.eRemoveItem(vp);
+	RENDER_DELETE(vp, RenderViewport);
 }
-
-RenderVertexBuffer* RenderManager::createVertexBuffer() { return RENDER_NEW(RenderVertexBuffer); }
-RenderIndexBuffer* RenderManager::createIndexBuffer() { return RENDER_NEW(RenderIndexBuffer); }
-RenderMesh* RenderManager::createMesh(RenderIndexBuffer* indexBuf, RenderVertexBuffer* vertexBuf) { return RENDER_NEW(RenderMesh)(indexBuf, vertexBuf); }
-RenderShader* RenderManager::createShader() { return RENDER_NEW(RenderShader); }
-RenderMaterial* RenderManager::createMaterial(RenderShader* shader) { return RENDER_NEW(RenderMaterial)(shader); }
-RenderObject* RenderManager::createObject(RenderMesh* mesh, RenderMaterial* mat) { return RENDER_NEW(RenderObject)(mesh, mat); }
-RenderLightSource* RenderManager::createLightSource() { return RENDER_NEW(RenderLightSource); }
-RenderCamera* RenderManager::createCamera() { return RENDER_NEW(RenderCamera); }
-RenderViewport* RenderManager::createViewport() { return RENDER_NEW(RenderViewport); }
-
-void RenderManager::destroyVertexBuffer(RenderVertexBuffer*vb) { RENDER_DELETE(vb, RenderVertexBuffer); }
-void RenderManager::destroyIndexBuffer(RenderIndexBuffer* ib) { RENDER_DELETE(ib, RenderIndexBuffer); }
-void RenderManager::destroyMesh(RenderMesh* mesh) { RENDER_DELETE(mesh, RenderMesh); }
-void RenderManager::destroyShader(RenderShader* shader) { RENDER_DELETE(shader, RenderShader); }
-void RenderManager::destroyMaterial(RenderMaterial* mat) { RENDER_DELETE(mat, RenderMaterial); }
-void RenderManager::destroyObject(RenderObject* obj) { RENDER_DELETE(obj, RenderObject); }
-void RenderManager::destroyLightSource(RenderLightSource* light) { RENDER_DELETE(light, RenderLightSource); }
-void RenderManager::destroyCamera(RenderCamera* cam) { RENDER_DELETE(cam, RenderCamera); }
-void RenderManager::destroyViewport(RenderViewport* vp) { RENDER_DELETE(vp, RenderViewport); }

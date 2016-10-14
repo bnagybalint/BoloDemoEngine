@@ -3,8 +3,14 @@
 #include "Render/RenderCommon.h"
 #include "Render/RenderConverter.h"
 
-RenderLightSource::RenderLightSource()
-	: mDxLightColor(RenderConverter::convertToDX(Vector3(1.0,1.0,1.0,1.0)))
+RenderLightSource::RenderLightSource(RenderScene* scene)
+	: RenderSceneElement(scene)
+	, mIntensity(Color::WHITE)
+	, mAttenuationLinear(0.0f)
+	, mAttenuationQuadratic(0.0f)
+	, mAttenuationStart(Math::B_NEG_INFINITY)
+	, mAttenuationEnd(Math::B_INFINITY)
+	, mCutoffAngle(0.0f)
 {
 }
 
@@ -21,14 +27,4 @@ void RenderLightSource::lookAt(const Vector3& center, const Vector3& up)
 	Vector3 lup = ldir.cross(lside); lup.normalize();
 
 	setWorldOrientation(Quaternion::createFromBasis(lside, lup, ldir));
-}
-
-void RenderLightSource::setColor(const Vector3& color)
-{
-	mDxLightColor = RenderConverter::convertToDX(color);
-}
-
-const DirectX::XMVECTOR RenderLightSource::getDxDirection() const
-{
-	return RenderConverter::convertToDX(getWorldTransform().getOrientation() * Vector3::UNIT_Z);
 }

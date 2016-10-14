@@ -9,8 +9,9 @@ DisplayCamera::DisplayCamera()
 	, PROPERTY_INIT(orientation, Quaternion::IDENTITY)
 	, mRenderCamera(NULL)
 {
-	mRenderCamera = RenderManager::getInstance()->createCamera();
-	RenderManager::getInstance()->setActiveCamera(mRenderCamera);
+	Unimplemented();
+// 	mRenderCamera = RenderManager::getInstance()->createCamera();
+// 	RenderManager::getInstance()->setActiveCamera(mRenderCamera);
 
 	mRenderCamera->setWorldPosition(position);
 	mRenderCamera->setCameraAxes(orientation.getValue() * Vector3::UNIT_Z, orientation.getValue() * Vector3::UNIT_Y);
@@ -20,7 +21,7 @@ DisplayCamera::DisplayCamera()
 
 DisplayCamera::~DisplayCamera()
 {
-	RenderManager::getInstance()->destroyCamera(mRenderCamera); mRenderCamera = NULL;
+	//RenderManager::getInstance()->destroyCamera(mRenderCamera); mRenderCamera = NULL;
 }
 
 void DisplayCamera::onPropertyChanged(PropertyOwner* propOwner, PropertyBase* prop)

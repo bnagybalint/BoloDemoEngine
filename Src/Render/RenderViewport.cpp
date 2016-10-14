@@ -2,8 +2,12 @@
 
 #include "Assist/Common.h"
 #include "Assist/MathCommon.h"
+#include "Assist/Matrix4x4.hpp"
 
+#include "Render/RenderCommon.h"
 #include "Render/RenderManager.h"
+#include "Render/RenderConverter.h"
+#include "Render/RenderCamera.h"
 
 #include <d3d11.h>
 
@@ -13,10 +17,6 @@ RenderViewport::RenderViewport()
 	, mHeight(0)
 	, mTopLeftX(0)
 	, mTopLeftY(0)
-	, mFovyDeg(50.0f)
-	, mNearDistance(0.1f)
-	, mFarDistance(100.0f)
-	, mCachedDxProjMatrix()
 {
 }
 
@@ -28,7 +28,10 @@ RenderViewport::~RenderViewport()
 
 void RenderViewport::render()
 {
-	Unimplemented();
+	if (mCamera)
+	{
+		mCamera->render(this);
+	}
 }
 
 void RenderViewport::setCamera(RenderCamera* camera)
@@ -40,6 +43,8 @@ void RenderViewport::setRectangle(unsigned int minx, unsigned int miny, unsigned
 {
 	mWidth = width;
 	mHeight = height;
+	mTopLeftX = minx;
+	mTopLeftY = miny;
 
 	// Setup the viewport for rendering.
 	D3D11_VIEWPORT viewport;
@@ -47,18 +52,11 @@ void RenderViewport::setRectangle(unsigned int minx, unsigned int miny, unsigned
 	viewport.Height = (float)mHeight;
 	viewport.MinDepth = 0.0f;
 	viewport.MaxDepth = 1.0f;
-	viewport.TopLeftX = (float)minx;
-	viewport.TopLeftY = (float)miny;
+	viewport.TopLeftX = (float)mTopLeftX;
+	viewport.TopLeftY = (float)mTopLeftY;
 
 	// Create the viewport.
 	DX_GetDeviceContext(dvc);
 	dvc->RSSetViewports(1, &viewport);
-
-	calculateCachedProjMatrix();
 }
 
-void RenderViewport::calculateCachedProjMatrix()
-{
-	Assert(mWidth > 0 && mHeight > 0);
-	mCachedDxProjMatrix = DirectX::XMMatrixPerspectiveFovLH(Math::Deg2Rad(mFovyDeg), float(mWidth) / float(mHeight), mNearDistance, mFarDistance);
-}

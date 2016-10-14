@@ -1,8 +1,13 @@
 #pragma once
 
+#include "Assist/Common.h"
+
+#include "Assist/Plane.hpp"
+
 #include "Render/RenderSceneElement.h"
 
-#include <directxmath.h>
+class RenderScene;
+class RenderViewport;
 
 class RenderCamera : public RenderSceneElement
 {
@@ -10,28 +15,27 @@ class RenderCamera : public RenderSceneElement
 	// Up direction is local +y
 
 public:
-	RenderCamera();
+	RenderCamera(RenderScene* scene);
 	~RenderCamera();
 
-	DirectX::XMMATRIX getDxViewMatrix() const; //calculated every time
+	void render(RenderViewport* vp);
 
-private:
+	void getFrustumPlanes(/*out*/Plane& pLeft, /*out*/Plane& pRight, /*out*/Plane& pBottom, /*out*/Plane& pTop, /*out*/Plane& pNear, /*out*/Plane& pFar) const;
 
-	// -----------------------------
-	// extended functionality
-public:
 	void setCameraAxes(const Vector3& dir, const Vector3& up);
 
-	void roll(float angleRad);
-	void pitch(float angleRad);
-	void yaw(float angleRad);
-	void calculateBasis();
-
-	Vector3 getRight() const;
+	float getFovY() const { return mFovy; }
+	void setFovY(float fovyRad) { mFovy = fovyRad; }
+	float getNearDistance() const { return mNearDistance; }
+	void setNearDistance(float val) { mNearDistance = val; }
+	float getFarDistance() const { return mFarDistance; }
+	void setFarDistance(float val) { mFarDistance = val; }
 
 private:
-	Vector3 mUpVector;
-	Vector3 mDirection;
+	float mFovy; // radians
+	float mNearDistance;
+	float mFarDistance;
+
 	// -----------------------------
 };
 

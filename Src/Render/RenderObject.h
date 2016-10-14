@@ -4,11 +4,12 @@
 
 class RenderMesh;
 class RenderMaterial;
+class RenderScene;
 
 class RenderObject : public RenderSceneElement
 {
 public:
-	RenderObject(RenderMesh* mesh, RenderMaterial* material);
+	RenderObject(RenderScene* scene, RenderMesh* mesh, RenderMaterial* material);
 	~RenderObject();
 
 	void setupForRendering();

@@ -246,15 +246,16 @@ GeometricObject::GeometricObject()
 
 	RenderMesh* mesh = RenderManager::getInstance()->createMesh(iBuf, vBuf);
 
-	mRenderObject = RenderManager::getInstance()->createObject(mesh, material);
-
-	RenderLightSource* light0 = RenderManager::getInstance()->createLightSource();
-	light0->setColor(Vector3(1, 1, 1));
-	light0->setWorldPosition(Vector3(100, 80, -50));
-	light0->lookAt(Vector3::ZERO, Vector3::UNIT_Y);
-
-	RenderManager::getInstance()->addRenderable(mRenderObject);
-	RenderManager::getInstance()->addLight(light0);
+	Unimplemented();
+// 	mRenderObject = RenderManager::getInstance()->createObject(mesh, material);
+// 
+// 	RenderLightSource* light0 = RenderManager::getInstance()->createLightSource();
+// 	light0->setColor(Vector3(1, 1, 1));
+// 	light0->setWorldPosition(Vector3(100, 80, -50));
+// 	light0->lookAt(Vector3::ZERO, Vector3::UNIT_Y);
+// 
+// 	RenderManager::getInstance()->addRenderable(mRenderObject);
+// 	RenderManager::getInstance()->addLight(light0);
 }
 
 GeometricObject::~GeometricObject()
