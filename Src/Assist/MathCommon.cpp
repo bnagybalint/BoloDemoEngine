@@ -16,25 +16,39 @@
 /*static*/const Coordtype Math::B_SQRT3     = Coordtype(1.7320508075688772935274463415059);
 /*static*/const Coordtype Math::B_SQRT3_INV = Coordtype(0.57735026918962576450914878050196);
 
-// NaN values require some nice (i.e. hacky) C++ union fiddling.
+// Infinite and NaN values require some nice (i.e. hacky) C++ union fiddling.
+namespace {
+	union F32_helperU { float f; uint32 u; F32_helperU(uint32 _u) : u(_u) {} };
+	union F64_helperU { double f; uint64 u; F64_helperU(uint64 _u) : u(_u) {} };
+}
+
+// Infinite values are represented in IEEE754 with exponent bits set to 1 
+// and mantissa bits set to zero.
+namespace {
+	F32_helperU F32_pos_inf_helper = 0x7F800000;         // SEEE EEEE EMMM MMMM
+	F32_helperU F32_neg_inf_helper = 0xFF800000;         // SEEE EEEE EMMM MMMM
+	F64_helperU F64_pos_inf_helper = 0x7FF0000000000000; // SEEE EEEE EEEE MMMM MMMM MMMM MMMM MMMM
+	F64_helperU F64_neg_inf_helper = 0xFFF0000000000000; // SEEE EEEE EEEE MMMM MMMM MMMM MMMM MMMM	
+}
+/*static*/const float  Math::B_INF_F32 = F32_pos_inf_helper.f;
+/*static*/const double Math::B_INF_F64 = F64_pos_inf_helper.f;
+/*static*/const float  Math::B_NEG_INF_F32 = F32_neg_inf_helper.f;
+/*static*/const double Math::B_NEG_INF_F64 = F64_neg_inf_helper.f;
+
 // NaN values are represented in IEEE754 with exponent bits set to 1 
 // and mantissa bits set to nonzero. If the most significant bit is clear,
 // then the value is a signaling NaN (in this case, it is)
-#define F32_NAN_VALUE 0x7F80DEAD         // SEEE EEEE EMMM MMMM
-#define F64_NAN_VALUE 0x7FF000000000DEAD // SEEE EEEE EEEE MMMM MMMM MMMM MMMM MMMM
-union F32NAN_helperU {
-	float f;
-	uint32 u;
-	F32NAN_helperU(uint32 _u) : u(_u) {}
-} F32NAN_helper = F32_NAN_VALUE;
-union F64NAN_helperU {
-	double f;
-	uint64 u;
-	F64NAN_helperU(uint64 _u) : u(_u) {}
-} F64NAN_helper = F64_NAN_VALUE;
-/*static*/const float     Math::B_NAN_F32 = F32NAN_helper.f;
-/*static*/const double    Math::B_NAN_F64 = F64NAN_helper.f;
-/*static*/const Coordtype Math::B_NAN     = B_NAN_F32;
+namespace {
+	F32_helperU F32_nan_helper = 0x7F800666;         // SEEE EEEE EMMM MMMM
+	F64_helperU F64_nan_helper = 0x7FF0000000000666; // SEEE EEEE EEEE MMMM MMMM MMMM MMMM MMMM
+}
+/*static*/const float  Math::B_NAN_F32 = F32_nan_helper.f;
+/*static*/const double Math::B_NAN_F64 = F64_nan_helper.f;
+
+/*static*/const Coordtype Math::B_INFINITY     = B_INF_F32;
+/*static*/const Coordtype Math::B_NEG_INFINITY = B_NEG_INF_F32;
+/*static*/const Coordtype Math::B_NAN          = B_NAN_F32;
+
 
 /*static*/Coordtype Math::Interpolate(Coordtype x, Coordtype y, Coordtype t)   { return (Coordtype(1.0) - t) * x + t * y; }
 /*static*/Coordtype Math::Fract(Coordtype x)                                   { return x - Coordtype(int64(x)); }

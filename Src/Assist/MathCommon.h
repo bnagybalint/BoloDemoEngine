@@ -17,8 +17,15 @@ struct Math
 	static const Coordtype B_SQRT2_INV;
 	static const Coordtype B_SQRT3;
 	static const Coordtype B_SQRT3_INV;
+
+	static const Coordtype B_INFINITY;
+	static const Coordtype B_NEG_INFINITY;
 	static const Coordtype B_NAN;
 
+	static const float     B_INF_F32;
+	static const double    B_INF_F64;
+	static const float     B_NEG_INF_F32;
+	static const double    B_NEG_INF_F64;
 	static const float     B_NAN_F32;
 	static const double    B_NAN_F64;
 
