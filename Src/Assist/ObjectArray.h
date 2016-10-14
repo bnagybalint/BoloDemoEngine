@@ -11,6 +11,7 @@ class ObjectArray
 public:
 	ObjectArray();
 	ObjectArray(const T* elems, int numElems);
+	ObjectArray(const ObjectArray<T>& other);
 	~ObjectArray();
 
 	void append(const T& elem);
@@ -62,6 +63,15 @@ ObjectArray<T>::ObjectArray()
 	, mSize(0)
 	, mCapacity(0)
 {
+}
+
+template <class T>
+ObjectArray<T>::ObjectArray(const ObjectArray<T>& other)
+	: mData(NULL)
+	, mSize(0)
+	, mCapacity(0)
+{
+	append(other.mData, other.mSize);
 }
 
 template <class T>

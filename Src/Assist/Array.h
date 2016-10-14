@@ -13,6 +13,7 @@ class Array
 public:
 	Array();
 	Array(const T* elems, int numElems);
+	Array(const Array<T>& other);
 	~Array();
 	
 	void append(const T& elem);
@@ -68,6 +69,15 @@ Array<T>::Array()
 	, mSize(0)
 	, mCapacity(0)
 {
+}
+
+template <class T>
+Array<T>::Array(const Array<T>& other)
+	: mData(NULL)
+	, mSize(0)
+	, mCapacity(0)
+{
+	append(other.mData, other.mSize);
 }
 
 template <class T>
