@@ -41,6 +41,10 @@ public:
 	void setPosition(const Vector3& pos);
 	void setOrientation(const Quaternion& ori);
 
+	/// Operators overloaded
+	Transform operator *  (const Transform& tr) const; // multiply
+	Vector3 operator *  (const Vector3& u) const; // transform vector
+
 	/// Identity transform.
 	static Transform IDENTITY;
 

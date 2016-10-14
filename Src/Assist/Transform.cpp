@@ -36,5 +36,17 @@ Matrix4x4 Transform::toMatrix4x4() const
 	return Matrix4x4::createAffineTransform(mPosition, mOrientation, Vector3::UNIT_SCALE);
 }
 
+Transform Transform::operator * (const Transform& tr) const
+{
+	Quaternion newOri = mOrientation * tr.mOrientation;
+	Vector3    newPos = mPosition + mOrientation * tr.mPosition;
+	return Transform(newPos, newOri);
+}
+
+Vector3 Transform::operator * (const Vector3& u) const
+{
+	return transform(u);
+}
+
 /*static*/Transform Transform::IDENTITY = Transform(Vector3(Coordtype(0.0), Coordtype(0.0), Coordtype(0.0)), Quaternion(Coordtype(1.0), Coordtype(0.0), Coordtype(0.0), Coordtype(0.0)));
 
