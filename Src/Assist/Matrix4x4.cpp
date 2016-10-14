@@ -140,26 +140,25 @@ Matrix4x4 Matrix4x4::transpose () const {
 // ############################################
 // determinant
 
-#define a11 (this->mx[0])
-#define a12 (this->mx[1])
-#define a13 (this->mx[2])
-#define a14 (this->mx[3])
-#define a21 (this->mx[4])
-#define a22 (this->mx[5])
-#define a23 (this->mx[6])
-#define a24 (this->mx[7])
-#define a31 (this->mx[8])
-#define a32 (this->mx[9])
-#define a33 (this->mx[10])
-#define a34 (this->mx[11])
-#define a41 (this->mx[12])
-#define a42 (this->mx[13])
-#define a43 (this->mx[14])
-#define a44 (this->mx[15])
+#define a11 (this->mx[mxidx(0,0)])
+#define a12 (this->mx[mxidx(0,1)])
+#define a13 (this->mx[mxidx(0,2)])
+#define a14 (this->mx[mxidx(0,3)])
+#define a21 (this->mx[mxidx(1,0)])
+#define a22 (this->mx[mxidx(1,1)])
+#define a23 (this->mx[mxidx(1,2)])
+#define a24 (this->mx[mxidx(1,3)])
+#define a31 (this->mx[mxidx(2,0)])
+#define a32 (this->mx[mxidx(2,1)])
+#define a33 (this->mx[mxidx(2,2)])
+#define a34 (this->mx[mxidx(2,3)])
+#define a41 (this->mx[mxidx(3,0)])
+#define a42 (this->mx[mxidx(3,1)])
+#define a43 (this->mx[mxidx(3,2)])
+#define a44 (this->mx[mxidx(3,3)])
 
 Coordtype Matrix4x4::determinant () const {
 
-	Unimplemented(); // TODO CHECK
 	Coordtype det = 0;
 	det += a11*( a22*a33*a44 + a23*a34*a42 + a24*a32*a43 - a24*a33*a42 - a34*a43*a22 - a44*a23*a32 );
 	det -= a12*( a21*a33*a44 + a23*a34*a41 + a24*a31*a43 - a24*a33*a41 - a34*a43*a21 - a44*a23*a31 );
@@ -193,15 +192,12 @@ Coordtype Matrix4x4::determinant () const {
 
 Matrix4x4 Matrix4x4::adjugate () const {
 
-	Unimplemented(); // TODO CHECK
-//    Coordtype m[msNumElements] = {
-//       b11, -b12,  b13, -b14,
-//      -b21,  b22, -b23,  b24,
-//       b31, -b32,  b33, -b34,
-//      -b41,  b42, -b43,  b44
-//    };
-//    return this->copy(m);
-	return *this;
+	return Matrix4x4(
+		b11, -b12, b13, -b14,
+		-b21, b22, -b23, b24,
+		b31, -b32, b33, -b34,
+		-b41, b42, -b43, b44
+		);
 }
 
 #undef 	a11
@@ -346,6 +342,15 @@ Matrix4x4 Matrix4x4::createProjection(Coordtype fovY, Coordtype aspect, Coordtyp
 	Coordtype C = -(zFar + zNear) / (zFar - zNear);
 	Coordtype D = -(2.0f * zFar * zNear) / (zFar - zNear);
 	Coordtype E = -1.0f;
+
+// 	Coordtype t = Math::Tan(0.5f * fovY) * zNear;
+// 	Coordtype r = t * aspect;
+// 	Coordtype Q = zFar / (zFar - zNear);
+// 	Coordtype A = zNear / r;
+// 	Coordtype B = zNear / t;
+// 	Coordtype C = Q;
+// 	Coordtype D = -Q * zNear;
+// 	Coordtype E = 1.0f;
 
 	return Matrix4x4(
 		A, 0, 0, 0,

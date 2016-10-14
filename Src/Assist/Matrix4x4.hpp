@@ -133,6 +133,19 @@ public:
     // operators overloaded
     Vector3           operator *  (const Vector3& u) const;   // right multiply by column vector
 
+	using MatrixNxN::operator =;
+	using MatrixNxN::operator ==;
+	using MatrixNxN::operator !=;
+	using MatrixNxN::operator -;
+	using MatrixNxN::operator +;
+	using MatrixNxN::operator *;
+	using MatrixNxN::operator /;
+	using MatrixNxN::operator -=;
+	using MatrixNxN::operator +=;
+	using MatrixNxN::operator *=;
+	using MatrixNxN::operator /=;
+	using MatrixNxN::operator ();
+
 	// ####################################
 
 	// create 3D scale matrix with given scaling factors
