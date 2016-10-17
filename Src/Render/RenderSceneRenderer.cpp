@@ -28,9 +28,6 @@
 namespace {
 	struct MatrixBufferType
 	{
-// 		DirectX::XMMATRIX mxWorld;
-// 		DirectX::XMMATRIX mxView;
-// 		DirectX::XMMATRIX mxProj;
 		DirectX::XMMATRIX mxModelView;
 		DirectX::XMMATRIX mxModelViewProj;
 		DirectX::XMMATRIX mxNormal;
@@ -120,9 +117,11 @@ void RenderSceneRenderer::setupLights(const Array<RenderLightSource*>& lights)
 		{
 			// TODO cleanup
 			Transform lightTrans = lights[lightIdx]->getWorldTransform();
+			Color intensity = lights[lightIdx]->getIntensity();
+
 			buf[lightIdx].lightPosition  = RenderConverter::convertToDX(lightTrans.getPosition());
 			buf[lightIdx].lightDirection = RenderConverter::convertToDX(lightTrans * Vector3::UNIT_Z);
-			buf[lightIdx].lightColor     = lights[lightIdx]->getDxColor();
+			buf[lightIdx].lightColor     = RenderConverter::convertToDX(intensity);
 		}
 		else
 		{

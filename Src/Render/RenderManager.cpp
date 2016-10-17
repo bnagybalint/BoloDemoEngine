@@ -218,13 +218,13 @@ void RenderManager::initDx(HWND windowHandle)
 	// Setup the raster description which will determine how and what polygons will be drawn.
 	D3D11_RASTERIZER_DESC rasterizerDesc;
 	rasterizerDesc.AntialiasedLineEnable = false;
-	rasterizerDesc.CullMode = D3D11_CULL_NONE;
+	rasterizerDesc.CullMode = D3D11_CULL_BACK;
 	rasterizerDesc.DepthBias = 0;
 	rasterizerDesc.DepthBiasClamp = 0.0f;
 	rasterizerDesc.DepthClipEnable = true;
 	rasterizerDesc.FillMode = D3D11_FILL_SOLID;
 	// convert to DX: in the mesh, front-facing is defined CCW, which is mirrored by the RH-to-LH transition of the projection transform
-	rasterizerDesc.FrontCounterClockwise = false;
+	rasterizerDesc.FrontCounterClockwise = true;
 	rasterizerDesc.MultisampleEnable = false;
 	rasterizerDesc.ScissorEnable = false;
 	rasterizerDesc.SlopeScaledDepthBias = 0.0f;

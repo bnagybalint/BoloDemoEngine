@@ -14,6 +14,7 @@ class Vector3;
 class Quaternion;
 class Matrix3x3;
 class Matrix4x4;
+class Color;
 
 struct RenderConverter
 {
@@ -21,6 +22,7 @@ struct RenderConverter
 	static DirectX::XMVECTOR convertToDX(const Quaternion& q);
 	static DirectX::XMMATRIX convertToDX(const Matrix3x3& matrix);
 	static DirectX::XMMATRIX convertToDX(const Matrix4x4& matrix);
+	static DirectX::XMVECTOR convertToDX(const Color& c);
 
 	static uint32 toPackedColor(const Vector3& color);               // rgba = [0,1]
 	static uint32 toPackedColor(float r, float g, float b, float a); // rgba = [0,1]

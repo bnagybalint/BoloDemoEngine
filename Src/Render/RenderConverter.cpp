@@ -3,7 +3,8 @@
 #include "Assist/Vector3.hpp"
 #include "Assist/Quaternion.hpp"
 #include "Assist/Matrix3x3.hpp"
-#include "Assist/Matrix4x4.hpp" 
+#include "Assist/Matrix4x4.hpp"
+#include "Assist/Color.h" 
 
 #include <directxmath.h>
 
@@ -54,6 +55,17 @@
 	float* rvptr = reinterpret_cast<float*>(&rv.r[0]);
 	for (int i = 0; i < 16; i++)
 		rvptr[i] = matrix.mx[i];
+	return rv;
+}
+
+/*static*/ DirectX::XMVECTOR RenderConverter::convertToDX(const Color& c)
+{
+	DirectX::XMVECTOR rv;
+	float* rvptr = reinterpret_cast<float*>(&rv);
+	rvptr[0] = c.r;
+	rvptr[1] = c.g;
+	rvptr[2] = c.b;
+	rvptr[3] = c.a;
 	return rv;
 }
 

@@ -87,13 +87,6 @@ private:
 	RenderManager();
 	~RenderManager();
 
-private:
-
-// 	void renderObjects();
-// 
-// 	void setupMatrices(const DirectX::XMMATRIX& worldMx, const DirectX::XMMATRIX& viewMx, const DirectX::XMMATRIX& projMx);
-// 	void setupLights();
-
 public:
 
 	// Scene data
